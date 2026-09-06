@@ -1,6 +1,9 @@
 package com.example.probandoando;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +23,11 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        View borderView = findViewById(R.id.borderView);
+        ObjectAnimator anim = ObjectAnimator.ofFloat(borderView, "rotation", 0f, 360f);
+        anim.setDuration(4000);
+        anim.setRepeatCount(ObjectAnimator.INFINITE);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.start();
     }
 }
