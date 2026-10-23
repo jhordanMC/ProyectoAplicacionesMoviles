@@ -14,3 +14,11 @@
 .cxx
 local.properties
 ~$*
+
+# Otros proyectos (Medina, laboratorio S07) - no son parte de Vilcas
+/*.py
+/*.jpg
+/*.png
+/*.doc
+/medina-*/
+/semana7-*/
