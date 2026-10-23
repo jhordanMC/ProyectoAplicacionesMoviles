@@ -1,0 +1,8 @@
+<resources>
+<style name="VilcasModal.Motion">
+    <item name="android:windowEnterAnimation">@anim/modal_enter</item>
+    <item name="android:windowExitAnimation">@anim/modal_exit</item>
+</style>
+<style name="VilcasModal"/>
+<style name="VilcasModal.Button" parent="Widget.AppCompat.Button"><item name="android:layout_width">match_parent</item><item name="android:layout_height">48dp</item><item name="android:background">@drawable/modal_bg_button</item><item name="android:backgroundTint">@null</item><item name="android:textAllCaps">false</item><item name="android:textColor">@color/company_ink</item><item name="android:textSize">14sp</item><item name="android:textStyle">bold</item><item name="android:stateListAnimator">@null</item></style>
+</resources>

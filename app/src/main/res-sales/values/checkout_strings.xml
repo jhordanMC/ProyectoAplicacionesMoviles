@@ -1,0 +1,6 @@
+<resources>
+<string name="checkout_title">Completar venta</string><string name="checkout_total">Total a cobrar</string><string name="checkout_register">Caja de Cobro (Local)</string><string name="checkout_method">Método de pago</string><string name="checkout_split">+ Dividir en más de un método</string><string name="checkout_single">Usar un solo método</string><string name="checkout_received">Monto recibido del cliente (S/)</string><string name="checkout_continue">Continuar</string><string name="checkout_exact">Monto exacto, sin vuelto</string><string name="checkout_change">Vuelto a entregar: %1$s</string><string name="checkout_missing">Falta recibir: %1$s</string><string name="checkout_invalid">Ingresa montos válidos, con máximo dos decimales.</string><string name="checkout_split_invalid">Distribuye el total exacto entre al menos dos métodos de pago.</string><string name="checkout_preview_title">Revisar venta</string><string name="checkout_preview_note">Vista previa: la venta todavía no se registra en el backend.</string>
+<string-array name="checkout_methods"><item>Efectivo</item><item>Yape</item><item>Plin</item><item>Transferencia</item></string-array>
+<string name="checkout_selected">Seleccionado</string><string name="checkout_unselected">No seleccionado</string></resources>
+
+

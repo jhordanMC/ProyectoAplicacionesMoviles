@@ -1,0 +1,4 @@
+<resources>
+    <string name="sales_expand_cart">Mostrar carrito</string>
+    <string name="sales_collapse_cart">Minimizar carrito</string>
+</resources>

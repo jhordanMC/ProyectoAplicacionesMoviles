@@ -1,9 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Probandoando" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
-
-    <style name="Theme.Probandoando" parent="Base.Theme.Probandoando" />
+<resources>
+    <style name="Base.Theme.SaaSVilcas" parent="Theme.Vilcas.Typography" />
+    <style name="Theme.SaaSVilcas" parent="Base.Theme.SaaSVilcas" />
 </resources>

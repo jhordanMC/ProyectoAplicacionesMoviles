@@ -1,0 +1,5 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+<TextView style="@style/VilcasFilter.Label" android:text="@string/sales_product" android:drawableStart="@drawable/sales_ic_search" android:drawableTint="#7AAA95"/>
+<androidx.appcompat.widget.AppCompatEditText android:id="@+id/filterSearch" style="@style/VilcasFilter.Field" android:hint="@string/sales_search" android:textColorHint="#8AA6A0" android:singleLine="true" android:inputType="text" android:imeOptions="actionDone"/>
+</LinearLayout>
+

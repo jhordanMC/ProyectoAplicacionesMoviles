@@ -1,0 +1,43 @@
+<resources>
+<string-array name="inventory_category_suggestions"><item>Deportivo</item><item>Tacos</item><item>Ballerinas</item><item>Sandalias</item><item>Plataformas</item><item>Mocasines</item><item>Botines</item><item>Urbano / Casual</item></string-array>
+<string name="inventory_detail">Detalle de producto</string>
+<string name="inventory_margin">Margen de ganancia</string>
+<string name="inventory_variants">Tallas y stock por almacén</string>
+<string name="inventory_variant_add">+ Agregar talla</string>
+<string name="inventory_variant_empty">Aún no agregaste tallas. Usa "+ Agregar talla" para empezar.</string>
+<string name="inventory_variant_totals">%1$d tallas registradas · %2$d sedes activas · %3$d unidades</string>
+<string name="inventory_variant_summary">Talla: %1$s\n%2$s: %3$s · Stock: %4$d\nSKU: %5$s · Cód. barras: %6$s</string>
+<string name="inventory_address">Dirección (opcional)</string>
+<string name="inventory_warehouse_description">Descripción (opcional)</string>
+<string name="inventory_reference_search">Buscar...</string>
+<string name="inventory_reference_empty">Sin registros que coincidan.</string>
+<string name="inventory_camera">Cámara</string>
+<string name="inventory_gallery">Galería</string>
+<string name="inventory_confirm_yes">Sí, quiero eliminar</string>
+<string name="inventory_confirm_no">No, no quiero</string>
+<string-array name="inventory_delete_headings"><item>¿Estás seguro de eliminar la categoría?</item><item>¿Estás seguro de eliminar el proveedor?</item><item>¿Estás seguro de eliminar el almacén?</item></string-array>
+<string name="inventory_new">+ Nuevo producto</string>
+<string name="inventory_categories">Gestionar categorías</string>
+<string name="inventory_suppliers">Gestionar proveedores</string>
+<string name="inventory_warehouses">Gestionar almacenes</string>
+<string name="inventory_manage_hint">Ver y administrar registros</string>
+<string-array name="inventory_management_hints"><item>Ver y administrar categorías</item><item>Ver y administrar proveedores</item><item>Ver y administrar almacenes</item></string-array>
+<string name="inventory_category">CATEGORÍA</string>
+<string name="inventory_no_photo">Sin foto</string>
+<string name="inventory_duplicate">Duplicar</string>
+<string name="inventory_delete">Eliminar</string>
+<string name="inventory_edit">Editar</string>
+<string name="inventory_save">Guardar</string>
+<string name="inventory_empty">No hay productos que coincidan con la búsqueda.</string>
+<string name="inventory_price_margin">%1$s · Margen: %2$s</string>
+<string name="inventory_demo">Inventario de demostración · cambios durante esta sesión</string>
+<string name="inventory_photo">Seleccionar foto</string>
+<string name="inventory_remove_photo">Quitar foto</string>
+<string name="inventory_delete_title">¿Eliminar producto?</string>
+<string name="inventory_delete_message">Se eliminará “%1$s” del inventario de demostración.</string>
+<string name="inventory_error">Revisa los campos</string>
+<string-array name="inventory_genders"><item>Hombre</item><item>Mujer</item><item>Unisex</item><item>Niño</item><item>Niña</item></string-array>
+<string-array name="inventory_product_fields"><item>Nombre del producto</item><item>Categoría</item><item>Sexo</item><item>Proveedor</item><item>Almacén</item><item>Costo de compra (S/)</item><item>Precio de venta (S/)</item><item>Stock</item><item>Talla (opcional)</item><item>SKU (opcional)</item><item>Código de barras (opcional)</item></string-array>
+</resources>
+
+

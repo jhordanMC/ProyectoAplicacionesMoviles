@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/dashboardMetricsCard" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" style="@style/Company.Card" android:paddingTop="4dp" android:paddingBottom="4dp">
+<include android:id="@+id/dashboardSold" layout="@layout/dashboard_item_metric"/>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/company_line"/>
+<include android:id="@+id/dashboardAverage" layout="@layout/dashboard_item_metric"/>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/company_line"/>
+<include android:id="@+id/dashboardInvested" layout="@layout/dashboard_item_metric"/>
+<include android:id="@+id/dashboardPanelStatus" layout="@layout/dashboard_component_status"/>
+</LinearLayout>

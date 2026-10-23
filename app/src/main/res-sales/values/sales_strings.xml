@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="sales_product">PRODUCTO</string><string name="sales_search">Buscar producto...</string>
+<string name="sales_size">TALLA</string><string name="sales_site">SEDE</string><string name="sales_gender">SEXO</string>
+<string name="sales_all">Todas</string><string name="sales_stock">%1$d unidades en stock</string>
+<string name="sales_cart">Tu carrito</string><string name="sales_total">Total</string>
+<string name="sales_complete">Completar Venta - %1$s</string><string name="sales_empty_cart">Aún no agregaste productos.\nToca un producto del catálogo para empezar.</string>
+<string name="sales_clear">Limpiar</string>
+<string name="sales_discount">Descuento (S/)</string>
+<string name="sales_pay_total">Total a pagar</string>
+<string name="sales_invalid_discount">Ingresa un descuento válido que no supere el importe del producto.</string>
+<string name="sales_no_results">No hay productos para estos filtros.</string>
+<string name="sales_edit">Editar producto del carrito</string><string name="sales_remove">Quitar producto del carrito</string>
+<string name="sales_quantity">Cantidad</string><string name="sales_add">Agregar al carrito</string>
+<string name="sales_update">Guardar cambios</string><string name="sales_item_details">Talla %1$s · %2$s</string>
+<string name="sales_line_subtotal">%1$d x %2$s</string><string name="sales_invalid_quantity">Ingresa una cantidad válida, sin superar el stock disponible.</string>
+<string name="sales_demo_notice">Catálogo y carrito de demostración</string>
+<string name="sales_checkout_title">Resumen de venta</string>
+<string name="sales_checkout_message">%1$d unidades · Total %2$s\n\nEsta es una demostración. No registra ventas ni procesa pagos.</string>
+<string name="sales_preview_action">Revisar resumen</string>
+<string-array name="sales_genders"><item>Hombre</item><item>Mujer</item><item>Unisex</item><item>Niño</item><item>Niña</item></string-array>
+<string name="sales_loading">Cargando catálogo…</string>
+<string name="sales_retry">Reintentar</string>
+<string name="sales_more">Ver más productos</string>
+<string name="sales_registered">Venta registrada</string>
+<string name="sales_registered_message">Venta por %1$s registrada correctamente. Código: %2$s</string>
+<string name="sales_sending">Registrando venta…</string>
+</resources>
+

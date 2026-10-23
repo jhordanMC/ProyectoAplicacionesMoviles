@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginBottom="12dp" android:padding="12dp" android:background="@drawable/company_bg_card">
+<TextView android:id="@+id/alertProductName" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#15964D" android:textSize="14sp" android:textStyle="bold"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="64dp" android:layout_marginTop="8dp" android:gravity="center_vertical" android:orientation="horizontal">
+<FrameLayout android:layout_width="96dp" android:layout_height="match_parent"><ImageView android:id="@+id/dashboardProductImage" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter" android:importantForAccessibility="no"/><TextView android:id="@+id/dashboardProductNoImage" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="@string/dashboard_no_image" style="@style/Company.Body"/></FrameLayout>
+<TextView android:id="@+id/alertProductCount" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:padding="8dp" android:background="@drawable/company_bg_icon" android:textSize="12sp" android:textStyle="bold"/>
+</LinearLayout></LinearLayout>

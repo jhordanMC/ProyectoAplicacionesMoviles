@@ -1,0 +1,7 @@
+<resources>
+<dimen name="page_gutter">16dp</dimen>
+<dimen name="auth_gutter">24dp</dimen>
+<dimen name="auth_inner_gutter">28dp</dimen>
+<dimen name="form_gutter">22dp</dimen>
+<dimen name="toolbar_gutter">16dp</dimen>
+</resources>

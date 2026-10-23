@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="20dp" app:cardBackgroundColor="@color/company_surface" app:strokeWidth="1dp" app:strokeColor="@color/company_line" android:clickable="true" android:focusable="true">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+<FrameLayout android:layout_width="match_parent" android:layout_height="140dp" android:background="@color/company_mint">
+<TextView android:id="@+id/salesProductNoPhoto" style="@style/Inventory.Text" android:layout_height="match_parent" android:gravity="center" android:text="@string/inventory_no_photo" android:textColor="@color/company_muted" android:textSize="12sp"/>
+<ImageView android:id="@+id/salesProductImage" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:contentDescription="@string/dashboard_product_illustration"/>
+</FrameLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp" android:orientation="vertical">
+<TextView android:id="@+id/salesProductName" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="52dp" android:fontFamily="@font/inter" android:textSize="13sp" android:textStyle="bold" android:textColor="#05833B"/>
+<TextView android:id="@+id/salesProductPrice" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:fontFamily="@font/inter" android:textSize="13sp" android:textStyle="bold" android:textColor="#05833B"/>
+<TextView android:id="@+id/salesProductStock" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_marginBottom="12dp" android:fontFamily="@font/inter" android:textSize="11sp" android:textColor="@color/company_muted"/>
+</LinearLayout></LinearLayout></com.google.android.material.card.MaterialCardView>

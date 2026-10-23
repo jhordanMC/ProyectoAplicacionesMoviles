@@ -1,0 +1,5 @@
+<resources>
+    <item name="dashboardNoSalesCard" type="id"/>
+    <item name="dashboardStockCard" type="id"/>
+    <item name="dashboardReturnsCard" type="id"/>
+</resources>

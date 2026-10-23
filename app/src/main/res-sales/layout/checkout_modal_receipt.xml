@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="20dp" android:paddingTop="52dp">
+<TextView style="@style/Checkout.Label" android:text="@string/payment_photo_title" android:layout_marginBottom="16dp"/>
+<FrameLayout android:layout_width="match_parent" android:layout_height="250dp" android:background="@drawable/filter_bg_field">
+<ImageView android:id="@+id/receiptImage" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter" android:contentDescription="@string/payment_photo_title"/>
+<TextView android:id="@+id/receiptPlaceholder" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="@string/payment_choose_image" android:textColor="#7AAA95" android:textSize="12sp"/>
+<ImageButton android:id="@+id/receiptRemove" android:layout_width="36dp" android:layout_height="36dp" android:layout_gravity="top|end" android:layout_margin="8dp" android:padding="10dp" android:background="@drawable/modal_bg_danger" android:src="@drawable/company_ic_close" android:tint="#FF4550" android:contentDescription="@string/payment_remove_photo"/>
+</FrameLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/receiptCamera" style="@style/Checkout.Payment" android:text="@string/payment_camera" android:layout_marginEnd="8dp"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/receiptGallery" style="@style/Checkout.Payment" android:text="@string/payment_gallery"/>
+</LinearLayout>
+<TextView android:id="@+id/receiptError" style="@style/Company.Body" android:textColor="#EF4444" android:accessibilityLiveRegion="polite"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/receiptContinue" style="@style/SalesModal.Button" android:layout_marginTop="14dp" android:background="@drawable/sales_modal_primary" android:textColor="#FFFFFF" android:text="@string/checkout_continue"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/receiptCancel" style="@style/SalesModal.Button" android:layout_marginTop="8dp" android:text="@string/cancel"/>
+</LinearLayout>

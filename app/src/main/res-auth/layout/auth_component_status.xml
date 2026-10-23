@@ -1,0 +1,4 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_marginTop="12dp" android:visibility="gone" android:id="@+id/authStatus">
+    <ProgressBar android:id="@+id/authLoading" style="?android:attr/progressBarStyleSmall" android:layout_width="24dp" android:layout_height="24dp" android:indeterminateTint="#05833B" android:visibility="gone" android:importantForAccessibility="no"/>
+    <TextView android:id="@+id/authMessage" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:textSize="12sp" android:textColor="#B3261E" android:paddingTop="6dp" android:accessibilityLiveRegion="polite"/>
+</LinearLayout>

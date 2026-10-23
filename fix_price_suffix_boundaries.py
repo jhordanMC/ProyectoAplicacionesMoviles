@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path(r'D:\en html\Sistema de Presupuestos\backend\app\services\handwritten.py');s=p.read_text(encoding='utf-8');s=s.replace("r'(?:\\d[0-9OolISsgG]{2,}|[BSsgG][Oo0]{2})$'","r'\\d[0-9OolISsgG]{2,}$'");s=s.replace("if suffix and suffix.start()>0:tail=suffix.group()","if suffix and suffix.start()>0 and not re.fullmatch(r'[0-9OolISsgGBC(.,|]+',tail):tail=suffix.group()");p.write_text(s,encoding='utf-8')

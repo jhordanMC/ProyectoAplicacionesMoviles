@@ -1,0 +1,19 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="20dp" app:cardBackgroundColor="@color/company_surface" app:strokeWidth="1dp" app:strokeColor="@color/company_line">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+<FrameLayout android:layout_width="match_parent" android:layout_height="140dp" android:background="@color/company_mint">
+<TextView android:id="@+id/inventoryPhotoMissing" style="@style/Inventory.Text" android:layout_height="match_parent" android:gravity="center" android:text="@string/inventory_no_photo" android:textColor="@color/company_muted" android:textSize="12sp"/>
+<ImageView android:id="@+id/inventoryImage" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:contentDescription="@string/dashboard_product_illustration"/>
+</FrameLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+<TextView android:id="@+id/inventoryName" style="@style/Inventory.Text" android:minHeight="52dp" android:textColor="#05833B" android:textStyle="bold"/>
+<TextView android:id="@+id/inventoryTags" style="@style/Inventory.Text" android:textSize="11sp" android:layout_marginTop="8dp"/>
+<TextView android:id="@+id/inventorySupplier" style="@style/Inventory.Text" android:textSize="11sp" android:layout_marginTop="8dp"/>
+<TextView android:id="@+id/inventoryPrice" style="@style/Inventory.Text" android:textColor="#05833B" android:textStyle="bold" android:layout_marginTop="12dp"/>
+<TextView android:id="@+id/inventoryStock" style="@style/Inventory.Text" android:textSize="11sp" android:textColor="@color/company_muted" android:layout_marginTop="10dp" android:layout_marginBottom="12dp"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryEdit" style="@style/Inventory.Action" android:layout_width="0dp" android:layout_weight="1" android:text="@string/inventory_edit"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryDuplicate" style="@style/Inventory.Action" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="4dp" android:text="@string/inventory_duplicate"/>
+</LinearLayout>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryDelete" style="@style/Inventory.Action" android:layout_marginTop="4dp" android:text="@string/inventory_delete" android:background="@drawable/modal_bg_danger" android:textColor="#FF4545"/>
+</LinearLayout></LinearLayout></com.google.android.material.card.MaterialCardView>
+

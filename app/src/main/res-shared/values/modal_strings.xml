@@ -1,0 +1,12 @@
+<resources>
+<string name="modal_close">Cerrar</string><string name="modal_close_description">Cerrar ventana</string>
+<string name="profile_demo_name">Pruebadueño Apellidoprueba</string><string name="profile_seller_demo_name">Pruebavendedor Apellidoprueba</string>
+<string name="profile_personal">Información personal</string><string name="profile_switch">Cambiar de cuenta</string>
+<string name="profile_rating">Califícanos / ayúdanos con tu opinión</string><string name="profile_about">Acerca de VILCAS</string>
+<string name="profile_password">Cambio de contraseña</string><string name="profile_logout">Cerrar sesión</string>
+<string name="profile_personal_demo">Perfil de demostración\n\nNombre: %1$s\nRol: %2$s\nCorreo: demo@vilcas.pe</string>
+<string name="profile_switch_demo">El cambio entre cuentas reales se conectará cuando implementemos la sesión.</string>
+<string name="profile_rating_demo">El formulario de opinión se incorporará en una siguiente etapa.</string>
+<string name="profile_about_demo">VILCAS\nGestión de inventario y ventas.\nPowered by ALBA\n\nFrontend de demostración.</string>
+<string name="profile_password_demo">El formulario de cambio de contraseña se incorporará con su diseño y conexión al servidor.</string>
+</resources>

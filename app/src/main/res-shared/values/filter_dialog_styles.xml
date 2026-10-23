@@ -1,0 +1,9 @@
+<resources>
+    <style name="VilcasFilter.DatePickerTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="colorPrimary">#008B43</item>
+        <item name="colorAccent">#008B43</item>
+        <item name="android:colorAccent">#008B43</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+</resources>

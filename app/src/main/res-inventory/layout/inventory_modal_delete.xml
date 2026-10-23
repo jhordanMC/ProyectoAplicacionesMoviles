@@ -1,0 +1,11 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="24dp" android:paddingEnd="24dp" android:paddingTop="32dp" android:paddingBottom="26dp">
+<ImageView android:layout_width="56dp" android:layout_height="56dp" android:layout_gravity="center" android:padding="16dp" android:background="@drawable/modal_bg_danger_circle" android:src="@drawable/inventory_ic_delete" android:importantForAccessibility="no" android:layout_marginBottom="16dp"/>
+<TextView android:id="@+id/inventoryDeleteHeading" style="@style/Inventory.Text" android:textColor="#103D33" android:textStyle="bold" android:textSize="17sp" android:gravity="center"/>
+<TextView android:id="@+id/inventoryDeleteMessage" style="@style/Inventory.Text" android:layout_marginTop="8dp" android:layout_marginBottom="20dp" android:textColor="#4B5A63" android:textSize="13.5sp" android:lineSpacingExtra="4dp" android:gravity="center" android:accessibilityLiveRegion="polite"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryDeleteConfirm" style="@style/Inventory.Action" android:text="@string/inventory_confirm_yes" android:textColor="#EF4444" android:background="@drawable/modal_bg_danger"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryDeleteCancel" style="@style/Inventory.Secondary" android:text="@string/inventory_confirm_no" android:textColor="#05833B" android:layout_marginTop="8dp"/>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="16dp" android:background="#EDF2F0"/>
+<include android:id="@+id/inventoryFooterBrand" layout="@layout/modal_component_brand"/>
+</LinearLayout>
+
+

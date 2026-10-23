@@ -1,0 +1,2 @@
+<Spinner xmlns:android="http://schemas.android.com/apk/res/android" style="@style/Inventory.Field" android:spinnerMode="dropdown"/>
+

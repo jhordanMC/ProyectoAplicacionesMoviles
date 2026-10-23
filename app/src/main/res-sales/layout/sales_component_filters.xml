@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" style="@style/Company.Card" android:padding="18dp">
+<include layout="@layout/filter_component_search"/>
+<TextView style="@style/VilcasFilter.Label" android:layout_marginTop="14dp" android:text="@string/sales_size" android:drawableStart="@drawable/company_ic_inventory" android:drawableTint="#7AAA95"/>
+<Spinner android:id="@+id/salesSizeFilter" style="@style/VilcasFilter.Field" android:spinnerMode="dropdown" android:contentDescription="@string/sales_size"/>
+<TextView style="@style/VilcasFilter.Label" android:layout_marginTop="14dp" android:text="@string/sales_site" android:drawableStart="@drawable/sales_ic_site" android:drawableTint="#7AAA95"/>
+<Spinner android:id="@+id/salesSiteFilter" style="@style/VilcasFilter.Field" android:spinnerMode="dropdown" android:contentDescription="@string/sales_site"/>
+<TextView style="@style/VilcasFilter.Label" android:layout_marginTop="14dp" android:text="@string/sales_gender" android:drawableStart="@drawable/sales_ic_people" android:drawableTint="#7AAA95"/>
+<com.google.android.material.chip.ChipGroup android:id="@+id/salesGenderFilter" android:layout_width="match_parent" android:layout_height="wrap_content" app:singleSelection="true" app:chipSpacingHorizontal="8dp" app:chipSpacingVertical="4dp"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/salesClearFilters" style="@style/VilcasModal.Button" app:fontFamily="@font/inter" android:layout_marginTop="12dp" android:text="@string/sales_clear" android:textSize="13sp" android:layout_height="44dp" android:textStyle="normal"/>
+</LinearLayout>
+
+

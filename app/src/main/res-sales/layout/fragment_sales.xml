@@ -1,0 +1,14 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent"><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/company_canvas" android:orientation="vertical"><ScrollView android:id="@+id/salesCatalogScroll" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/page_gutter">
+<include layout="@layout/sales_component_filter_panel"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/sales_demo_notice" android:visibility="gone" android:accessibilityLiveRegion="polite" style="@style/Company.Body" android:layout_marginBottom="12dp"/>
+<TextView android:id="@+id/salesNoResults" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/sales_no_results" style="@style/Company.Body" android:layout_marginBottom="20dp" android:visibility="gone"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/salesRetry" style="@style/VilcasModal.Button" android:text="@string/sales_retry" android:visibility="gone"/>
+<GridLayout android:id="@+id/salesProducts" android:layout_width="match_parent" android:layout_height="wrap_content" android:columnCount="2" android:layout_marginBottom="20dp"/>
+
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/salesLoadMore" style="@style/VilcasModal.Button" android:text="@string/sales_more" android:visibility="gone"/>
+</LinearLayout></ScrollView><include layout="@layout/sales_component_cart"/></LinearLayout>
+
+<FrameLayout android:id="@+id/fullscreenFormHost" android:layout_width="match_parent" android:layout_height="match_parent"/></FrameLayout>
+
+

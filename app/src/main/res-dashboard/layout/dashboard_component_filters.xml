@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" style="@style/Company.Card" android:padding="18dp">
+<LinearLayout android:id="@+id/dashboardDateFields" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+<TextView style="@style/Dashboard.FilterLabel" android:text="@string/dashboard_from" android:drawableStart="@drawable/dashboard_ic_calendar" android:drawableTint="#7AAA95" android:drawablePadding="6dp"/>
+<TextView android:id="@+id/dashboardDateFrom" style="@style/Dashboard.FilterField" android:text="@string/dashboard_choose_dates" android:drawableEnd="@drawable/dashboard_ic_calendar" android:clickable="true" android:focusable="true" android:layout_marginBottom="14dp"/>
+<TextView style="@style/Dashboard.FilterLabel" android:text="@string/dashboard_to" android:drawableStart="@drawable/dashboard_ic_calendar" android:drawableTint="#7AAA95" android:drawablePadding="6dp"/>
+<TextView android:id="@+id/dashboardDateTo" style="@style/Dashboard.FilterField" android:text="@string/dashboard_choose_dates" android:drawableEnd="@drawable/dashboard_ic_calendar" android:clickable="true" android:focusable="true" android:layout_marginBottom="14dp"/>
+</LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:layout_marginBottom="6dp">
+<TextView style="@style/Dashboard.FilterLabel" android:layout_width="wrap_content" android:layout_marginBottom="0dp" android:text="@string/dashboard_channel" android:drawableStart="@drawable/dashboard_ic_channel"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:paddingStart="7dp" android:paddingEnd="7dp" android:paddingTop="2dp" android:paddingBottom="2dp" android:text="@string/dashboard_soon" android:textColor="#DA9E0B" android:textSize="9sp" android:textStyle="bold" android:background="@drawable/dashboard_bg_soon"/>
+</LinearLayout>
+<Spinner android:id="@+id/dashboardChannel" style="@style/Dashboard.FilterField" android:spinnerMode="dropdown" android:contentDescription="@string/dashboard_channel_hint"/>
+</LinearLayout>
+
+

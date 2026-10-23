@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="250dp" android:layout_height="match_parent" android:orientation="vertical" android:background="@drawable/company_bg_drawer">
+<FrameLayout android:layout_width="match_parent" android:layout_height="130dp">
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center">
+<ImageView android:layout_width="74dp" android:layout_height="60dp" android:src="@drawable/vilcas" android:scaleType="fitCenter" android:contentDescription="@string/brand_name"/>
+<LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal">
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="VILC" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.18" android:textColor="#FFFFFF" app:fontFamily="@font/inter"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="A" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.18" android:textColor="#D4A017" app:fontFamily="@font/inter"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="S" android:textSize="14sp" android:textStyle="bold" android:letterSpacing="0.18" android:textColor="#FFFFFF" app:fontFamily="@font/inter"/>
+</LinearLayout></LinearLayout>
+<ImageButton android:id="@+id/companyCloseMenu" android:layout_width="40dp" android:layout_height="40dp" android:layout_margin="14dp" android:background="@drawable/company_bg_card" android:padding="11dp" android:src="@drawable/company_ic_close" android:tint="#008B43" android:contentDescription="@string/company_close_menu"/>
+</FrameLayout>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:background="#30453E"/>
+<ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+<TextView android:id="@+id/companyNavDashboard" style="@style/Company.DrawerItem" app:fontFamily="@font/inter" android:drawableStart="@drawable/company_ic_dashboard" android:drawableTint="#B6C4BE" android:text="@string/company_nav_dashboard"/>
+<TextView android:id="@+id/companyNavInventory" style="@style/Company.DrawerItem" app:fontFamily="@font/inter" android:drawableStart="@drawable/company_ic_inventory" android:drawableTint="#B6C4BE" android:text="@string/company_nav_inventory"/>
+<TextView android:id="@+id/companyNavSales" style="@style/Company.DrawerItem" app:fontFamily="@font/inter" android:drawableStart="@drawable/company_ic_sales" android:drawableTint="#B6C4BE" android:text="@string/company_nav_sales"/>
+</LinearLayout></ScrollView>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:background="#30453E"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="80dp" android:gravity="center" android:orientation="horizontal">
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/company_powered" android:textColor="#84958D" android:textSize="13sp" android:textStyle="bold" app:fontFamily="@font/inter"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ALBA" android:layout_marginStart="4dp" android:textColor="#FFFFFF" android:textSize="13sp" android:textStyle="bold" app:fontFamily="@font/inter"/>
+<ImageView android:layout_width="24dp" android:layout_height="24dp" android:layout_marginStart="12dp" android:src="@drawable/company_alba_logo" android:tint="#FFFFFF" android:contentDescription="@string/company_alba"/>
+</LinearLayout></LinearLayout>

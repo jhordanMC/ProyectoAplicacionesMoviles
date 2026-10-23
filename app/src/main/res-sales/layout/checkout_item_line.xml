@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp" android:background="@drawable/filter_bg_field" android:layout_marginBottom="10dp">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+<Spinner android:id="@+id/paymentMethod" style="@style/VilcasFilter.Field" android:layout_width="0dp" android:layout_weight="1" android:contentDescription="@string/checkout_method"/>
+<ImageButton android:id="@+id/paymentRemove" android:layout_width="40dp" android:layout_height="40dp" android:layout_marginStart="8dp" android:background="@drawable/modal_bg_danger" android:src="@drawable/company_ic_close" android:tint="#FF4550" android:padding="12dp" android:contentDescription="@string/payment_remove"/>
+</LinearLayout>
+<TextView style="@style/Checkout.Label" android:text="@string/payment_amount"/>
+<androidx.appcompat.widget.AppCompatEditText android:id="@+id/paymentAmount" style="@style/VilcasFilter.Field" android:inputType="numberDecimal" android:maxLength="12" android:singleLine="true" android:saveEnabled="false"/>
+<LinearLayout android:id="@+id/paymentCashFields" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+<TextView style="@style/Checkout.Label" android:text="@string/checkout_received"/>
+<androidx.appcompat.widget.AppCompatEditText android:id="@+id/paymentReceived" style="@style/VilcasFilter.Field" android:inputType="numberDecimal" android:maxLength="12" android:singleLine="true" android:saveEnabled="false"/>
+<TextView android:id="@+id/paymentChange" style="@style/Company.Body" android:textColor="#08753A"/>
+</LinearLayout>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/paymentReceipt" style="@style/VilcasModal.Button" android:layout_marginTop="8dp" android:text="@string/payment_attach" android:textSize="12sp"/>
+</LinearLayout>

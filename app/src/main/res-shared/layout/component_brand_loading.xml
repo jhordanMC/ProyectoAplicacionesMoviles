@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/brandLoadingOverlay" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#FFFFFF" android:visibility="gone" android:clickable="true" android:focusable="true" android:importantForAccessibility="yes">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="center" android:gravity="center" android:orientation="vertical" android:padding="24dp">
+<ImageView android:id="@+id/brandLoadingLogo" android:layout_width="64dp" android:layout_height="52dp" android:src="@drawable/vilcas" android:scaleType="fitCenter" android:contentDescription="@string/brand_loading"/>
+<TextView android:id="@+id/brandLoadingMessage" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:gravity="center" android:text="@string/brand_loading" android:fontFamily="@font/inter" android:textSize="13sp" android:textColor="#024B40" android:accessibilityLiveRegion="polite"/>
+</LinearLayout></FrameLayout>

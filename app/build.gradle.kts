@@ -3,42 +3,47 @@ plugins {
 }
 
 android {
-    namespace = "com.example.probandoando"
+    namespace = "com.example.saasvilcas"
     compileSdk {
-        version = release(36)
+        version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.probandoando"
+        applicationId = "com.example.saasvilcas"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
+        buildConfigField("String", "API_BASE_URL", "\"https://api.vilcaspe.com\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            optimization {
+                enable = false
+            }
         }
     }
+    buildFeatures { buildConfig = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    sourceSets.getByName("main") {
+        res.setSrcDirs(listOf("src/main/res", "src/main/res-auth", "src/main/res-company",
+            "src/main/res-dashboard", "src/main/res-sales", "src/main/res-profile", "src/main/res-inventory", "src/main/res-shared"))
+    }
 }
 
 dependencies {
+    implementation(libs.activity.ktx)
     implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.material)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
+    testImplementation("org.json:json:20240303")
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.ext.junit)
 }

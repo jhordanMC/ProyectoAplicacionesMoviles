@@ -1,0 +1,7 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="64dp" android:gravity="center_vertical" android:padding="8dp" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
+<ImageView android:id="@+id/inventoryManagementIcon" android:layout_width="36dp" android:layout_height="36dp" android:padding="7dp" android:background="@drawable/company_bg_icon" android:importantForAccessibility="no"/>
+<LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+<TextView android:id="@+id/inventoryManagementTitle" style="@style/Inventory.Text" android:textColor="#05833B" android:textStyle="bold"/>
+<TextView android:id="@+id/inventoryManagementSubtitle" style="@style/Inventory.Text" android:textColor="@color/company_muted" android:textSize="11sp" android:layout_marginTop="4dp"/>
+</LinearLayout></LinearLayout>
+

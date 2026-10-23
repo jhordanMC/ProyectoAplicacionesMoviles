@@ -1,0 +1,5 @@
+<resources>
+    <string name="logout_heading">¿Cerrar sesión?</string>
+    <string name="logout_message">Vas a salir de tu cuenta. Vas a necesitar volver a iniciar sesión para continuar.</string>
+    <string name="logout_confirm">Sí, cerrar sesión</string>
+</resources>

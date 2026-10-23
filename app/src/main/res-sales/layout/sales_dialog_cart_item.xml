@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+<TextView android:id="@+id/salesDialogTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:textColor="@color/sales_modal_heading" android:textStyle="bold" android:textSize="17sp" android:fontFamily="@font/inter" android:layout_marginBottom="12dp"/>
+<FrameLayout android:layout_width="match_parent" android:layout_height="140dp" android:layout_marginBottom="14dp" android:background="@color/company_mint">
+<TextView android:id="@+id/salesDialogNoPhoto" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="@string/inventory_no_photo" style="@style/Company.Body"/>
+<ImageView android:id="@+id/salesDialogImage" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter" android:contentDescription="@string/dashboard_product_illustration"/>
+</FrameLayout>
+<TextView android:id="@+id/salesDialogSizeLabel" style="@style/SalesModal.Label" android:text="Tallas disponibles"/>
+<com.google.android.material.chip.ChipGroup android:id="@+id/salesDialogSizeChips" android:layout_width="match_parent" android:layout_height="wrap_content" app:singleSelection="true" app:selectionRequired="true"/>
+<Spinner android:visibility="gone" android:id="@+id/salesDialogSize" style="@style/VilcasFilter.Field" android:spinnerMode="dropdown" android:contentDescription="@string/sales_size"/>
+<TextView style="@style/SalesModal.Label" android:layout_marginTop="16dp" android:text="Origen (Sede)"/>
+<Spinner android:id="@+id/salesDialogSite" style="@style/VilcasFilter.Field" android:spinnerMode="dropdown" android:contentDescription="@string/sales_site"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+<LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical"><TextView style="@style/SalesModal.Label" android:layout_marginTop="16dp" android:text="@string/sales_quantity"/>
+<androidx.appcompat.widget.AppCompatEditText android:id="@+id/salesDialogQuantity" style="@style/VilcasFilter.Field" android:inputType="number" android:maxLength="5" android:singleLine="true"/>
+</LinearLayout><LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical"><TextView style="@style/SalesModal.Label" android:layout_marginTop="16dp" android:text="@string/sales_discount"/>
+<androidx.appcompat.widget.AppCompatEditText android:id="@+id/salesDialogDiscount" style="@style/VilcasFilter.Field" android:inputType="numberDecimal" android:maxLength="10" android:singleLine="true"/>
+</LinearLayout></LinearLayout>
+<LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="16dp" android:padding="12dp" android:gravity="center_vertical" android:background="@drawable/checkout_bg_total">
+<TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/sales_pay_total" android:textColor="@color/sales_modal_success"/>
+<TextView android:id="@+id/salesDialogTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/sales_modal_success" android:textSize="20sp" android:textStyle="bold"/>
+</LinearLayout>
+<TextView android:id="@+id/salesDialogError" style="@style/Company.Body" android:textColor="#EF4444" android:accessibilityLiveRegion="polite"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/salesDialogSave" style="@style/SalesModal.Button" android:layout_marginTop="0dp" android:background="@drawable/sales_modal_primary" android:textColor="@android:color/white"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/salesDialogCancel" style="@style/SalesModal.Button" android:layout_marginTop="8dp" android:text="@string/cancel"/>
+</LinearLayout>
+
+
+

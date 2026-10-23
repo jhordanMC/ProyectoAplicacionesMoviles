@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/company_canvas">
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/page_gutter"><include layout="@layout/dashboard_component_filter_panel"/><include layout="@layout/dashboard_component_profit"/><include layout="@layout/dashboard_component_metrics"/><include layout="@layout/dashboard_component_products"/><include layout="@layout/dashboard_component_categories"/><include layout="@layout/dashboard_component_payments"/><include layout="@layout/dashboard_component_expenses"/>
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/dashboard_alerts" style="@style/Company.SectionTitle"/>
+<LinearLayout android:id="@+id/dashboardAlerts" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:orientation="vertical"/></LinearLayout>
+</ScrollView>
+
+
+
+

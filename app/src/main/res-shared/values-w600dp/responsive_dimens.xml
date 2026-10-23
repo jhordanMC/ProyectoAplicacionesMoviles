@@ -1,0 +1,4 @@
+<resources>
+<dimen name="page_gutter">24dp</dimen>
+<dimen name="toolbar_gutter">24dp</dimen>
+</resources>

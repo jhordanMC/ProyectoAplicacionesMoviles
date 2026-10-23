@@ -1,0 +1,4 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/company_bg_field"/>
+    <item android:drawable="@drawable/sales_ic_chevron" android:width="20dp" android:height="20dp" android:gravity="end|center_vertical" android:end="16dp"/>
+</layer-list>

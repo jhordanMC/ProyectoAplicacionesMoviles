@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/dashboardProductsCard" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" style="@style/Company.Card" android:background="@drawable/company_bg_icon">
+<TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/dashboard_bestsellers" style="@style/Company.SectionTitle"/><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/dashboard_bestsellers_note" style="@style/Company.Body"/>
+<GridLayout android:id="@+id/dashboardProducts" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:columnCount="2"/>
+<TextView android:id="@+id/dashboardMoreProducts" android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center" android:text="@string/dashboard_more" android:textColor="@color/company_ink" android:textStyle="bold" android:textSize="12sp" android:clickable="true" android:focusable="true"/>
+<include android:id="@+id/dashboardPanelStatus" layout="@layout/dashboard_component_status"/>
+</LinearLayout>

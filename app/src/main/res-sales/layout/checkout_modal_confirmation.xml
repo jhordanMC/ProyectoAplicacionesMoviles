@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="20dp" android:paddingEnd="20dp" android:paddingBottom="20dp">
+<TextView android:id="@+id/confirmationTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:text="@string/payment_confirm_title" android:textColor="@color/sales_modal_heading" android:textSize="17sp" android:textStyle="bold" android:layout_marginBottom="12dp"/>
+<TextView android:id="@+id/confirmationCaption" style="@style/Company.Body" android:text="@string/payment_products_caption" android:textColor="@color/sales_modal_secondary_text" android:layout_marginBottom="10dp"/>
+<LinearLayout android:id="@+id/confirmationProducts" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="10dp" android:background="@drawable/checkout_bg_info"/>
+<LinearLayout android:id="@+id/confirmationPayments" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="vertical" android:padding="14dp" android:background="@drawable/checkout_bg_info"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="44dp" android:layout_marginTop="10dp" android:gravity="center_vertical" android:padding="12dp" android:background="@drawable/checkout_bg_total">
+<TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/checkout_total" android:textColor="@color/sales_modal_brand" android:textSize="13sp" android:textStyle="bold"/>
+<TextView android:id="@+id/confirmationTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/sales_modal_brand" android:textStyle="bold" android:textSize="15sp"/>
+</LinearLayout>
+<TextView android:id="@+id/confirmationQuestion" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:text="@string/payment_confirm_question" android:textColor="@color/sales_modal_brand" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="12dp"/>
+<TextView android:id="@+id/confirmationError" style="@style/Company.Body" android:textColor="#EF4444" android:accessibilityLiveRegion="polite"/>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="8dp" android:layout_marginBottom="8dp" android:background="#E5EDE9"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/confirmationSubmit" style="@style/SalesModal.Button" android:text="@string/payment_confirm" android:background="@drawable/sales_modal_primary" android:textColor="#FFFFFF"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/confirmationBack" style="@style/SalesModal.Button" android:layout_marginTop="8dp" android:text="@string/payment_back" android:textColor="@color/sales_modal_brand"/>
+</LinearLayout>

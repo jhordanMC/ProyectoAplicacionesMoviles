@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path(r'D:\en html\Sistema de Presupuestos\backend\app\services\handwritten.py');s=p.read_text(encoding='utf-8').replace('[0-9OolISgG]','[0-9OolISsgG]');s=s.replace("'enchape','instalacion','excavacion']","'enchape','instalacion','excavacion','reparacion','sacar','resanar']");s=s.replace("is_action=any(has_term(text+' '+raw,t) for t in", "is_action=starts_action(text+' '+raw) or any(has_term(text+' '+raw,t) for t in");p.write_text(s,encoding='utf-8')

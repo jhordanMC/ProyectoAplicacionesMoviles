@@ -1,0 +1,10 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/inventory_bg_field" android:padding="6dp" android:layout_marginBottom="16dp">
+<TextView android:id="@+id/inventoryPhotoEmptyTitle" style="@style/Inventory.Text" android:text="Foto del producto" android:textAllCaps="true" android:textSize="11sp" android:letterSpacing="0.04" android:textStyle="bold" android:textColor="#7AAA95" android:gravity="center" android:layout_marginBottom="10dp"/>
+<ImageView android:id="@+id/inventoryPhotoPreview" android:layout_width="match_parent" android:layout_height="180dp" android:scaleType="fitCenter" android:contentDescription="@string/inventory_photo"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryPhotoCamera" style="@style/Inventory.Cancel" android:layout_width="0dp" android:layout_weight="1" android:text="@string/inventory_camera" android:textSize="11.5sp"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryPhotoGallery" style="@style/Inventory.Cancel" android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="6dp" android:text="@string/inventory_gallery" android:textSize="11.5sp"/>
+</LinearLayout>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryPhotoRemove" style="@style/Inventory.Action" android:text="@string/inventory_remove_photo" android:layout_marginTop="6dp" android:visibility="gone"/>
+</LinearLayout>
+

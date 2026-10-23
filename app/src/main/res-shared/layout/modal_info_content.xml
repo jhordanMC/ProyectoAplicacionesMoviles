@@ -1,0 +1,5 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
+<TextView android:id="@+id/modalInfoTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:textSize="20sp" android:textStyle="bold" android:textColor="@color/company_ink"/>
+<TextView android:id="@+id/modalInfoMessage" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:textSize="15sp" android:textColor="@color/company_muted"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/modalInfoClose" style="@style/VilcasModal.Button" android:layout_marginTop="24dp" android:text="@string/modal_close"/>
+</LinearLayout>

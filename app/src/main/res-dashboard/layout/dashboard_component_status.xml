@@ -1,0 +1,12 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginTop="12dp" android:orientation="vertical" android:visibility="gone">
+    <ProgressBar android:id="@+id/dashboardPanelLoading" android:layout_width="24dp"
+        android:layout_height="24dp" android:layout_gravity="center_horizontal"
+        android:indeterminateTint="#008B43" android:contentDescription="@string/dashboard_loading"/>
+    <TextView android:id="@+id/dashboardPanelMessage" style="@style/Company.Body"
+        android:gravity="center" android:paddingTop="8dp" android:paddingBottom="8dp"
+        android:fontFamily="@font/inter" android:accessibilityLiveRegion="polite"/>
+    <androidx.appcompat.widget.AppCompatButton android:id="@+id/dashboardPanelRetry"
+        style="@style/VilcasModal.Button" android:text="@string/dashboard_retry" android:visibility="gone"/>
+</LinearLayout>

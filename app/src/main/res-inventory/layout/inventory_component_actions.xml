@@ -1,0 +1,8 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" style="@style/Company.Card" android:padding="12dp">
+<include android:id="@+id/inventoryCategories" layout="@layout/inventory_item_management_action"/>
+<include android:id="@+id/inventorySuppliers" layout="@layout/inventory_item_management_action"/>
+<include android:id="@+id/inventoryWarehouses" layout="@layout/inventory_item_management_action"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryNew" style="@style/Inventory.Primary" android:text="@string/inventory_new" android:layout_marginTop="8dp"/>
+</LinearLayout>
+
+

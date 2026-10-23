@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources><style name="Company" />
+<style name="Company.Card"><item name="android:background">@drawable/company_bg_card</item><item name="android:padding">20dp</item><item name="android:layout_marginBottom">20dp</item></style>
+<style name="Company.SectionTitle"><item name="android:textSize">17sp</item><item name="android:textStyle">bold</item><item name="android:textColor">@color/company_ink</item></style>
+<style name="Company.Body"><item name="android:layout_width">match_parent</item><item name="android:layout_height">wrap_content</item><item name="android:textSize">12sp</item><item name="android:textColor">@color/company_muted</item><item name="android:layout_marginTop">4dp</item></style>
+<style name="Company.ToolbarButton"><item name="android:layout_width">44dp</item><item name="android:layout_height">44dp</item><item name="android:padding">10dp</item><item name="android:background">@drawable/company_bg_icon</item><item name="android:tint">@color/company_ink</item></style>
+<style name="Company.DrawerItem"><item name="android:layout_width">match_parent</item><item name="android:layout_height">56dp</item><item name="android:layout_marginBottom">4dp</item><item name="android:gravity">center_vertical</item><item name="android:padding">14dp</item><item name="android:textSize">14sp</item><item name="android:textStyle">bold</item><item name="android:textColor">#FFFFFF</item><item name="android:drawablePadding">12dp</item><item name="android:background">@drawable/company_bg_nav</item><item name="android:clickable">true</item><item name="android:focusable">true</item></style>
+<style name="Company.Period"><item name="android:layout_width">0dp</item><item name="android:layout_height">48dp</item><item name="android:layout_weight">1</item><item name="android:gravity">center</item><item name="android:textColor">@color/company_muted</item><item name="android:textSize">13sp</item><item name="android:textStyle">bold</item><item name="android:background">@drawable/company_bg_period</item><item name="android:clickable">true</item><item name="android:focusable">true</item></style>
+</resources>
+
+
+
+

@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+<TextView android:id="@+id/inventoryModalTitle" style="@style/Inventory.Text" android:gravity="center" android:textColor="#05833B" android:textStyle="bold" android:textSize="16sp" android:paddingBottom="20dp"/>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EDF2F0"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+<TextView android:id="@+id/inventoryManagementFormTitle" style="@style/Inventory.Text" android:textColor="#7AAA95" android:textStyle="bold" android:textSize="11.5sp" android:letterSpacing="0.04" android:layout_marginBottom="14dp"/>
+<com.google.android.material.chip.ChipGroup android:id="@+id/inventoryCategorySuggestions" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp"/>
+<androidx.appcompat.widget.AppCompatEditText android:id="@+id/inventoryManagementName" style="@style/Inventory.Field" android:singleLine="true" android:inputType="textCapSentences"/>
+<androidx.appcompat.widget.AppCompatEditText android:id="@+id/inventoryManagementAddress" style="@style/Inventory.Field" android:hint="@string/inventory_address" android:singleLine="true" android:inputType="textPostalAddress"/>
+<androidx.appcompat.widget.AppCompatEditText android:id="@+id/inventoryManagementDescription" style="@style/Inventory.Field" android:hint="@string/inventory_warehouse_description" android:singleLine="true" android:inputType="textCapSentences"/>
+<TextView android:id="@+id/inventoryFormError" style="@style/Inventory.Text" android:textColor="#D32F2F" android:visibility="gone" android:accessibilityLiveRegion="polite" android:layout_marginBottom="8dp"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryFormCancel" style="@style/Inventory.Cancel" android:text="@string/cancel" android:layout_marginBottom="8dp"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryFormSave" style="@style/Inventory.Primary"/>
+</LinearLayout>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EDF2F0"/>
+<LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+<TextView android:id="@+id/inventoryManagementListTitle" style="@style/Inventory.Text" android:textColor="#7AAA95" android:textSize="11.5sp" android:letterSpacing="0.04" android:textStyle="bold" android:layout_marginBottom="10dp"/>
+<androidx.appcompat.widget.AppCompatEditText android:id="@+id/inventoryManagementSearch" style="@style/Inventory.Field" android:hint="@string/inventory_reference_search" android:inputType="text" android:singleLine="true"/>
+<LinearLayout android:id="@+id/inventoryManagementRows" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
+<TextView android:id="@+id/inventoryManagementEmpty" style="@style/Inventory.Text" android:text="@string/inventory_reference_empty" android:gravity="center" android:padding="16dp" android:visibility="gone"/>
+</LinearLayout></LinearLayout>
+
+
+

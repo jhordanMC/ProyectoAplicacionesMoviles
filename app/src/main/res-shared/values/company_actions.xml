@@ -1,0 +1,25 @@
+<resources>
+<string name="company_no_notifications">No hay notificaciones en esta demostración.</string>
+<string name="company_demo_profile">Perfil de muestra. Todavía no hay una sesión conectada al servidor.</string>
+<string name="company_exit_demo">Salir de la demostración</string>
+<string name="dashboard_units">%1$d unidades</string>
+<string name="dashboard_fewer">Ver menos ⌃</string>
+<string name="dashboard_sale_note">%1$d ventas\nEste periodo</string>
+<string name="dashboard_average_note">Por venta\nEste periodo</string>
+<string name="dashboard_invested_note">Valor total\ndel inventario</string>
+<string name="dashboard_alert_no_sales">Productos sin Ventas</string>
+<string name="dashboard_alert_no_sales_note">Productos con pocas ventas</string>
+<string name="dashboard_alert_low_stock">Productos con bajo stock</string>
+<string name="dashboard_alert_low_stock_note">Pocas unidades disponibles</string>
+<string name="dashboard_alert_returns">Productos más devueltos</string>
+<string name="dashboard_alert_returns_note">Cantidad de devoluciones por producto</string>
+<string name="dashboard_returns">%1$d devoluciones</string>
+<string name="dashboard_custom_range">Selecciona el periodo</string>
+<string name="dashboard_custom_selected">%1$s – %2$s · Datos de demostración</string>
+<string name="dashboard_total_sold">Total vendido</string>
+<string name="dashboard_average_sale">Venta Promedio</string>
+<string name="dashboard_invested">Dinero invertido</string>
+<string-array name="dashboard_category_labels"><item>Deportivo</item><item>Ballerina</item><item>Mocasines</item><item>Otros</item></string-array>
+<string-array name="dashboard_expense_labels"><item>Productos</item><item>Envíos</item><item>Publicidad</item><item>Otros</item></string-array>
+<string-array name="dashboard_payment_labels"><item>Yape</item><item>Efectivo</item><item>Plin</item><item>Transferencia</item></string-array>
+</resources>

@@ -1,0 +1,4 @@
+from pathlib import Path
+root=Path(r'D:\en html\Sistema de Presupuestos')
+p=root/'backend/app/services/image_analysis.py';s=p.read_text();s=s.replace('if not text or re.match', 'if re.match(r"^lista\\s*de\\s*(?:materiales|servicios)", normalized):\n            continue\n        if not text or re.match');s=s.replace('if not name:\n            name = text','name = re.sub(r"S\\s*[/\\\\.]\\s*$", "", name, flags=re.I).strip(" |;:-")\n        if not name:\n            name = text');p.write_text(s,encoding='utf-8')
+p=root/'backend/tests/test_images.py';s=p.read_text();s=s.replace('"MATERIALES", "Total', '"MATERIALES", "LISTADEMATERIALESYSERVICIOS", "Total');s=s.replace("assert result['method'] == 'local_ocr'", "assert result['method'] == 'local_ocr'\n    assert len(result['items']) == 3\n    assert all(not i['name'].endswith('S/') for i in result['items'])");p.write_text(s,encoding='utf-8')

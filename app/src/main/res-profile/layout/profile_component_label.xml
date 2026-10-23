@@ -1,0 +1,1 @@
+<TextView xmlns:android="http://schemas.android.com/apk/res/android" style="@style/VilcasFilter.Label" android:layout_marginTop="12dp" android:fontFamily="@font/inter"/>

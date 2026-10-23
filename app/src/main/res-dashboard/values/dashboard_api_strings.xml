@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="dashboard_loading">Cargando datos…</string>
+    <string name="dashboard_retry">Reintentar</string>
+    <string name="dashboard_no_sales_period">Aún no hay productos vendidos en este período.</string>
+    <string name="dashboard_no_categories">Aún no hay ventas por categoría en este período.</string>
+    <string name="dashboard_no_payments">Aún no hay pagos en este período.</string>
+    <string name="dashboard_no_expenses">No hay gastos recurrentes registrados.</string>
+    <string name="dashboard_no_trend">No hay datos de ganancias para este período.</string>
+    <string name="dashboard_no_alerts_sales">No hay productos sin ventas registradas.</string>
+    <string name="dashboard_no_alerts_stock">No hay productos con menos de 10 unidades.</string>
+    <string name="dashboard_no_alerts_returns">No hay devoluciones registradas en los últimos 30 días.</string>
+    <string name="dashboard_no_image">Sin foto</string>
+    <string name="dashboard_stock_unavailable">Stock no disponible</string>
+    <string name="dashboard_growth_real">%1$s%2$.1f%%\nVentas vs. período anterior</string>
+    <string name="dashboard_losing">En pérdida</string>
+    <string name="dashboard_break_even">Sin ganancia</string>
+    <string name="dashboard_partial_profit">Costos incompletos</string>
+    <string name="dashboard_partial_cost_note">Algunas ventas no tienen costo registrado. La ganancia no cubre todo el período.</string>
+    <string name="dashboard_expenses_both">Se descontaron gastos recurrentes y únicos de este período.</string>
+    <string name="dashboard_expenses_recurring">Se descontaron gastos recurrentes de este período.</string>
+    <string name="dashboard_expenses_unique">Se descontaron gastos únicos de este período.</string>
+    <string name="dashboard_expenses_none">No se descontaron gastos de este período.</string>
+    <string name="dashboard_expenses_monthly">Gastos recurrentes · Equivalente mensual estimado</string>
+    <string name="dashboard_stock_note">Stock actual · Menos de 10 unidades</string>
+    <string name="dashboard_never_sold_note">Productos sin ventas registradas · Histórico</string>
+    <string name="dashboard_returns_note_real">Cantidad devuelta · Últimos 30 días</string>
+    <string name="dashboard_payment_cash">Efectivo</string>
+    <string name="dashboard_payment_card">Tarjeta</string>
+    <string name="dashboard_payment_other">Otro</string>
+    <string name="dashboard_expense_rent">Alquiler</string>
+    <string name="dashboard_expense_salary">Sueldos</string>
+    <string name="dashboard_expense_services">Servicios</string>
+    <string name="dashboard_expense_advertising">Publicidad</string>
+    <string name="dashboard_expense_other">Otros</string>
+    <string name="dashboard_evolution_title">Ventas y ganancias</string>
+    <string name="dashboard_evolution_legend">Ventas (verde)     Ganancia real (dorado)</string>
+<string name="dashboard_evolution_sales">&#9679; Ventas</string>
+<string name="dashboard_evolution_profit">&#9679; Ganancia real</string>
+</resources>

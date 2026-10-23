@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Presupuesto</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <style>
+:root{--blue:#215bea;--ink:#18243c;--muted:#6d7a90;--line:#e6ebf2}body{background:#f6f8fc;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--ink);padding:0 0 40px 240px}.sidebar{position:fixed;inset:0 auto 0 0;width:240px;background:white;border-right:1px solid var(--line);padding:32px 22px;display:flex;flex-direction:column}.brand{font-size:22px;font-weight:750;letter-spacing:-1px}.brand em{font-style:normal;color:var(--blue)}.side-caption{font-size:10px;letter-spacing:2px;color:var(--muted);margin:40px 12px 14px}.sidebar a{padding:14px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:14px;display:block;margin-bottom:6px}.sidebar a.active{color:var(--blue);background:#edf3ff;font-weight:600}.side-foot{margin-top:auto;font-size:12px;color:var(--muted);line-height:1.8}.header{background:white;padding:24px 40px;text-align:left;box-shadow:none;border-radius:0;border-bottom:1px solid var(--line)}.company-name{font-size:15px;color:var(--ink);text-shadow:none;margin-bottom:4px;letter-spacing:.4px}.company-slogan{color:var(--muted);font-style:normal;font-size:12px;margin:0}.company-contact{display:none}.container{max-width:1280px;background:transparent;border-radius:0;padding:38px 40px;box-shadow:none}h1{text-align:left;border:0;color:var(--ink);font-size:30px;font-weight:650;letter-spacing:-1px;margin:0 0 8px;padding:0}.intro{color:var(--muted);font-size:14px;margin-bottom:30px}.eyebrow{font-size:11px;letter-spacing:1.5px;color:var(--blue);font-weight:700;margin-bottom:12px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px}.metric{background:white;border:1px solid var(--line);border-radius:12px;padding:24px}.metric small{color:var(--muted);font-size:12px}.metric strong{display:block;font-size:25px;font-weight:650;margin-top:12px;letter-spacing:-.5px}.metric:last-child{background:#edf3ff;border-color:#dce7ff}.metric:last-child strong{color:var(--blue)}.options-panel,.panel,.summary-panel,.client-card{background:white;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 10px #18243c03;padding:24px}.options-title,.panel-title,.summary-title{background:none;color:var(--ink);border:0;text-align:left;margin:0 0 22px;padding:0;font-size:16px;border-radius:0}.options-grid{gap:12px}.option-item{border:1px solid var(--line);padding:14px;background:#fafbfd}.option-item:hover{box-shadow:none;transform:none;border-color:#abc2ff}.option-item label{font-size:12px;color:#526078;margin:0;font-weight:500}.option-item input[type=checkbox]{accent-color:var(--blue);width:17px;height:17px}.panel-title{padding-bottom:18px;border-bottom:1px solid var(--line)}label{color:#526078;font-size:12px;font-weight:550;margin-bottom:8px}input[type=text],input[type=number],input[type=date]{background:#fff;border:1px solid #dce3ee;border-radius:7px;padding:12px;font-family:inherit;width:100%;font-size:14px;color:var(--ink)}input:focus{outline:2px solid #b7ccff;outline-offset:2px}.btn-add,.btn-pdf{background:var(--blue);box-shadow:none;border-radius:7px;font-size:13px;padding:13px}.btn-add:hover,.btn-pdf:hover{background:#174ccc;transform:none;box-shadow:none}.btn-pdf{max-width:280px;margin-left:auto}.item{box-shadow:none;border:1px solid var(--line);border-left:3px solid #c8d8ff}.item-name{font-size:13px;color:var(--ink)}.item-details{gap:12px;font-size:11px;flex-wrap:wrap}.delete-btn{background:#fff1f1;color:#bf4052;font-size:11px}.summary-label{font-weight:500;color:var(--muted)}.total-row{background:#edf3ff;margin:18px -24px -24px;padding:22px 24px}.total-label,.total-value{color:var(--blue);text-shadow:none}.total-label{font-size:14px}.total-value{font-size:28px}.client-card{margin-bottom:24px}.client-grid{display:grid;grid-template-columns:2fr 2fr 1fr;gap:18px}.doc-link{color:var(--blue);font-size:13px}.empty-note{font-size:12px;color:#91a0b5;margin-top:18px}.items-list:empty:after{content:'Las partidas que agregues aparecerán aquí.';color:#91a0b5;font-size:12px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:12px}.toolbar a{text-decoration:none;background:white;border:1px solid var(--line);padding:11px 15px;border-radius:7px;color:var(--ink);font-size:12px}@media(max-width:1050px){body{padding-left:190px}.sidebar{width:190px}.container{padding:28px 22px}.client-grid{grid-template-columns:1fr 1fr}.metrics{gap:10px}}@media(max-width:700px){body{padding-left:0}.sidebar{display:none}.header{padding:20px}.container{padding:24px 16px}h1{font-size:26px}.metrics{grid-template-columns:1fr}.metric{padding:18px}.client-grid{grid-template-columns:1fr}.toolbar{align-items:flex-start}.panels-container,.options-grid{grid-template-columns:1fr}.item-details{flex-direction:column}}
+
+/* Composición original: encabezado, opciones y dos paneles en una ventana. */
+body{padding:28px;background:#f4f7fc}.header{max-width:1200px;margin:auto;text-align:center;padding:30px;background:white;border:1px solid #e6ebf2;border-bottom:3px solid #215bea;border-radius:12px 12px 0 0}.company-name{color:#215bea;font-size:25px;font-weight:750;letter-spacing:.2px}.company-slogan{font-style:italic;margin:10px 0;color:#6d7a90}.company-contact{display:block;color:#66758b;font-size:12px;line-height:1.6}.container{max-width:1200px;background:white;margin:auto;padding:32px;border:1px solid #e6ebf2;border-top:0;border-radius:0 0 12px 12px}h1{text-align:center;font-size:26px;color:#215bea;letter-spacing:0;margin-bottom:10px}.intro{text-align:center;margin-bottom:28px}.options-panel{background:#f8faff}.options-title{text-align:center;color:#215bea}.panel-title{text-align:center;color:#215bea}.panels-container{margin-bottom:0}.summary-title{text-align:center}.btn-pdf{max-width:none}.summary-panel{margin-top:24px}@media(max-width:700px){body{padding:12px}.header{padding:24px 16px}.company-name{font-size:20px}.container{padding:24px 16px}h1{font-size:22px}}
+
+.icon{width:20px;height:20px;display:inline-block;vertical-align:middle;flex-shrink:0}h1 .icon{width:29px;height:29px;margin-right:8px}.company-name .icon{width:30px;height:30px;margin-right:8px}.options-title,.panel-title,.summary-title{display:flex;align-items:center;justify-content:center;gap:10px}.panel-title .icon,.options-title .icon,.summary-title .icon{width:23px;height:23px;background:#edf3ff;box-sizing:content-box;padding:8px;border-radius:9px}.option-item label{gap:8px}.option-item input[type=checkbox]{margin-right:0}.option-item .icon{color:#215bea;width:18px;height:18px}.btn-add,.btn-pdf,.delete-btn{display:flex;align-items:center;justify-content:center;gap:8px}.delete-btn .icon{width:14px;height:14px}#documentPreview::backdrop{background:#18243c66}
+</style>
+</head>
+<body>
+    <div class="header">
+        <div class="company-name"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M6 21V3h12v18M9 7h1M14 7h1M9 11h1M14 11h1M10 21v-5h4v5"/></svg> MEDINA CONSTRUCCIONES COMPANY</div>
+        <div class="company-slogan">"Construyendo confianza, cimentando futuro."</div>
+        <div class="company-contact">
+            <strong>FORTUNATO MEDINA SICHA</strong><br>
+            MAESTRO EN CONSTRUCCION<br>
+            Tel: 979 646 418 | Email: fm_7894@outlook.es
+        </div>
+    </div>
+
+    <div class="container">
+        <h1><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M9 11h6M9 15h6"/></svg> Generador de presupuesto</h1><p class="intro">Agrega los trabajos y materiales de tu proyecto.</p>
+
+        <!-- Panel de Opciones -->
+        <div class="options-panel">
+            <div class="options-title"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg> Configuración del presupuesto</div>
+            <div class="options-grid">
+                <div class="option-item">
+                    <label>
+                        <input type="checkbox" id="showTaxOption" checked onchange="updateTotals()">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg> Incluir impuesto 8%
+                    </label>
+                </div>
+                <div class="option-item">
+                    <label>
+                        <input type="checkbox" id="showLaborOption" checked onchange="updateTotals()">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-3a8 8 0 0 1 16 0v3M9 5v7M15 5v7"/><rect x="2" y="16" width="20" height="4" rx="2"/></svg> Mostrar mano de obra
+                    </label>
+                </div>
+                <div class="option-item">
+                    <label>
+                        <input type="checkbox" id="showMaterialOption" checked onchange="updateTotals()">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M12 4v5M8 9v6M16 9v6M12 15v5"/></svg> Mostrar materiales
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="panels-container">
+            <!-- Panel Mano de Obra -->
+            <div class="panel">
+                <div class="panel-title"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-3a8 8 0 0 1 16 0v3M9 5v7M15 5v7"/><rect x="2" y="16" width="20" height="4" rx="2"/></svg> Mano de obra</div>
+                <div class="input-group">
+                    <label for="laborName">Descripción del trabajo:</label>
+                    <input type="text" id="laborName" placeholder="Ej: Pintura de paredes">
+                </div>
+                <div class="input-group">
+                    <label for="laborAmount">Monto (S/):</label>
+                    <input type="number" id="laborAmount" placeholder="0.00" step="0.01" min="0">
+                </div>
+                <button class="btn-add" onclick="addLabor()"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Agregar mano de obra</button>
+                <div class="items-list" id="laborList"></div>
+            </div>
+
+            <!-- Panel Materiales -->
+            <div class="panel">
+                <div class="panel-title"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 15h18M12 4v5M8 9v6M16 9v6M12 15v5"/></svg> Materiales</div>
+                <div class="input-group">
+                    <label for="materialName">Descripción del material:</label>
+                    <input type="text" id="materialName" placeholder="Ej: Cemento Portland">
+                </div>
+                <div class="input-group">
+                    <label for="materialAmount">Monto (S/):</label>
+                    <input type="number" id="materialAmount" placeholder="0.00" step="0.01" min="0">
+                </div>
+                <button class="btn-add" onclick="addMaterial()"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Agregar material</button>
+                <div class="items-list" id="materialList"></div>
+            </div>
+        </div>
+
+        <!-- Totales -->
+        <div id="finalTotals" class="summary-panel" style="display: none;">
+            <div class="summary-title"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 10h2M14 10h2M8 14h2M14 14h2M8 18h2M14 18h2"/></svg> Resumen del presupuesto</div>
+            
+            <div class="summary-row" id="laborSummaryRow">
+                <span class="summary-label">Subtotal Mano de Obra:</span>
+                <span class="summary-value" id="finalLaborSubtotal">S/ 0.00</span>
+            </div>
+            
+            <div class="summary-row" id="materialSummaryRow">
+                <span class="summary-label">Subtotal Materiales:</span>
+                <span class="summary-value" id="finalMaterialSubtotal">S/ 0.00</span>
+            </div>
+            
+            <div class="summary-row">
+                <span class="summary-label">Subtotal General:</span>
+                <span class="summary-value" id="finalSubtotal">S/ 0.00</span>
+            </div>
+            
+            <div class="summary-row" id="taxSummaryRow">
+                <span class="summary-label">Total Impuestos (8%):</span>
+                <span class="summary-value" id="finalTax">S/ 0.00</span>
+            </div>
+            
+            <div class="total-row">
+                <span class="total-label">TOTAL A PAGAR:</span>
+                <span class="total-value" id="grandTotal">S/ 0.00</span>
+            </div>
+        </div>
+
+        <button id="pdfBtn" class="btn-pdf" onclick="generatePDF()" style="display: none;">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h5"/></svg> Vista previa / guardar PDF
+        </button>
+    </div>
+
+    <dialog id="documentPreview" style="width:min(960px,95vw);height:92vh;max-height:92vh;margin:auto;border:1px solid #e6ebf2;border-radius:12px;padding:14px;background:#f4f7fc"><button onclick="document.getElementById('documentPreview').close()" style="background:white;border:1px solid #dce3ee;padding:10px 16px;border-radius:6px;color:#215bea;cursor:pointer;margin-bottom:12px"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 5-7 7 7 7M3 12h18"/></svg> Volver al presupuesto</button><iframe id="documentFrame" title="Vista previa del presupuesto" style="width:100%;height:calc(100% - 58px);border:0"></iframe></dialog>
+    <script src="documento.js"></script>
+    <script>
+        function escapeText(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+        let laborItems = [];
+        let materialItems = [];
+        
+        function addLabor() {
+            const name = document.getElementById('laborName').value.trim();
+            const amount = parseFloat(document.getElementById('laborAmount').value) || 0;
+            
+            if (name && amount > 0) {
+                const showTax = document.getElementById('showTaxOption').checked;
+                const tax = showTax ? amount * 0.08 : 0;
+                laborItems.push({
+                    id: Date.now(),
+                    name: name,
+                    amount: amount,
+                    tax: tax
+                });
+                
+                document.getElementById('laborName').value = '';
+                document.getElementById('laborAmount').value = '';
+                document.getElementById('laborName').focus();
+                
+                renderLabor();
+                updateTotals();
+            } else {
+                alert('Por favor, complete todos los campos correctamente');
+            }
+        }
+        
+        function deleteLabor(id) {
+            laborItems = laborItems.filter(item => item.id !== id);
+            renderLabor();
+            updateTotals();
+        }
+        
+        function renderLabor() {
+            const list = document.getElementById('laborList');
+            list.innerHTML = '';
+            
+            laborItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                
+                const showTax = document.getElementById('showTaxOption').checked;
+                
+                div.innerHTML = `
+                    <div class="item-header">
+                        <span class="item-name">${escapeText(item.name)}</span>
+                        <button class="delete-btn" onclick="deleteLabor(${item.id})"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></svg> Eliminar</button>
+                    </div>
+                    <div class="item-details">
+                        <span>Monto: S/ ${item.amount.toFixed(2)}</span>
+                        ${showTax ? `<span>Impuesto: S/ ${item.tax.toFixed(2)}</span>` : ''}
+                        <span>Total: S/ ${(item.amount + (showTax ? item.tax : 0)).toFixed(2)}</span>
+                    </div>
+                `;
+                
+                list.appendChild(div);
+            });
+        }
+        
+        function addMaterial() {
+            const name = document.getElementById('materialName').value.trim();
+            const amount = parseFloat(document.getElementById('materialAmount').value) || 0;
+            
+            if (name && amount > 0) {
+                const showTax = document.getElementById('showTaxOption').checked;
+                const tax = showTax ? amount * 0.08 : 0;
+                materialItems.push({
+                    id: Date.now(),
+                    name: name,
+                    amount: amount,
+                    tax: tax
+                });
+                
+                document.getElementById('materialName').value = '';
+                document.getElementById('materialAmount').value = '';
+                document.getElementById('materialName').focus();
+                
+                renderMaterials();
+                updateTotals();
+            } else {
+                alert('Por favor, complete todos los campos correctamente');
+            }
+        }
+        
+        function deleteMaterial(id) {
+            materialItems = materialItems.filter(item => item.id !== id);
+            renderMaterials();
+            updateTotals();
+        }
+        
+        function renderMaterials() {
+            const list = document.getElementById('materialList');
+            list.innerHTML = '';
+            
+            materialItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                
+                const showTax = document.getElementById('showTaxOption').checked;
+                
+                div.innerHTML = `
+                    <div class="item-header">
+                        <span class="item-name">${escapeText(item.name)}</span>
+                        <button class="delete-btn" onclick="deleteMaterial(${item.id})"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></svg> Eliminar</button>
+                    </div>
+                    <div class="item-details">
+                        <span>Monto: S/ ${item.amount.toFixed(2)}</span>
+                        ${showTax ? `<span>Impuesto: S/ ${item.tax.toFixed(2)}</span>` : ''}
+                        <span>Total: S/ ${(item.amount + (showTax ? item.tax : 0)).toFixed(2)}</span>
+                    </div>
+                `;
+                
+                list.appendChild(div);
+            });
+        }
+        
+        function updateTotals() {
+            // Recalcular impuestos para todos los items
+            const showTax = document.getElementById('showTaxOption').checked;
+            const showLabor = document.getElementById('showLaborOption').checked;
+            const showMaterial = document.getElementById('showMaterialOption').checked;
+            
+            // Actualizar impuestos en los arrays
+            laborItems.forEach(item => {
+                item.tax = showTax ? item.amount * 0.08 : 0;
+            });
+            
+            materialItems.forEach(item => {
+                item.tax = showTax ? item.amount * 0.08 : 0;
+            });
+            
+            // Re-renderizar listas
+            renderLabor();
+            renderMaterials();
+            
+            if (laborItems.length > 0 || materialItems.length > 0) {
+                const laborSubtotal = showLabor ? laborItems.reduce((sum, item) => sum + item.amount, 0) : 0;
+                const laborTax = showLabor ? laborItems.reduce((sum, item) => sum + item.tax, 0) : 0;
+                const materialSubtotal = showMaterial ? materialItems.reduce((sum, item) => sum + item.amount, 0) : 0;
+                const materialTax = showMaterial ? materialItems.reduce((sum, item) => sum + item.tax, 0) : 0;
+                const totalSubtotal = laborSubtotal + materialSubtotal;
+                const totalTax = laborTax + materialTax;
+                const grandTotal = totalSubtotal + totalTax;
+                
+                document.getElementById('finalLaborSubtotal').textContent = `S/ ${laborSubtotal.toFixed(2)}`;
+                document.getElementById('finalMaterialSubtotal').textContent = `S/ ${materialSubtotal.toFixed(2)}`;
+                document.getElementById('finalSubtotal').textContent = `S/ ${totalSubtotal.toFixed(2)}`;
+                document.getElementById('finalTax').textContent = `S/ ${totalTax.toFixed(2)}`;
+                document.getElementById('grandTotal').textContent = `S/ ${grandTotal.toFixed(2)}`;
+                
+                // Mostrar/ocultar filas según las opciones
+                document.getElementById('laborSummaryRow').style.display = showLabor ? 'flex' : 'none';
+                document.getElementById('materialSummaryRow').style.display = showMaterial ? 'flex' : 'none';
+                document.getElementById('taxSummaryRow').style.display = showTax ? 'flex' : 'none';
+                
+                document.getElementById('finalTotals').style.display = 'block';
+                document.getElementById('pdfBtn').style.display = 'block';
+            } else {
+                document.getElementById('finalTotals').style.display = 'none';
+                document.getElementById('pdfBtn').style.display = 'none';
+            }
+        }
+        
+        function generatePDF() {
+            const preview=document.getElementById('documentPreview');
+            const esc=v=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            const tax=document.getElementById('showTaxOption').checked;
+            const items=[...(document.getElementById('showLaborOption').checked?laborItems.map(x=>({...x,type:'Mano de obra'})):[]),...(document.getElementById('showMaterialOption').checked?materialItems.map(x=>({...x,type:'Materiales'})):[])];
+            const subtotal=items.reduce((s,x)=>s+x.amount,0);
+            const rows=items.map((x,i)=>`<tr><td>${String(i+1).padStart(2,'0')}</td><td>${esc(x.name)}<small>${x.type}</small></td><td class="money">S/ ${x.amount.toFixed(2)}</td></tr>`).join('');
+            document.getElementById('documentFrame').srcdoc=documentTemplate('PRESUPUESTO','PRE-001','Cliente por definir','Proyecto por definir',rows,subtotal,tax);preview.showModal();
+        }
+        document.getElementById('laborName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('laborAmount').focus();
+            }
+        });
+        
+        document.getElementById('laborAmount').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addLabor();
+            }
+        });
+        
+        document.getElementById('materialName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('materialAmount').focus();
+            }
+        });
+        
+        document.getElementById('materialAmount').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addMaterial();
+            }
+        });
+        
+        renderLabor();
+        renderMaterials();
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<resources>
+    <style name="Theme.Vilcas.Typography" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.Vilcas.DisplayLarge</item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.Vilcas.DisplayMedium</item>
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.Vilcas.DisplaySmall</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.Vilcas.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.Vilcas.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.Vilcas.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.Vilcas.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.Vilcas.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.Vilcas.TitleSmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.Vilcas.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.Vilcas.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.Vilcas.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.Vilcas.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.Vilcas.LabelMedium</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.Vilcas.LabelSmall</item>
+    </style>
+    <style name="TextAppearance.Vilcas.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+    <style name="TextAppearance.Vilcas.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
+    </style>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ <string name="app_name">Medina SQLite · Saiyajin</string>
+ <string name="registro">Registro de Saiyajin</string>
+ <string name="editar">Editar Saiyajin</string>
+ <string name="lista">Saiyajins registrados</string>
+ <string name="nombre">Nombre</string>
+ <string name="planeta">Planeta de origen</string>
+ <string name="transformacion">Transformación</string>
+ <string name="guardar">Registrar</string>
+ <string name="ver_lista">Ver Saiyajins</string>
+ <string name="actualizar">Actualizar</string>
+ <string name="eliminar">Eliminar</string>
+ <string name="volver">Volver</string>
+ <string name="agregar">Agregar Saiyajin</string>
+ <string name="vacio">Todavía no hay Saiyajins. Agrega el primero.</string>
+ <string name="ayuda">Toca un Saiyajin para editar o eliminar su registro.</string>
+ <string name="autor">Jhordan Diego Medina Casapayco · Semana 7</string>
+ <string name="identificador">ID</string>
+<string name="esfera_dragon">Esfera del dragón de siete estrellas</string>
+</resources>

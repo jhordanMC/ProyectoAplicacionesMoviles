@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@color/company_line"/>
+    <item android:state_selected="true"><shape><solid android:color="#E6F4EC"/></shape></item>
+    <item android:state_activated="true"><shape><solid android:color="#E6F4EC"/></shape></item>
+    <item><shape><solid android:color="#F6FAF8"/></shape></item>
+</selector>

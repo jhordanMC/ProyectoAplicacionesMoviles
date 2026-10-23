@@ -1,0 +1,9 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" style="@style/Company.Card" android:padding="18dp">
+<include layout="@layout/filter_component_search"/>
+<TextView style="@style/VilcasFilter.Label" android:layout_marginTop="14dp" android:text="@string/inventory_category" android:drawableStart="@drawable/company_ic_dashboard" android:drawableTint="#7AAA95"/>
+<Spinner android:id="@+id/inventoryCategoryFilter" style="@style/VilcasFilter.Field" android:spinnerMode="dropdown" android:contentDescription="@string/inventory_category"/>
+<TextView style="@style/VilcasFilter.Label" android:layout_marginTop="14dp" android:text="@string/sales_gender" android:drawableStart="@drawable/sales_ic_people" android:drawableTint="#7AAA95"/>
+<Spinner android:id="@+id/inventoryGenderFilter" style="@style/VilcasFilter.Field" android:spinnerMode="dropdown" android:contentDescription="@string/sales_gender"/>
+</LinearLayout>
+
+

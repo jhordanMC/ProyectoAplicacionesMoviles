@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/company_canvas">
+<LinearLayout android:id="@+id/companyPage" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"><include android:id="@+id/companyToolbar" layout="@layout/company_component_toolbar"/><androidx.fragment.app.FragmentContainerView android:id="@+id/companyContent" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/></LinearLayout>
+<FrameLayout android:id="@+id/companyDrawerOverlay" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone">
+<View android:id="@+id/companyDrawerScrim" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#73000000" android:clickable="true" android:focusable="true" android:contentDescription="@string/company_close_menu"/>
+<include android:id="@+id/companyDrawer" layout="@layout/company_component_drawer" android:layout_width="300dp" android:layout_height="match_parent" android:layout_gravity="start"/>
+</FrameLayout></FrameLayout>
+
