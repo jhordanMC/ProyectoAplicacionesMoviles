@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="36dp" android:paddingTop="4dp" android:paddingBottom="4dp" android:gravity="center_vertical" android:orientation="horizontal">
 <TextView android:id="@+id/paymentLabel" android:layout_width="96dp" android:layout_height="wrap_content" android:textSize="13sp" android:textColor="@color/company_ink" android:textStyle="bold"/>
-<com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/paymentProgress" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:max="100" app:trackThickness="12dp" app:trackCornerRadius="6dp" app:indicatorColor="#05A8F4" app:trackColor="#E1F5FF"/>
+<com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/paymentProgress" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:max="100" app:trackThickness="12dp" app:trackCornerRadius="6dp" app:indicatorColor="#05A8F4" app:trackColor="@color/vl_track_blue"/>
 <TextView android:id="@+id/paymentCount" android:layout_width="wrap_content" android:minWidth="32dp" android:layout_height="wrap_content" android:gravity="end" android:textColor="@color/company_ink" android:textStyle="bold" android:textSize="13sp"/>
 </LinearLayout>

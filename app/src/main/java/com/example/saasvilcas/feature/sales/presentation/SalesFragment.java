@@ -29,10 +29,11 @@ public final class SalesFragment extends Fragment {
     private List<SalesProduct> renderedProducts;
     private int renderedColumns;
     private boolean cartExpanded;
+    private com.example.saasvilcas.shared.ui.CardGrid productCards;
     public SalesFragment() { super(R.layout.fragment_sales); }
     @Override public void onViewCreated(@NonNull View view,@Nullable Bundle state) {
         com.example.saasvilcas.shared.ui.FilterPanelController.bind(this,view,"sales");
-        renderedProducts=null;
+        renderedProducts=null; productCards=null;
         // Company scope retains the preview cart when navigating to another section.
         model=new ViewModelProvider(requireParentFragment(),SalesViewModel.factory(
                 ((com.example.saasvilcas.VilcasApplication)requireActivity().getApplication()).sales)).get(SalesViewModel.class);
@@ -169,23 +170,15 @@ public final class SalesFragment extends Fragment {
                 && model.state().getValue().message.isEmpty()?View.VISIBLE:View.GONE);
         if(columns==renderedColumns&&products.equals(renderedProducts)) return;
         renderedProducts=new ArrayList<>(products); renderedColumns=columns;
-        grid.removeAllViews(); grid.setColumnCount(columns);
-        for(int index=0;index<products.size();index++) {
-            SalesProduct product=products.get(index);
-            View card=getLayoutInflater().inflate(R.layout.sales_item_product,grid,false);
+        if(productCards==null) productCards=new com.example.saasvilcas.shared.ui.CardGrid(grid,R.layout.sales_item_product);
+        productCards.render(products,columns,dp(6),dp(12),true,(card,product,index)->{
             label(card,R.id.salesProductName,product.name);
             label(card,R.id.salesProductPrice,money(product.priceCents));
             label(card,R.id.salesProductStock,getString(R.string.sales_stock,product.stock));
             card.findViewById(R.id.salesProductNoPhoto).setVisibility(product.imageUrl.isEmpty()?View.VISIBLE:View.GONE);
             com.example.saasvilcas.shared.ui.ProductImageLoader.load(card.findViewById(R.id.salesProductImage),product.imageUrl);
-            card.setOnClickListener(button->CartItemEditor.show(this,product,null));
-            GridLayout.LayoutParams params=new GridLayout.LayoutParams();
-            params.width=0; params.height=GridLayout.LayoutParams.WRAP_CONTENT;
-            params.columnSpec=GridLayout.spec(index%columns,1f); params.rowSpec=GridLayout.spec(index/columns);
-            params.setMargins(index%columns==0?0:dp(6),0,index%columns==columns-1?0:dp(6),dp(12));
-            card.setLayoutParams(params); grid.addView(card);
-        }
-        com.example.saasvilcas.shared.ui.ViewEntranceAnimator.play(grid);
+            card.setOnClickListener(button->{ com.example.saasvilcas.shared.ui.UiSounds.tap(button); CartItemEditor.show(this,product,null); });
+        });
     }
     private void renderCart(View view) {
         LinearLayout rows=view.findViewById(R.id.salesCartItems); rows.removeAllViews();

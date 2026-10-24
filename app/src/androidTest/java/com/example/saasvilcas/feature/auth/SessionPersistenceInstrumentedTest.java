@@ -41,6 +41,16 @@ public class SessionPersistenceInstrumentedTest {
         assertTrue(afterForget.accounts().isEmpty());
         persistence.write(new SessionStore.Snapshot("",Collections.emptyList())); file.delete();
     }
+    @Test public void inventoryRoleSurvivesRestart() throws Exception {
+        android.content.Context context=InstrumentationRegistry.getInstrumentation().getTargetContext();
+        String name="sessions-test-"+UUID.randomUUID();
+        EncryptedSessionPersistence persistence=new EncryptedSessionPersistence(context,name);
+        SessionStore store=new SessionStore();store.attach(persistence);
+        store.set(new AuthSession("a","r","stock","company","Prueba","test@example.com","Tienda",Collections.singletonList("Inventario")));
+        SessionStore restarted=new SessionStore();restarted.attach(new EncryptedSessionPersistence(context,name));
+        assertTrue(restarted.get().canSeeInventory());assertFalse(restarted.get().canSeeSales());assertFalse(restarted.get().owner);
+        persistence.write(new SessionStore.Snapshot("",Collections.emptyList()));new File(context.getNoBackupFilesDir(),name+".bin").delete();
+    }
     @Test public void tamperedSnapshotCannotRestoreTokens() throws Exception {
         android.content.Context context=InstrumentationRegistry.getInstrumentation().getTargetContext();
         String name="sessions-test-"+UUID.randomUUID();

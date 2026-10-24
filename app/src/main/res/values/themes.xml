@@ -1,4 +1,7 @@
 <resources>
     <style name="Base.Theme.SaaSVilcas" parent="Theme.Vilcas.Typography" />
-    <style name="Theme.SaaSVilcas" parent="Base.Theme.SaaSVilcas" />
+    <!-- The starting window shows the login photo instead of a blank surface; MainActivity clears it once its own backdrop is in place. -->
+    <style name="Theme.SaaSVilcas" parent="Base.Theme.SaaSVilcas">
+        <item name="android:windowBackground">@drawable/fondoaaas</item>
+    </style>
 </resources>

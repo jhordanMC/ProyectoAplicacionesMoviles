@@ -28,6 +28,7 @@ public final class SidebarAnimator {
     public void open() {
         if (disposed || opening) return;
         opening = true;
+        UiSounds.swipe();
         visibilityChanged.accept(true);
         int current = ++transition;
         cancelAnimations();
@@ -42,7 +43,7 @@ public final class SidebarAnimator {
             if (disposed || current != transition) return;
             if (wasHidden) drawer.setTranslationX(hiddenOffset());
             drawer.animate().translationX(0f).setDuration(DRAWER_DURATION_MS)
-                    .setInterpolator(DRAWER_EASING)
+                    .setInterpolator(DRAWER_EASING).withLayer()
                     .withEndAction(() -> {
                         if (!disposed && current == transition) closeButton.requestFocus();
                     }).start();
@@ -54,10 +55,11 @@ public final class SidebarAnimator {
     public void close() {
         if (disposed || !opening) return;
         opening = false;
+        UiSounds.swipe();
         int current = ++transition;
         cancelAnimations();
         drawer.animate().translationX(hiddenOffset()).setDuration(DRAWER_DURATION_MS)
-                .setInterpolator(DRAWER_EASING)
+                .setInterpolator(DRAWER_EASING).withLayer()
                 .withEndAction(() -> {
                     if (disposed || current != transition) return;
                     overlay.setVisibility(View.GONE);

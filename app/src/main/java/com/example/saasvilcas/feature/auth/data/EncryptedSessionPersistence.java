@@ -41,9 +41,12 @@ public final class EncryptedSessionPersistence implements SessionStore.Persisten
             JSONArray rows=root.getJSONArray("accounts"); List<AuthSession> accounts=new ArrayList<>();
             for(int i=0;i<rows.length();i++) {
                 JSONObject row=rows.getJSONObject(i);
+                List<String> roles=new ArrayList<>(); JSONArray saved=row.optJSONArray("roles");
+                if(saved!=null) for(int j=0;j<saved.length();j++) roles.add(saved.getString(j));
+                // Snapshots written before multi-role support only stored the owner flag.
+                else roles.add(row.getBoolean("owner")?AuthSession.OWNER_ROLE:AuthSession.SELLER_ROLE);
                 accounts.add(new AuthSession(row.getString("access"),row.getString("refresh"),row.getString("id"),row.getString("company"),
-                        row.getString("name"),row.getString("email"),row.getString("companyName"),
-                        Collections.singletonList(row.getBoolean("owner")?"Dueño de empresa":"Vendedor")));
+                        row.getString("name"),row.getString("email"),row.getString("companyName"),roles));
             }
             return new SessionStore.Snapshot(root.optString("active",""),accounts);
         } catch(Exception invalid) {
@@ -56,7 +59,7 @@ public final class EncryptedSessionPersistence implements SessionStore.Persisten
             JSONArray rows=new JSONArray();
             for(AuthSession session:snapshot.accounts) rows.put(new JSONObject().put("access",session.accessToken).put("refresh",session.refreshToken)
                     .put("id",session.userId).put("company",session.companyId).put("name",session.name).put("email",session.email)
-                    .put("companyName",session.companyName).put("owner",session.owner));
+                    .put("companyName",session.companyName).put("owner",session.owner).put("roles",new JSONArray(session.roles)));
             byte[] plain=new JSONObject().put("active",snapshot.activeId).put("accounts",rows).toString().getBytes(StandardCharsets.UTF_8);
             Cipher cipher=Cipher.getInstance("AES/GCM/NoPadding"); cipher.init(Cipher.ENCRYPT_MODE,key());
             byte[] encrypted=cipher.doFinal(plain);

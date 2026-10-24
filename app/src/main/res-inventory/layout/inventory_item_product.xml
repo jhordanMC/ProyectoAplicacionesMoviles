@@ -5,10 +5,10 @@
 <ImageView android:id="@+id/inventoryImage" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:contentDescription="@string/dashboard_product_illustration"/>
 </FrameLayout>
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
-<TextView android:id="@+id/inventoryName" style="@style/Inventory.Text" android:minHeight="52dp" android:textColor="#05833B" android:textStyle="bold"/>
+<TextView android:id="@+id/inventoryName" style="@style/Inventory.Text" android:minHeight="52dp" android:textColor="@color/vl_text_green" android:textStyle="bold"/>
 <TextView android:id="@+id/inventoryTags" style="@style/Inventory.Text" android:textSize="11sp" android:layout_marginTop="8dp"/>
 <TextView android:id="@+id/inventorySupplier" style="@style/Inventory.Text" android:textSize="11sp" android:layout_marginTop="8dp"/>
-<TextView android:id="@+id/inventoryPrice" style="@style/Inventory.Text" android:textColor="#05833B" android:textStyle="bold" android:layout_marginTop="12dp"/>
+<TextView android:id="@+id/inventoryPrice" style="@style/Inventory.Text" android:textColor="@color/vl_text_green" android:textStyle="bold" android:layout_marginTop="12dp"/>
 <TextView android:id="@+id/inventoryStock" style="@style/Inventory.Text" android:textSize="11sp" android:textColor="@color/company_muted" android:layout_marginTop="10dp" android:layout_marginBottom="12dp"/>
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
 <androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryEdit" style="@style/Inventory.Action" android:layout_width="0dp" android:layout_weight="1" android:text="@string/inventory_edit"/>

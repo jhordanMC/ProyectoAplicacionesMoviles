@@ -138,8 +138,9 @@ public final class CartItemEditor extends SalesModalFragment {
                     if(chosen==null) throw new IllegalArgumentException("Selecciona una talla y sede con stock.");
                     model.put(key,product,chosen,count,reduction);
                 } else model.put(key, product, size.getSelectedItem().toString(), site.getSelectedItem().toString(), count, reduction);
+                com.example.saasvilcas.shared.ui.UiSounds.add();
                 getParentFragmentManager().setFragmentResult(UPDATED, new Bundle()); dismiss();
-            } catch (IllegalArgumentException error) { ((TextView)form.findViewById(R.id.salesDialogError)).setText(error.getMessage()==null?getString(R.string.sales_invalid_quantity):error.getMessage()); }
+            } catch (IllegalArgumentException error) { com.example.saasvilcas.shared.ui.UiSounds.error(); ((TextView)form.findViewById(R.id.salesDialogError)).setText(error.getMessage()==null?getString(R.string.sales_invalid_quantity):error.getMessage()); }
         });
     }
     private long discountCents(EditText field) {

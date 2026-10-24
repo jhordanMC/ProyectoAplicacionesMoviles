@@ -37,6 +37,7 @@
     <string name="preview_role_description">Selecciona una vista para revisar el diseño. El rol real se obtendrá del servidor al conectar el acceso.</string>
     <string name="owner_role">Dueño</string>
     <string name="seller_role">Vendedor</string>
+    <string name="inventory_role">Inventario</string>
     <string name="cancel">Cancelar</string>
     <string name="exit_preview">Salir</string>
     <string name="owner_preview">Empresa de demostración · Dueño</string>

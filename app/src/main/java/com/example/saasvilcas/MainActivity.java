@@ -20,6 +20,31 @@ public class MainActivity extends AppCompatActivity implements FrontendNavigator
 
     private android.animation.ObjectAnimator logoRotation;
     private boolean brandLoading;
+    /** Last frame of the previous theme, faded out over the recreated activity. */
+    private static android.graphics.Bitmap themeSnapshot;
+
+    public void switchTheme(int mode) {
+        android.view.View decor=getWindow().getDecorView();
+        if(decor.getWidth()>0 && decor.getHeight()>0 && (Build.VERSION.SDK_INT<26 || android.animation.ValueAnimator.areAnimatorsEnabled())) {
+            try {
+                android.graphics.Bitmap frame=android.graphics.Bitmap.createBitmap(decor.getWidth(),decor.getHeight(),android.graphics.Bitmap.Config.ARGB_8888);
+                decor.draw(new android.graphics.Canvas(frame));
+                themeSnapshot=frame;
+            } catch(RuntimeException | OutOfMemoryError ignored) { themeSnapshot=null; }
+        }
+        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(mode);
+    }
+    private void fadeThemeSnapshot() {
+        android.graphics.Bitmap frame=themeSnapshot; themeSnapshot=null;
+        if(frame==null) return;
+        android.view.ViewGroup decor=(android.view.ViewGroup)getWindow().getDecorView();
+        android.widget.ImageView cover=new android.widget.ImageView(this);
+        cover.setImageBitmap(frame); cover.setScaleType(android.widget.ImageView.ScaleType.FIT_XY);
+        decor.addView(cover,new android.view.ViewGroup.LayoutParams(-1,-1));
+        cover.animate().alpha(0f).setStartDelay(60).setDuration(320).withLayer()
+                .setInterpolator(new android.view.animation.DecelerateInterpolator())
+                .withEndAction(()->{ decor.removeView(cover); frame.recycle(); }).start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements FrontendNavigator
         bars.setAppearanceLightStatusBars(false);
         bars.setAppearanceLightNavigationBars(false);
         setContentView(R.layout.activity_host);
+        // windowBackdrop paints every screen; dropping the window background avoids drawing the photo twice.
+        getWindow().setBackgroundDrawable(null);
+        fadeThemeSnapshot();
         getSupportFragmentManager().registerFragmentLifecycleCallbacks(new FragmentManager.FragmentLifecycleCallbacks() {
             @Override public void onFragmentViewCreated(FragmentManager manager, Fragment fragment,
                     android.view.View view, Bundle state) {

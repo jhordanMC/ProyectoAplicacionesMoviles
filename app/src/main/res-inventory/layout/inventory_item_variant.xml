@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="14dp" android:background="@drawable/inventory_bg_field" android:layout_marginTop="10dp">
-<TextView android:id="@+id/inventoryVariantSummary" style="@style/Inventory.Text" android:textColor="#103D33" android:lineSpacingExtra="6dp"/>
+<TextView android:id="@+id/inventoryVariantSummary" style="@style/Inventory.Text" android:textColor="@color/vl_text_ink2" android:lineSpacingExtra="6dp"/>
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:layout_marginTop="8dp">
-<ImageButton android:id="@+id/inventoryVariantEdit" android:layout_width="40dp" android:layout_height="40dp" android:padding="11dp" android:src="@drawable/sales_ic_edit" android:tint="#05833B" android:background="@drawable/modal_bg_button" android:contentDescription="@string/inventory_edit"/>
+<ImageButton android:id="@+id/inventoryVariantEdit" android:layout_width="40dp" android:layout_height="40dp" android:padding="11dp" android:src="@drawable/sales_ic_edit" android:tint="@color/vl_text_green" android:background="@drawable/modal_bg_button" android:contentDescription="@string/inventory_edit"/>
 <ImageButton android:id="@+id/inventoryVariantDelete" android:layout_width="40dp" android:layout_height="40dp" android:layout_marginStart="8dp" android:padding="11dp" android:src="@drawable/inventory_ic_delete" android:background="@drawable/modal_bg_danger" android:contentDescription="@string/inventory_delete"/>
 </LinearLayout></LinearLayout>
 

@@ -1,4 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginBottom="8dp">
 <TextView android:id="@+id/confirmationFieldLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#7A9D92" android:textSize="11sp"/>
-<TextView android:id="@+id/confirmationFieldValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#024B40" android:textStyle="bold" android:textSize="12sp" android:layout_marginTop="3dp"/>
+<TextView android:id="@+id/confirmationFieldValue" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/vl_text_deep" android:textStyle="bold" android:textSize="12sp" android:layout_marginTop="3dp"/>
 </LinearLayout>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" style="@style/Company.Card" android:padding="8dp" android:layout_marginBottom="0dp" android:elevation="8dp">
 <LinearLayout android:id="@+id/salesCartToggle" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48dp" android:orientation="horizontal" android:gravity="center_vertical" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground">
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sales_cart" android:textSize="18sp" android:textStyle="bold" android:textColor="#209A55"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sales_cart" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/vl_text_green_soft"/>
 <TextView android:id="@+id/salesCartCount" android:layout_width="32dp" android:layout_height="32dp" android:layout_marginStart="16dp" android:gravity="center" android:background="@drawable/company_bg_period" android:textColor="@android:color/white" android:textSize="18sp" android:textStyle="bold"/>
-<TextView android:id="@+id/salesCartCompactTotal" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="end" android:layout_marginStart="8dp" android:textColor="#209A55" android:textSize="14sp" android:textStyle="bold"/>
+<TextView android:id="@+id/salesCartCompactTotal" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="end" android:layout_marginStart="8dp" android:textColor="@color/vl_text_green_soft" android:textSize="14sp" android:textStyle="bold"/>
 <ImageView android:id="@+id/salesCartChevron" android:layout_width="32dp" android:layout_height="32dp" android:padding="6dp" android:layout_marginStart="8dp" android:src="@drawable/sales_ic_chevron" android:importantForAccessibility="no"/></LinearLayout><ScrollView android:id="@+id/salesCartBody" android:layout_width="match_parent" android:layout_height="wrap_content" android:visibility="gone" android:fillViewport="false">
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
 <LinearLayout android:id="@+id/salesCartEmpty" android:layout_width="match_parent" android:layout_height="180dp" android:gravity="center" android:orientation="vertical">
@@ -13,10 +13,10 @@
 <LinearLayout android:id="@+id/salesCartItems" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="vertical"/>
 <View android:id="@+id/salesCartDivider" android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="16dp" android:layout_marginBottom="12dp" android:background="@color/company_line"/>
 <LinearLayout android:id="@+id/salesCartTotals" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-<TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/sales_total" android:textColor="#209A55" android:textSize="18sp" android:textStyle="bold"/>
-<TextView android:id="@+id/salesCartTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#209A55" android:textSize="18sp" android:textStyle="bold"/>
+<TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/sales_total" android:textColor="@color/vl_text_green_soft" android:textSize="18sp" android:textStyle="bold"/>
+<TextView android:id="@+id/salesCartTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/vl_text_green_soft" android:textSize="18sp" android:textStyle="bold"/>
 </LinearLayout>
-<androidx.appcompat.widget.AppCompatButton android:id="@+id/salesCheckout" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="12dp" android:background="@drawable/sales_bg_checkout" android:backgroundTint="@null" android:textColor="#153E31" android:textSize="16sp" android:textStyle="bold" android:textAllCaps="false" android:stateListAnimator="@null"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/salesCheckout" android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="12dp" android:background="@drawable/sales_bg_checkout" android:backgroundTint="@null" android:textColor="@color/vl_text_ink2" android:textSize="16sp" android:textStyle="bold" android:textAllCaps="false" android:stateListAnimator="@null"/>
 </LinearLayout></ScrollView></LinearLayout>
 
 

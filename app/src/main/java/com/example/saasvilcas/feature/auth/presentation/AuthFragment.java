@@ -124,6 +124,7 @@ public class AuthFragment extends Fragment {
         ((com.example.saasvilcas.MainActivity)requireActivity()).setAuthLoading(state.busy(),state.message);
         TextView message=view.findViewById(R.id.authMessage);
         message.setText(state.message); message.setTextColor(state.busy()?0xff7AAA95:0xffB3261E);
+        if(!state.busy() && !state.message.isEmpty()) com.example.saasvilcas.shared.ui.UiSounds.forEvent(state,com.example.saasvilcas.shared.ui.UiSounds::error);
     }
     private void bindRecovery(View view) {
         com.example.saasvilcas.VilcasApplication app=(com.example.saasvilcas.VilcasApplication)requireActivity().getApplication();
@@ -148,6 +149,8 @@ public class AuthFragment extends Fragment {
             submit.setTextColor(state.sent?0xff4A6A60:0xffFFFFFF);
             submit.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,state.sent?0:R.drawable.ic_arrow_forward,0);
             TextView error=view.findViewById(R.id.recoveryError);error.setText(state.error);error.setVisibility(state.error.isEmpty()?View.GONE:View.VISIBLE);
+            if(!state.busy) com.example.saasvilcas.shared.ui.UiSounds.forEvent(state,!state.error.isEmpty()?com.example.saasvilcas.shared.ui.UiSounds::error:
+                    state.sent?com.example.saasvilcas.shared.ui.UiSounds::success:()->{});
             if(state.sent) {
                 ((TextView)view.findViewById(R.id.recoveryHeading)).setText("¡Revisa tu correo!");
                 ((android.widget.ImageView)view.findViewById(R.id.recoveryIcon)).setImageResource(R.drawable.recovery_check);
@@ -186,7 +189,10 @@ public class AuthFragment extends Fragment {
             if(state.stage==AuthViewModel.Stage.AUTHENTICATED && !navigating) {
                 com.example.saasvilcas.feature.auth.domain.AuthSession session=
                     ((com.example.saasvilcas.VilcasApplication)requireActivity().getApplication()).sessions.get();
-                if(session!=null) { navigating=true; navigator().showCompany(session.owner); }
+                if(session!=null) {
+                    navigating=true; com.example.saasvilcas.shared.ui.UiSounds.forEvent(state,com.example.saasvilcas.shared.ui.UiSounds::success);
+                    navigator().showCompany(session.owner);
+                }
             }
         });
         updateCountdown(code, time, back);

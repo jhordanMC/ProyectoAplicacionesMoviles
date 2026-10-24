@@ -1,10 +1,10 @@
 <resources>
 <style name="Inventory"/>
 <style name="Inventory.Text"><item name="android:layout_width">match_parent</item><item name="android:layout_height">wrap_content</item><item name="android:textColor">@color/company_ink</item><item name="android:textSize">13sp</item><item name="fontFamily">@font/inter</item></style>
-<style name="Inventory.Field" parent="Sales.Field"><item name="android:layout_height">44dp</item><item name="android:background">@drawable/inventory_bg_field</item><item name="android:backgroundTint">@null</item><item name="android:textColor">#103D33</item><item name="android:textColorHint">#8AA6A0</item><item name="android:textSize">13sp</item><item name="fontFamily">@font/inter</item><item name="android:layout_marginBottom">10dp</item></style>
+<style name="Inventory.Field" parent="Sales.Field"><item name="android:layout_height">44dp</item><item name="android:background">@drawable/inventory_bg_field</item><item name="android:backgroundTint">@null</item><item name="android:textColor">@color/vl_text_ink2</item><item name="android:textColorHint">#8AA6A0</item><item name="android:textSize">13sp</item><item name="fontFamily">@font/inter</item><item name="android:layout_marginBottom">10dp</item></style>
 <style name="Inventory.Action" parent="VilcasModal.Button"><item name="android:layout_height">44dp</item><item name="android:textSize">12sp</item><item name="fontFamily">@font/inter</item></style>
 <style name="Inventory.Primary" parent="Inventory.Action"><item name="android:background">@drawable/inventory_bg_primary</item><item name="android:textColor">@android:color/white</item><item name="android:textSize">13sp</item></style>
-<style name="Inventory.Secondary" parent="Inventory.Action"><item name="android:background">@drawable/inventory_bg_secondary</item><item name="android:textColor">#05833B</item><item name="android:textStyle">bold</item></style>
-<style name="Inventory.Cancel" parent="Inventory.Action"><item name="android:background">@drawable/inventory_bg_cancel</item><item name="android:textColor">#4B5A63</item></style>
+<style name="Inventory.Secondary" parent="Inventory.Action"><item name="android:background">@drawable/inventory_bg_secondary</item><item name="android:textColor">@color/vl_text_green</item><item name="android:textStyle">bold</item></style>
+<style name="Inventory.Cancel" parent="Inventory.Action"><item name="android:background">@drawable/inventory_bg_cancel</item><item name="android:textColor">@color/vl_text_slate</item></style>
 </resources>
 

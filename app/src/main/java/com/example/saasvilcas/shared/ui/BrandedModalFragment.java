@@ -105,6 +105,7 @@ public abstract class BrandedModalFragment extends DialogFragment {
         }
         applyTypography(shell, ResourcesCompat.getFont(requireContext(), R.font.inter));
         ViewEntranceAnimator.play(fullScreen() ? shell : body);
+        if(state==null) UiSounds.open();
         return shell;
     }
     private void applyTypography(View view, Typeface font) {
@@ -140,7 +141,7 @@ public abstract class BrandedModalFragment extends DialogFragment {
         if(motionEnabled()) {
             content.setAlpha(0f);
             content.setScaleX(.96f); content.setScaleY(.96f);
-            content.animate().alpha(1f).scaleX(1f).scaleY(1f)
+            content.animate().alpha(1f).scaleX(1f).scaleY(1f).withLayer()
                     .setDuration(220).setInterpolator(new android.view.animation.DecelerateInterpolator()).start();
         }
     }
@@ -181,6 +182,7 @@ public abstract class BrandedModalFragment extends DialogFragment {
         return android.os.Build.VERSION.SDK_INT<26 || android.animation.ValueAnimator.areAnimatorsEnabled();
     }
     @Override public void dismiss() {
+        if(!closing) UiSounds.close();
         View content=getView();
         if(!getShowsDialog() || content==null || !content.isAttachedToWindow() || !motionEnabled()) {
             super.dismiss(); return;
@@ -188,7 +190,7 @@ public abstract class BrandedModalFragment extends DialogFragment {
         if(closing) return;
         closing=true;
         content.animate().cancel();
-        content.animate().alpha(0f).scaleX(.96f).scaleY(.96f).setDuration(150)
+        content.animate().alpha(0f).scaleX(.96f).scaleY(.96f).setDuration(150).withLayer()
                 .setInterpolator(new android.view.animation.AccelerateInterpolator())
                 .withEndAction(()->BrandedModalFragment.super.dismiss()).start();
     }

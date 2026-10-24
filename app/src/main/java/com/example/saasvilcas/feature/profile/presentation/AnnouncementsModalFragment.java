@@ -36,7 +36,7 @@ public final class AnnouncementsModalFragment extends BrandedModalFragment {
         model.announcementsError.observe(getViewLifecycleOwner(),message->{if(error!=null&&!message.isEmpty()) error.setText(message);});
         model.operation.observe(getViewLifecycleOwner(),status->{
             if(!status.kind.equals("vote")&&!status.kind.equals("seen")) return;
-            if(error!=null) {error.setText(status.busy?"Guardando voto…":status.error);error.setTextColor(status.busy?0xff024B40:0xffEF4444);}
+            if(error!=null) {error.setText(status.busy?"Guardando voto…":status.error);error.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),status.busy?R.color.vl_text_deep:R.color.vl_negative));}
             ProfileUi.busy(body,status.busy);
             if(status.success) {model.resetOperation();model.reloadAnnouncements();}
         });

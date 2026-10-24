@@ -16,11 +16,11 @@ public abstract class SalesModalFragment extends BrandedModalFragment {
     @Override public void onViewCreated(@NonNull View view,Bundle state) {
         super.onViewCreated(view,state);
         tintBrand(view.findViewById(R.id.modalBrandHeader));
-        ((ImageButton)view.findViewById(R.id.modalCloseIcon)).setImageTintList(android.content.res.ColorStateList.valueOf(0xff024B40));
+        ((ImageButton)view.findViewById(R.id.modalCloseIcon)).setImageTintList(androidx.core.content.ContextCompat.getColorStateList(requireContext(),R.color.vl_text_deep));
     }
     private void tintBrand(View view) {
         if(view==null) return;
-        if(view instanceof TextView && !"A".contentEquals(((TextView)view).getText())) ((TextView)view).setTextColor(0xff024B40);
+        if(view instanceof TextView && !"A".contentEquals(((TextView)view).getText())) ((TextView)view).setTextColor(androidx.core.content.ContextCompat.getColor(view.getContext(),R.color.vl_text_deep));
         if(view instanceof ViewGroup) { ViewGroup group=(ViewGroup)view; for(int i=0;i<group.getChildCount();i++) tintBrand(group.getChildAt(i)); }
     }
     @Override public void onStart() {

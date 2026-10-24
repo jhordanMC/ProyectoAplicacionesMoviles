@@ -7,7 +7,7 @@
 <TextView style="@style/Checkout.Label" android:text="@string/checkout_register"/>
 <Spinner android:id="@+id/checkoutRegister" style="@style/VilcasFilter.Field" android:spinnerMode="dropdown" android:contentDescription="@string/checkout_register"/>
 <TextView style="@style/Checkout.Label" android:text="@string/checkout_method"/>
-<TextView android:id="@+id/checkoutSplitToggle" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="40dp" android:gravity="center_vertical" android:text="@string/checkout_split" android:textColor="#159B4A" android:textSize="12sp" android:textStyle="bold" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground"/>
+<TextView android:id="@+id/checkoutSplitToggle" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="40dp" android:gravity="center_vertical" android:text="@string/checkout_split" android:textColor="@color/vl_text_green_mid" android:textSize="12sp" android:textStyle="bold" android:clickable="true" android:focusable="true" android:background="?attr/selectableItemBackground"/>
 <LinearLayout android:id="@+id/checkoutMethods" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
 <androidx.appcompat.widget.AppCompatButton android:id="@+id/checkoutCash" style="@style/Checkout.Payment" android:text="Efectivo" android:drawableStart="@drawable/checkout_ic_cash" app:drawableTint="@color/checkout_payment_text" android:layout_marginEnd="8dp"/>
@@ -24,7 +24,7 @@
 <TextView android:id="@+id/checkoutChange" android:layout_width="match_parent" android:layout_height="44dp" android:gravity="center_vertical" android:padding="12dp" android:layout_marginTop="10dp" android:background="@drawable/checkout_bg_total" android:textColor="@color/sales_modal_success" android:textSize="13sp" android:accessibilityLiveRegion="polite"/>
 </LinearLayout>
 <TextView android:id="@+id/checkoutError" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="#EF4444" android:textSize="12sp" android:layout_marginTop="8dp" android:visibility="gone" android:accessibilityLiveRegion="polite"/>
-<View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E5EDE9" android:layout_marginTop="12dp" android:layout_marginBottom="10dp"/>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/vl_sunken" android:layout_marginTop="12dp" android:layout_marginBottom="10dp"/>
 <androidx.appcompat.widget.AppCompatButton android:id="@+id/checkoutContinue" style="@style/SalesModal.Button" android:background="@drawable/sales_modal_primary" android:textColor="#FFFFFF" android:text="@string/checkout_continue"/>
 <androidx.appcompat.widget.AppCompatButton android:id="@+id/checkoutCancel" style="@style/SalesModal.Button" android:layout_marginTop="8dp" android:text="@string/cancel" android:textColor="@color/sales_modal_brand"/>
 </LinearLayout>

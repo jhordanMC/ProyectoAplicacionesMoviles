@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="16dp">
-<TextView style="@style/Inventory.Text" android:text="@string/inventory_variants" android:textColor="#103D33" android:textStyle="bold"/>
-<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryVariantAdd" style="@style/Inventory.Action" android:text="@string/inventory_variant_add" android:textColor="#05833B" android:layout_marginTop="8dp"/>
+<TextView style="@style/Inventory.Text" android:text="@string/inventory_variants" android:textColor="@color/vl_text_ink2" android:textStyle="bold"/>
+<androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryVariantAdd" style="@style/Inventory.Action" android:text="@string/inventory_variant_add" android:textColor="@color/vl_text_green" android:layout_marginTop="8dp"/>
 <TextView android:id="@+id/inventoryVariantEmpty" style="@style/Inventory.Text" android:text="@string/inventory_variant_empty" android:textColor="#8AA6A0" android:padding="16dp"/>
 <LinearLayout android:id="@+id/inventoryVariantRows" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
-<TextView android:id="@+id/inventoryVariantTotals" style="@style/Inventory.Text" android:textColor="#05833B" android:padding="12dp" android:background="@drawable/inventory_bg_field" android:layout_marginTop="12dp"/>
+<TextView android:id="@+id/inventoryVariantTotals" style="@style/Inventory.Text" android:textColor="@color/vl_text_green" android:padding="12dp" android:background="@drawable/inventory_bg_field" android:layout_marginTop="12dp"/>
 </LinearLayout>
 

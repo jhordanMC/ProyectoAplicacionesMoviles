@@ -6,7 +6,7 @@
 <ImageView android:id="@+id/salesProductImage" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="centerCrop" android:contentDescription="@string/dashboard_product_illustration"/>
 </FrameLayout>
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp" android:orientation="vertical">
-<TextView android:id="@+id/salesProductName" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="52dp" android:fontFamily="@font/inter" android:textSize="13sp" android:textStyle="bold" android:textColor="#05833B"/>
-<TextView android:id="@+id/salesProductPrice" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:fontFamily="@font/inter" android:textSize="13sp" android:textStyle="bold" android:textColor="#05833B"/>
+<TextView android:id="@+id/salesProductName" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="52dp" android:fontFamily="@font/inter" android:textSize="13sp" android:textStyle="bold" android:textColor="@color/vl_text_green"/>
+<TextView android:id="@+id/salesProductPrice" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:fontFamily="@font/inter" android:textSize="13sp" android:textStyle="bold" android:textColor="@color/vl_text_green"/>
 <TextView android:id="@+id/salesProductStock" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_marginBottom="12dp" android:fontFamily="@font/inter" android:textSize="11sp" android:textColor="@color/company_muted"/>
 </LinearLayout></LinearLayout></com.google.android.material.card.MaterialCardView>

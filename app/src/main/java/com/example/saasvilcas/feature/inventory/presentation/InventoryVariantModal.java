@@ -24,7 +24,7 @@ public final class InventoryVariantModal extends InventoryModalFragment {
         int index=requireArguments().getInt("index");
         List<InventoryVariant> draft=parent.draftVariants(); InventoryVariant current=index<0?null:draft.get(index);
         TextView title=content.findViewById(R.id.inventoryModalTitle);
-        title.setText(index<0?"Agregar talla y stock":"Editar talla y stock"); title.setTextColor(0xff05833B); title.setTextSize(16);
+        title.setText(index<0?"Agregar talla y stock":"Editar talla y stock"); title.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_green)); title.setTextSize(16);
         InventoryForm form=new InventoryForm(content);
         EditText size=form.text("Talla (opcional)",current==null?"":current.size,InputType.TYPE_CLASS_TEXT);
         size.setHint("Talla (Ej: 39) — vacío si no aplica");
@@ -53,12 +53,12 @@ public final class InventoryVariantModal extends InventoryModalFragment {
         });
         if(draft.size()>(current==null?0:1)) {
             TextView heading=(TextView)getLayoutInflater().inflate(R.layout.inventory_form_label,null,false);
-            heading.setText("Otras tallas del producto"); heading.setTextColor(0xff05833B); form.add(heading);
+            heading.setText("Otras tallas del producto"); heading.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_green)); form.add(heading);
             for(int i=0;i<draft.size();i++) if(i!=index) {
                 InventoryVariant other=draft.get(i);
                 TextView text=(TextView)getLayoutInflater().inflate(R.layout.inventory_form_label,null,false);
                 text.setText((other.size.isEmpty()?"Sin talla":other.size)+" · "+other.stock+" uds\n"+other.location+
-                    "\nSKU: "+other.sku+" · Cód. barras: "+other.barcode); text.setTextColor(0xff103D33); form.add(text);
+                    "\nSKU: "+other.sku+" · Cód. barras: "+other.barcode); text.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_ink2)); form.add(text);
             }
         }
         ((TextView)content.findViewById(R.id.inventoryFormSave)).setText("Guardar cambios");

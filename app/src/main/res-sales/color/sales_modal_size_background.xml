@@ -1,1 +1,1 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android"><item android:state_checked="true" android:color="@color/sales_modal_ink"/><item android:color="#FFFFFF"/></selector>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"><item android:state_checked="true" android:color="@color/sales_modal_ink"/><item android:color="@color/vl_surface"/></selector>

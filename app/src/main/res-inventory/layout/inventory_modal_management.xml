@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-<TextView android:id="@+id/inventoryModalTitle" style="@style/Inventory.Text" android:gravity="center" android:textColor="#05833B" android:textStyle="bold" android:textSize="16sp" android:paddingBottom="20dp"/>
-<View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EDF2F0"/>
+<TextView android:id="@+id/inventoryModalTitle" style="@style/Inventory.Text" android:gravity="center" android:textColor="@color/vl_text_green" android:textStyle="bold" android:textSize="16sp" android:paddingBottom="20dp"/>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/vl_sunken"/>
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
 <TextView android:id="@+id/inventoryManagementFormTitle" style="@style/Inventory.Text" android:textColor="#7AAA95" android:textStyle="bold" android:textSize="11.5sp" android:letterSpacing="0.04" android:layout_marginBottom="14dp"/>
 <com.google.android.material.chip.ChipGroup android:id="@+id/inventoryCategorySuggestions" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp"/>
@@ -11,7 +11,7 @@
 <androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryFormCancel" style="@style/Inventory.Cancel" android:text="@string/cancel" android:layout_marginBottom="8dp"/>
 <androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryFormSave" style="@style/Inventory.Primary"/>
 </LinearLayout>
-<View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EDF2F0"/>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/vl_sunken"/>
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
 <TextView android:id="@+id/inventoryManagementListTitle" style="@style/Inventory.Text" android:textColor="#7AAA95" android:textSize="11.5sp" android:letterSpacing="0.04" android:textStyle="bold" android:layout_marginBottom="10dp"/>
 <androidx.appcompat.widget.AppCompatEditText android:id="@+id/inventoryManagementSearch" style="@style/Inventory.Field" android:hint="@string/inventory_reference_search" android:inputType="text" android:singleLine="true"/>

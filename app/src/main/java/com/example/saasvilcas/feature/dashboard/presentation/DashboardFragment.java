@@ -22,6 +22,7 @@ import java.util.*;
 /** Presentation only: existing XML cards receive real, independently loaded data. */
 public final class DashboardFragment extends Fragment {
     private DashboardViewModel model;
+    private CardGrid productCards;
     private long fromDay,toDay;
     private final EnumMap<DashboardSection,DashboardViewModel.PanelState> rendered=new EnumMap<>(DashboardSection.class);
     private final int[] periodIds={R.id.dashboardPeriod0,R.id.dashboardPeriod1,R.id.dashboardPeriod2,R.id.dashboardPeriod3,R.id.dashboardPeriod4};
@@ -30,7 +31,7 @@ public final class DashboardFragment extends Fragment {
         com.example.saasvilcas.shared.ui.FilterPanelController.bind(this,view,"dashboard");
         VilcasApplication app=(VilcasApplication)requireActivity().getApplication();
         model=new ViewModelProvider(requireParentFragment(),DashboardViewModel.factory(app.newDashboardRepository())).get(DashboardViewModel.class);
-        rendered.clear();
+        rendered.clear(); productCards=null;
         if(saved!=null) {
             long today=DashboardFilter.today(System.currentTimeMillis());
             model.restoreFilter(DashboardFilter.forPeriod(saved.getInt("period",0),today,saved.getLong("fromDay",today),saved.getLong("toDay",today)));
@@ -101,12 +102,12 @@ public final class DashboardFragment extends Fragment {
         bindMetric(view.findViewById(R.id.dashboardAverage),R.string.dashboard_average_sale,data==null?null:data.average,
                 data==null?pending:getString(R.string.dashboard_average_note),R.drawable.company_ic_sales);
         if(data==null) return;
-        int color=!data.completeCost?0xffAD7900:data.profit<0?0xffEF4444:0xff008B43;
+        int color=color(!data.completeCost?R.color.vl_partial:data.profit<0?R.color.vl_negative:R.color.vl_positive);
         label(view,R.id.dashboardProfitBadge,getString(!data.completeCost?R.string.dashboard_partial_profit:
                 data.profit>0?R.string.dashboard_profitable:data.profit<0?R.string.dashboard_losing:R.string.dashboard_break_even));
         ((TextView)badge).setTextColor(color); ((TextView)view.findViewById(R.id.dashboardProfit)).setTextColor(color);
         label(view,R.id.dashboardGrowth,getString(R.string.dashboard_growth_real,data.growth>=0?"↑ +":"↓ ",data.growth));
-        ((TextView)growth).setTextColor(data.growth<0?0xffEF4444:0xff008B43);
+        ((TextView)growth).setTextColor(color(data.growth<0?R.color.vl_negative:R.color.vl_positive));
         int expenses=data.recurrentExpenses?(data.uniqueExpenses?R.string.dashboard_expenses_both:R.string.dashboard_expenses_recurring):
                 data.uniqueExpenses?R.string.dashboard_expenses_unique:R.string.dashboard_expenses_none;
         label(view,R.id.dashboardExpenseNote,getString(expenses)+(data.completeCost?"":"\n"+getString(R.string.dashboard_partial_cost_note)));
@@ -125,20 +126,16 @@ public final class DashboardFragment extends Fragment {
         DashboardViewModel.PanelState panel=state.panels.get(DashboardSection.PRODUCTS);
         status(view.findViewById(R.id.dashboardProductsCard).findViewById(R.id.dashboardPanelStatus),panel,DashboardSection.PRODUCTS,
                 panel.data!=null&&panel.data.products.isEmpty()?R.string.dashboard_no_sales_period:0);
-        GridLayout grid=view.findViewById(R.id.dashboardProducts); grid.removeAllViews();
+        GridLayout grid=view.findViewById(R.id.dashboardProducts);
         List<Product> products=panel.data==null?Collections.emptyList():panel.data.products;
-        int columns=ResponsiveGrid.columns(grid,12); grid.setColumnCount(columns);
+        int columns=ResponsiveGrid.columns(grid,12);
         int count=model.isExpanded()?products.size():Math.min(4,products.size());
-        for(int i=0;i<count;i++) {
-            Product product=products.get(i); View item=getLayoutInflater().inflate(R.layout.dashboard_item_product,grid,false);
+        if(productCards==null) productCards=new CardGrid(grid,R.layout.dashboard_item_product);
+        productCards.render(products.subList(0,count),columns,dp(6),dp(12),animate,(item,product,i)->{
             label(item,R.id.productName,product.name); label(item,R.id.productQuantity,getString(R.string.dashboard_units,product.quantity)); bindPhoto(item,metadata(state,product));
-            GridLayout.LayoutParams params=new GridLayout.LayoutParams(); params.width=0; params.height=GridLayout.LayoutParams.WRAP_CONTENT;
-            params.columnSpec=GridLayout.spec(i%columns,1f); params.rowSpec=GridLayout.spec(i/columns);
-            params.setMargins(i%columns==0?0:dp(6),0,i%columns==columns-1?0:dp(6),dp(12)); grid.addView(item,params);
-        }
+        });
         view.findViewById(R.id.dashboardMoreProducts).setVisibility(products.size()>4?View.VISIBLE:View.GONE);
         label(view,R.id.dashboardMoreProducts,getString(model.isExpanded()?R.string.dashboard_fewer:R.string.dashboard_more));
-        if(animate&&!products.isEmpty()) ViewEntranceAnimator.play(grid);
     }
     private Product metadata(DashboardViewModel.State state,Product product) {
         DashboardViewModel.PanelState catalog=state.panels.get(DashboardSection.CATALOG);
@@ -260,7 +257,8 @@ public final class DashboardFragment extends Fragment {
         int[] ids={R.id.dashboardNoSalesCard,R.id.dashboardStockCard,R.id.dashboardReturnsCard};
         int[] titles={R.string.dashboard_alert_no_sales,R.string.dashboard_alert_low_stock,R.string.dashboard_alert_returns};
         int[] notes={R.string.dashboard_never_sold_note,R.string.dashboard_stock_note,R.string.dashboard_returns_note_real};
-        int[] colors={0xFFFF4C5A,0xFFFFAA00,0xFFA362FF},backgrounds={0xFFFFF0F2,0xFFFFF6DE,0xFFF5EDFF};
+        int[] colors={color(R.color.vl_alert_sales),color(R.color.vl_alert_stock),color(R.color.vl_alert_returns)};
+        int[] backgrounds={color(R.color.vl_alert_sales_bg),color(R.color.vl_alert_stock_bg),color(R.color.vl_alert_returns_bg)};
         for(int i=0;i<ids.length;i++) {
             View card=getLayoutInflater().inflate(R.layout.dashboard_component_alert,alerts,false); card.setId(ids[i]);
             GradientDrawable background=new GradientDrawable(); background.setColor(backgrounds[i]); background.setCornerRadius(dp(20)); background.setStroke(dp(1),colors[i]); card.setBackground(background);
@@ -283,7 +281,7 @@ public final class DashboardFragment extends Fragment {
             View row=getLayoutInflater().inflate(R.layout.dashboard_item_alert_product,rows,false); label(row,R.id.alertProductName,product.name); bindPhoto(row,details);
             Integer quantity=section==DashboardSection.NO_SALES?details.quantity:product.quantity;
             label(row,R.id.alertProductCount,quantity==null?getString(R.string.dashboard_stock_unavailable):getString(returns?R.string.dashboard_returns:R.string.dashboard_units,quantity));
-            ((TextView)row.findViewById(R.id.alertProductCount)).setTextColor(section==DashboardSection.NO_SALES?0xffFF4C5A:returns?0xffA362FF:0xffD28B00); rows.addView(row);
+            ((TextView)row.findViewById(R.id.alertProductCount)).setTextColor(color(section==DashboardSection.NO_SALES?R.color.vl_alert_sales:returns?R.color.vl_alert_returns:R.color.vl_alert_stock_count)); rows.addView(row);
         }
     }
     private void status(View status,DashboardViewModel.PanelState panel,DashboardSection section,int emptyMessage) {
@@ -297,8 +295,9 @@ public final class DashboardFragment extends Fragment {
         view.findViewById(R.id.dashboardDateFields).setVisibility(model.filter().period==4?View.VISIBLE:View.GONE);
         for(int i=0;i<periodIds.length;i++) {
             TextView period=view.findViewById(periodIds[i]); boolean selected=i==model.filter().period;
-            period.setSelected(selected); period.setTextColor(selected?0xffFFFFFF:0xff4B5A63);
-            androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(period,ColorStateList.valueOf(selected?0xffFFFFFF:0xff4B5A63));
+            int text=selected?0xffFFFFFF:color(R.color.vl_text_slate);
+            period.setSelected(selected); period.setTextColor(text);
+            androidx.core.widget.TextViewCompat.setCompoundDrawableTintList(period,ColorStateList.valueOf(text));
         }
         View selected=view.findViewById(periodIds[model.filter().period]);
         HorizontalScrollView tabs=(HorizontalScrollView)selected.getParent().getParent();
@@ -343,6 +342,7 @@ public final class DashboardFragment extends Fragment {
     private void label(View root,int id,CharSequence value) { ((TextView)root.findViewById(id)).setText(value); }
     private String money(double value) { return String.format(Locale.US,"S/%.2f",value); }
     private int dp(int value) { return Math.round(value*getResources().getDisplayMetrics().density); }
+    private int color(int id) { return androidx.core.content.ContextCompat.getColor(requireContext(),id); }
     @Override public void onSaveInstanceState(@NonNull Bundle out) {
         super.onSaveInstanceState(out);
         if(model!=null) { out.putInt("period",model.filter().period); out.putLong("fromDay",fromDay); out.putLong("toDay",toDay); }

@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="56dp" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="24dp" android:paddingEnd="24dp" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true">
-<ImageView android:id="@+id/modalOptionIcon" android:layout_width="20dp" android:layout_height="20dp" android:tint="#008B43" android:importantForAccessibility="no"/>
+<ImageView android:id="@+id/modalOptionIcon" android:layout_width="20dp" android:layout_height="20dp" android:tint="@color/vl_text_green_deep" android:importantForAccessibility="no"/>
 <TextView android:id="@+id/modalOptionLabel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="16dp" android:layout_marginEnd="12dp" android:textSize="14sp" android:textColor="@color/company_ink"/>
 <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/modal_ic_next" android:tint="#77AC98" android:importantForAccessibility="no"/>
 </LinearLayout>

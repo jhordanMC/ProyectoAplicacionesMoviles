@@ -14,6 +14,7 @@ public final class VilcasApplication extends Application {
         sessions.attach(new com.example.saasvilcas.feature.auth.data.EncryptedSessionPersistence(this));
         restoreRequired=sessions.get()!=null;
         androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(getSharedPreferences("appearance",0).getInt("night_mode",androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM));
+        com.example.saasvilcas.shared.ui.UiSounds.init(this);
     }
     public final SessionStore sessions=new SessionStore();
     public boolean restoreRequired;

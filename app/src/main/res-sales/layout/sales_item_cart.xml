@@ -3,13 +3,13 @@
 <ImageView android:id="@+id/salesCartImage" android:layout_width="64dp" android:layout_height="48dp" android:layout_marginEnd="12dp" android:src="@drawable/company_product_preview" android:background="@drawable/company_bg_icon" android:contentDescription="@string/dashboard_product_illustration"/>
 <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
 <TextView android:id="@+id/salesCartName" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/company_ink"/>
-<TextView android:id="@+id/salesCartSite" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textSize="12sp" android:textColor="#209A55"/>
+<TextView android:id="@+id/salesCartSite" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textSize="12sp" android:textColor="@color/vl_text_green_soft"/>
 <TextView android:id="@+id/salesCartQuantity" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textSize="13sp" android:textColor="@color/company_ink"/>
 </LinearLayout>
 <LinearLayout android:layout_width="96dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:orientation="vertical" android:gravity="end">
-<TextView android:id="@+id/salesCartSubtotal" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textSize="16sp" android:textStyle="bold" android:textColor="#209A55"/>
+<TextView android:id="@+id/salesCartSubtotal" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="end" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/vl_text_green_soft"/>
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="horizontal">
-<ImageButton android:id="@+id/salesCartEdit" style="@style/Company.ToolbarButton" android:src="@drawable/sales_ic_edit" android:tint="#008B43" android:contentDescription="@string/sales_edit"/>
+<ImageButton android:id="@+id/salesCartEdit" style="@style/Company.ToolbarButton" android:src="@drawable/sales_ic_edit" android:tint="@color/vl_text_green_deep" android:contentDescription="@string/sales_edit"/>
 <ImageButton android:id="@+id/salesCartRemove" style="@style/Company.ToolbarButton" android:layout_marginStart="8dp" android:src="@drawable/company_ic_close" android:tint="#FF4C5A" android:contentDescription="@string/sales_remove"/>
 </LinearLayout></LinearLayout></LinearLayout>
 

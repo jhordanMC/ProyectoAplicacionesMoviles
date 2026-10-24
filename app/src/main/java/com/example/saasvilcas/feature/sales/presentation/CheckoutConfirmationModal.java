@@ -71,7 +71,8 @@ public final class CheckoutConfirmationModal extends SalesModalFragment {
         ((TextView)content.findViewById(R.id.confirmationSubmit)).setText(busy?R.string.sales_sending:success||uncertain?R.string.payment_close:R.string.payment_confirm);
         TextView error=content.findViewById(R.id.confirmationError);
         error.setText(success?"":state.message);
-        error.setTextColor(busy?0xff05833B:0xffEF4444);
+        if(!busy && !success && !state.message.isEmpty()) com.example.saasvilcas.shared.ui.UiSounds.forEvent(state,com.example.saasvilcas.shared.ui.UiSounds::error);
+        error.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),busy?R.color.vl_text_green:R.color.vl_negative));
         content.findViewById(R.id.confirmationQuestion).setVisibility(success||uncertain?View.GONE:View.VISIBLE);
         content.findViewById(R.id.confirmationBack).setVisibility(success||uncertain?View.GONE:View.VISIBLE);
         if(success) {
@@ -86,6 +87,7 @@ public final class CheckoutConfirmationModal extends SalesModalFragment {
     @Override public void onSaveInstanceState(@NonNull Bundle state) { super.onSaveInstanceState(state); state.putString("receiptRows",receiptRows); }
     private void showSuccess(SaleResult sale) {
         if(successRendered) return; successRendered=true; setCancelable(true);
+        com.example.saasvilcas.shared.ui.UiSounds.forEvent(sale,com.example.saasvilcas.shared.ui.UiSounds::success);
         if(checkout.getDialog()!=null&&checkout.getDialog().getWindow()!=null) {
             checkout.getDialog().getWindow().getDecorView().setVisibility(View.INVISIBLE);
             checkout.getDialog().getWindow().setDimAmount(0f);

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Theme-aware palette for company screens and modals. values-night redefines every token. -->
+<resources>
+    <!-- Text and icons -->
+    <color name="vl_text_ink">#0B2E27</color>
+    <color name="vl_text_ink2">#103D33</color>
+    <color name="vl_text_deep">#024B40</color>
+    <color name="vl_text_slate">#4B5A63</color>
+    <color name="vl_icon_deep">#254F46</color>
+    <color name="vl_text_green">#05833B</color>
+    <color name="vl_text_green_soft">#209A55</color>
+    <color name="vl_text_green_deep">#008B43</color>
+    <color name="vl_text_green_mid">#15964D</color>
+    <!-- Surfaces -->
+    <color name="vl_surface">#FFFFFF</color>
+    <color name="vl_field">#F6F8F7</color>
+    <color name="vl_tint">#E6F4EC</color>
+    <color name="vl_sunken">#EDF2F0</color>
+    <color name="vl_chip">#D0EBD9</color>
+    <color name="vl_soon">#FAF1DD</color>
+    <color name="vl_danger_bg">#FDEBED</color>
+    <color name="vl_track_blue">#E1F5FF</color>
+    <!-- Lines -->
+    <color name="vl_line">#24024B40</color>
+    <color name="vl_line_soft">#14024B40</color>
+    <color name="vl_stroke">#A9C7BA</color>
+    <color name="vl_popup_stroke">#CFE1DC</color>
+    <!-- Charts -->
+    <color name="vl_chart_grid">#DDE9E5</color>
+    <color name="vl_chart_axis">#93B6AA</color>
+    <color name="vl_chart_label">#6B8279</color>
+    <color name="vl_chart_income">#8FC5A6</color>
+    <color name="vl_chart_baseline">#BCD8CC</color>
+    <color name="vl_chart_center">#FFFFFF</color>
+    <!-- Dashboard alerts -->
+    <color name="vl_alert_sales_bg">#FFF0F2</color>
+    <color name="vl_alert_stock_bg">#FFF6DE</color>
+    <color name="vl_alert_returns_bg">#F5EDFF</color>
+    <color name="vl_alert_sales">#FF4C5A</color>
+    <color name="vl_alert_stock">#FFAA00</color>
+    <color name="vl_alert_returns">#A362FF</color>
+    <color name="vl_alert_stock_count">#D28B00</color>
+    <!-- Status -->
+    <color name="vl_positive">#008B43</color>
+    <color name="vl_negative">#EF4444</color>
+    <color name="vl_partial">#AD7900</color>
+</resources>

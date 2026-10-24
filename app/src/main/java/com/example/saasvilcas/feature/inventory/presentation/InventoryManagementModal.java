@@ -91,8 +91,8 @@ public final class InventoryManagementModal extends InventoryModalFragment {
                 for(String existing:model.references(0)) if(existing.equalsIgnoreCase(value)) exists=true;
                 if(exists) continue;
                 com.google.android.material.chip.Chip chip=new com.google.android.material.chip.Chip(requireContext());
-                chip.setText(value); chip.setTextSize(11); chip.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(0xffFFFFFF));
-                chip.setChipStrokeWidth(1); chip.setChipStrokeColor(android.content.res.ColorStateList.valueOf(0xffD5E3E2));
+                chip.setText(value); chip.setTextSize(11); chip.setChipBackgroundColor(androidx.core.content.ContextCompat.getColorStateList(requireContext(),R.color.vl_surface));
+                chip.setChipStrokeWidth(1); chip.setChipStrokeColor(androidx.core.content.ContextCompat.getColorStateList(requireContext(),R.color.vl_popup_stroke));
                 chip.setOnClickListener(v->name.setText(value)); suggestions.addView(chip);
             }
         }

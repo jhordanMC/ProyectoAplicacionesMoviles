@@ -9,7 +9,7 @@
 </LinearLayout>
 <TextView android:id="@+id/confirmationQuestion" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:text="@string/payment_confirm_question" android:textColor="@color/sales_modal_brand" android:textSize="12sp" android:textStyle="bold" android:layout_marginTop="12dp"/>
 <TextView android:id="@+id/confirmationError" style="@style/Company.Body" android:textColor="#EF4444" android:accessibilityLiveRegion="polite"/>
-<View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="8dp" android:layout_marginBottom="8dp" android:background="#E5EDE9"/>
+<View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="8dp" android:layout_marginBottom="8dp" android:background="@color/vl_sunken"/>
 <androidx.appcompat.widget.AppCompatButton android:id="@+id/confirmationSubmit" style="@style/SalesModal.Button" android:text="@string/payment_confirm" android:background="@drawable/sales_modal_primary" android:textColor="#FFFFFF"/>
 <androidx.appcompat.widget.AppCompatButton android:id="@+id/confirmationBack" style="@style/SalesModal.Button" android:layout_marginTop="8dp" android:text="@string/payment_back" android:textColor="@color/sales_modal_brand"/>
 </LinearLayout>

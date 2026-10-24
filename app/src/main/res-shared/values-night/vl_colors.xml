@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark palette: layered green surfaces (canvas #10231E, card #19342C) with light, high-contrast text. -->
+<resources>
+    <color name="vl_text_ink">#E8F5EE</color>
+    <color name="vl_text_ink2">#DDEFE6</color>
+    <color name="vl_text_deep">#CFEBDD</color>
+    <color name="vl_text_slate">#B3C5BD</color>
+    <color name="vl_icon_deep">#BFD8CC</color>
+    <color name="vl_text_green">#4CD38A</color>
+    <color name="vl_text_green_soft">#5AD995</color>
+    <color name="vl_text_green_deep">#43C97F</color>
+    <color name="vl_text_green_mid">#4ACF86</color>
+    <color name="vl_surface">#1E3B32</color>
+    <color name="vl_field">#142D26</color>
+    <color name="vl_tint">#21483A</color>
+    <color name="vl_sunken">#132A24</color>
+    <color name="vl_chip">#24513F</color>
+    <color name="vl_soon">#3A3216</color>
+    <color name="vl_danger_bg">#3A1F23</color>
+    <color name="vl_track_blue">#12354A</color>
+    <color name="vl_line">#3DA9CFC0</color>
+    <color name="vl_line_soft">#26A9CFC0</color>
+    <color name="vl_stroke">#3E6A5A</color>
+    <color name="vl_popup_stroke">#345548</color>
+    <color name="vl_chart_grid">#2A4A3F</color>
+    <color name="vl_chart_axis">#4E7768</color>
+    <color name="vl_chart_label">#9DB7AC</color>
+    <color name="vl_chart_income">#5E9F7C</color>
+    <color name="vl_chart_baseline">#3E6A5A</color>
+    <color name="vl_chart_center">#FFFFFF</color>
+    <color name="vl_alert_sales_bg">#2E1E22</color>
+    <color name="vl_alert_stock_bg">#2E2715</color>
+    <color name="vl_alert_returns_bg">#261F33</color>
+    <color name="vl_alert_sales">#FF7782</color>
+    <color name="vl_alert_stock">#FFC24D</color>
+    <color name="vl_alert_returns">#BE91FF</color>
+    <color name="vl_alert_stock_count">#FFC24D</color>
+    <color name="vl_positive">#43C97F</color>
+    <color name="vl_negative">#FF6B6B</color>
+    <color name="vl_partial">#E5B23C</color>
+</resources>

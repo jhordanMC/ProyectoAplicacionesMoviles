@@ -19,7 +19,7 @@ final class ProfileUi {
     }
     static TextView text(LinearLayout root,String value,boolean heading) {
         TextView text=new TextView(root.getContext()); text.setText(value); text.setTextSize(heading?16:13);
-        text.setTextColor(heading?0xff0C3A2E:0xff4B5A63);
+        text.setTextColor(androidx.core.content.ContextCompat.getColor(root.getContext(),heading?R.color.vl_text_ink:R.color.vl_text_slate));
         text.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(root.getContext(),R.font.inter),heading?android.graphics.Typeface.BOLD:android.graphics.Typeface.NORMAL);
         LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(-1,-2); params.bottomMargin=dp(root,12); text.setLayoutParams(params); root.addView(text); return text;
     }
@@ -35,5 +35,5 @@ final class ProfileUi {
         button.setText(value); if(primary) { button.setBackgroundResource(R.drawable.profile_bg_primary); button.setTextColor(0xffFFFFFF); }
         button.setOnClickListener(v->click.run()); root.addView(button); return button;
     }
-    static TextView error(LinearLayout root) { TextView text=text(root,"",false); text.setTextColor(0xffEF4444); text.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE); return text; }
+    static TextView error(LinearLayout root) { TextView text=text(root,"",false); text.setTextColor(androidx.core.content.ContextCompat.getColor(root.getContext(),R.color.vl_negative)); text.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE); return text; }
 }

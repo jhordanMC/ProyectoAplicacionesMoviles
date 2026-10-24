@@ -27,8 +27,9 @@ public abstract class InventoryModalFragment extends BrandedModalFragment {
             if(delete!=null) delete.setEnabled(!result.busy&&!result.loading&&!result.uncertain);
             InventoryViewModel.State operation=operationKey.equals(result.key)?result:operationModel.outcome(operationKey);
             if(operation==null) return;
-            if(operation.success) onOperationSuccess();
+            if(operation.success) { com.example.saasvilcas.shared.ui.UiSounds.forEvent(operation,com.example.saasvilcas.shared.ui.UiSounds::success); onOperationSuccess(); }
             else if(!operation.message.isEmpty()) {
+                if(!operation.busy) com.example.saasvilcas.shared.ui.UiSounds.forEvent(operation,com.example.saasvilcas.shared.ui.UiSounds::error);
                 android.widget.TextView error=view.findViewById(R.id.inventoryFormError);
                 if(error==null) error=view.findViewById(R.id.inventoryDeleteMessage);
                 if(error!=null) { error.setText(operation.message); error.setVisibility(android.view.View.VISIBLE); }
@@ -69,7 +70,7 @@ public abstract class InventoryModalFragment extends BrandedModalFragment {
         }
         if(view instanceof android.widget.TextView) {
             android.widget.TextView text=(android.widget.TextView)view; text.setTextSize(footer?15:20); text.setLetterSpacing(.1f);
-            text.setTextColor(text.getText().toString().equals("A")?0xffDA9E0B:0xff05833B);
+            text.setTextColor(text.getText().toString().equals("A")?0xffDA9E0B:androidx.core.content.ContextCompat.getColor(text.getContext(),R.color.vl_text_green));
         }
         if(view instanceof android.view.ViewGroup) for(int i=0;i<((android.view.ViewGroup)view).getChildCount();i++) formatBrand(((android.view.ViewGroup)view).getChildAt(i),footer);
     }
@@ -78,8 +79,8 @@ public abstract class InventoryModalFragment extends BrandedModalFragment {
             android.widget.TextView text=(android.widget.TextView)view;
             String value=text.getText().toString();
             if(text.getCurrentTextColor()==androidx.core.content.ContextCompat.getColor(requireContext(),R.color.company_ink))
-                text.setTextColor(android.graphics.Color.rgb(16,61,51));
-            if(value.equals("VILC")||value.equals("S")) text.setTextColor(android.graphics.Color.rgb(5,131,59));
+                text.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_ink2));
+            if(value.equals("VILC")||value.equals("S")) text.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_green));
         }
         if(view instanceof android.view.ViewGroup) {
             android.view.ViewGroup group=(android.view.ViewGroup)view;

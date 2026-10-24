@@ -25,6 +25,8 @@ public class CompanyFragment extends Fragment {
     private static final int DASHBOARD=0, INVENTORY=1, SALES=2;
     private int selectedSection;
     private boolean owner;
+    /** Sections the signed-in role may open, indexed by DASHBOARD/INVENTORY/SALES. */
+    private final boolean[] allowed=new boolean[3];
     private SidebarAnimator sidebarAnimator;
     public CompanyFragment() { super(R.layout.fragment_company); }
     public static CompanyFragment create(boolean owner) {
@@ -35,7 +37,12 @@ public class CompanyFragment extends Fragment {
     @Override public void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
         owner = requireArguments().getBoolean("owner");
-        selectedSection = state == null ? (owner ? DASHBOARD : INVENTORY) : state.getInt("section");
+        // Resolved against the session's roles once the view exists.
+        selectedSection = state == null ? -1 : state.getInt("section");
+    }
+    private int homeSection() {
+        for(int section:new int[]{DASHBOARD,INVENTORY,SALES}) if(allowed[section]) return section;
+        return INVENTORY;
     }
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle state) {
         com.example.saasvilcas.feature.auth.domain.AuthSession session=
@@ -46,6 +53,9 @@ public class CompanyFragment extends Fragment {
             return;
         }
         ((TextView)view.findViewById(R.id.companyProfile)).setText(session.initials());
+        owner=session.owner;
+        allowed[DASHBOARD]=session.canSeeDashboard(); allowed[INVENTORY]=session.canSeeInventory(); allowed[SALES]=session.canSeeSales();
+        if(selectedSection<0 || !allowed[selectedSection]) selectedSection=homeSection();
         boolean dark = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 == Configuration.UI_MODE_NIGHT_YES;
         requireActivity().findViewById(R.id.windowBackdrop).setBackgroundResource(R.color.company_canvas);
@@ -86,11 +96,11 @@ public class CompanyFragment extends Fragment {
             drawer.getLayoutParams().width = Math.min(width+drawer.getPaddingLeft(), (int)(view.getWidth()*.85f));
             drawer.requestLayout();
         });
-        view.findViewById(R.id.companyNavDashboard).setVisibility(owner ? View.VISIBLE : View.GONE);
         int[] ids = {R.id.companyNavDashboard,R.id.companyNavInventory,R.id.companyNavSales};
         for (int i=0;i<ids.length;i++) {
             final int section=i;
-            view.findViewById(ids[i]).setOnClickListener(v -> { select(view,section); sidebarAnimator.close(); });
+            view.findViewById(ids[i]).setVisibility(allowed[i] ? View.VISIBLE : View.GONE);
+            view.findViewById(ids[i]).setOnClickListener(v -> { com.example.saasvilcas.shared.ui.UiSounds.tap(v); select(view,section); sidebarAnimator.close(); });
         }
         com.example.saasvilcas.VilcasApplication app=(com.example.saasvilcas.VilcasApplication)requireActivity().getApplication();
         com.example.saasvilcas.feature.profile.presentation.ProfileViewModel profile=new androidx.lifecycle.ViewModelProvider(this,
@@ -123,7 +133,8 @@ public class CompanyFragment extends Fragment {
         view.findViewById(R.id.companyTheme).setOnClickListener(v->{
             int mode=dark?AppCompatDelegate.MODE_NIGHT_NO:AppCompatDelegate.MODE_NIGHT_YES;
             requireContext().getSharedPreferences("appearance",0).edit().putInt("night_mode",mode).apply();
-            AppCompatDelegate.setDefaultNightMode(mode);
+            com.example.saasvilcas.shared.ui.UiSounds.toggle();
+            ((com.example.saasvilcas.MainActivity)requireActivity()).switchTheme(mode);
         });
         ((android.widget.ImageButton)view.findViewById(R.id.companyTheme)).setImageResource(dark?R.drawable.company_ic_sun:R.drawable.company_ic_moon);
         view.findViewById(R.id.companyTheme).setContentDescription(dark?"Activar tema claro":"Activar tema oscuro");
@@ -138,7 +149,7 @@ public class CompanyFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),new OnBackPressedCallback(true) {
             @Override public void handleOnBackPressed() {
                 if (overlay.getVisibility()==View.VISIBLE) sidebarAnimator.close();
-                else if (owner && selectedSection!=DASHBOARD) select(view,DASHBOARD);
+                else if (selectedSection!=homeSection()) select(view,homeSection());
                 else showProfile();
             }
         });
@@ -156,13 +167,16 @@ public class CompanyFragment extends Fragment {
         ProfileModalFragment.create(owner).showNow(getChildFragmentManager(), "profile");
     }
     private void select(View view,int section) {
-        if (!owner && section==DASHBOARD) return;
+        if (!allowed[section]) return;
+        boolean switching=getChildFragmentManager().findFragmentById(R.id.companyContent)!=null;
         selectedSection=section;
         updateSelection(view);
         Fragment screen=section==DASHBOARD ? new DashboardFragment()
             : section==SALES ? new SalesFragment() : new InventoryFragment();
-        getChildFragmentManager().beginTransaction().setReorderingAllowed(true)
-            .replace(R.id.companyContent,screen).commit();
+        androidx.fragment.app.FragmentTransaction transaction=getChildFragmentManager().beginTransaction().setReorderingAllowed(true);
+        // The outgoing section fades while the incoming one staggers in (ViewEntranceAnimator).
+        if(switching) transaction.setCustomAnimations(0,R.anim.section_exit);
+        transaction.replace(R.id.companyContent,screen).commit();
     }
     private void updateSelection(View view) {
         int[] ids={R.id.companyNavDashboard,R.id.companyNavInventory,R.id.companyNavSales};

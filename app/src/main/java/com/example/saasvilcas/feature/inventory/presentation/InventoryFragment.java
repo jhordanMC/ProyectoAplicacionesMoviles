@@ -15,12 +15,13 @@ public final class InventoryFragment extends Fragment {
     private InventoryViewModel model;
     private List<InventoryProduct> renderedProducts;
     private int renderedColumns;
+    private com.example.saasvilcas.shared.ui.CardGrid productCards;
     private String requestedId,requestedKey,requestedAction;
     public InventoryFragment() { super(R.layout.fragment_inventory); }
     @Override public void onViewCreated(@NonNull View view,@Nullable Bundle state) {
         com.example.saasvilcas.shared.ui.FilterPanelController.bind(this,view,"inventory");
         model=InventoryViewModel.obtain(requireParentFragment());
-        renderedProducts=null;
+        renderedProducts=null; productCards=null;
         view.findViewById(R.id.inventoryProducts).addOnLayoutChangeListener((grid,l,t,r,b,ol,ot,or,ob)-> { if(r-l!=or-ol) render(view); });
         if(state!=null) { requestedId=state.getString("requestedId"); requestedKey=state.getString("requestedKey"); requestedAction=state.getString("requestedAction"); }
         int[] managers={R.id.inventoryCategories,R.id.inventorySuppliers,R.id.inventoryWarehouses};
@@ -104,10 +105,9 @@ public final class InventoryFragment extends Fragment {
         view.findViewById(R.id.inventoryEmpty).setVisibility(products.isEmpty()&&!state.loading&&!state.busy&&state.message.isEmpty()?View.VISIBLE:View.GONE);
         if(columns==renderedColumns&&products.equals(renderedProducts)) return;
         renderedProducts=new ArrayList<>(products); renderedColumns=columns;
-        grid.removeAllViews(); grid.setColumnCount(columns);
-        int index=0;
-        for(InventoryProduct product:products) {
-            View card=getLayoutInflater().inflate(R.layout.inventory_item_product,grid,false);
+        if(productCards==null) productCards=new com.example.saasvilcas.shared.ui.CardGrid(grid,R.layout.inventory_item_product);
+        int gap=Math.round(6*getResources().getDisplayMetrics().density);
+        productCards.render(products,columns,gap,gap*2,true,(card,product,index)->{
             card.findViewById(R.id.inventoryName).setOnClickListener(v->{
                 if(getChildFragmentManager().findFragmentByTag("product-detail")==null)
                     requestDetail(product.id,"detail");
@@ -121,26 +121,20 @@ public final class InventoryFragment extends Fragment {
             text(card,R.id.inventorySupplier,product.supplier);
             text(card,R.id.inventoryPrice,getString(R.string.inventory_price_margin,InventoryForm.money(product.price),InventoryForm.money(product.price-product.cost)));
             text(card,R.id.inventoryStock,getString(R.string.sales_stock,product.stock));
-            if(!product.photo.isEmpty()) {
-                try {
-                    com.example.saasvilcas.shared.ui.ProductImageLoader.load(card.findViewById(R.id.inventoryImage),product.photo);
-                    card.findViewById(R.id.inventoryPhotoMissing).setVisibility(View.GONE);
-                } catch(SecurityException ignored) { }
-            }
+            // Pooled cards are re-bound, so reset the photo state for every product.
+            boolean photo=false;
+            try {
+                com.example.saasvilcas.shared.ui.ProductImageLoader.load(card.findViewById(R.id.inventoryImage),product.photo);
+                photo=!product.photo.isEmpty();
+            } catch(SecurityException ignored) { }
+            card.findViewById(R.id.inventoryPhotoMissing).setVisibility(photo?View.GONE:View.VISIBLE);
             card.findViewById(R.id.inventoryEdit).setOnClickListener(v->edit(product.id));
             card.findViewById(R.id.inventoryDuplicate).setOnClickListener(v->model.duplicate(product.id));
             card.findViewById(R.id.inventoryDelete).setOnClickListener(v->{
                 if(getChildFragmentManager().findFragmentByTag("inventory-confirm")==null)
                     InventoryDeleteModal.product(product.id).show(getChildFragmentManager(),"inventory-confirm");
             });
-            GridLayout.LayoutParams params=new GridLayout.LayoutParams();
-            params.width=0; params.height=GridLayout.LayoutParams.WRAP_CONTENT;
-            params.columnSpec=GridLayout.spec(index%columns,1f); params.rowSpec=GridLayout.spec(index/columns);
-            int gap=Math.round(6*getResources().getDisplayMetrics().density);
-            params.setMargins(index%columns==0?0:gap,0,index%columns==columns-1?0:gap,gap*2);
-            grid.addView(card,params); index++;
-        }
-        com.example.saasvilcas.shared.ui.ViewEntranceAnimator.play(grid);
+        });
     }
     private void text(View view,int id,String value) { ((TextView)view.findViewById(id)).setText(value); }
 }

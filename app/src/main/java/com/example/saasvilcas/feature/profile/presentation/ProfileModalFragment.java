@@ -46,7 +46,7 @@ public final class ProfileModalFragment extends BrandedModalFragment {
         model.loadError.observe(getViewLifecycleOwner(),message->{ if(error!=null && !message.isEmpty()) error.setText(message); });
         model.operation.observe(getViewLifecycleOwner(),stateValue->{
             ProfileUi.busy(host,stateValue.busy);
-            if(error!=null) {error.setText(stateValue.busy?"Procesando…":stateValue.error);error.setTextColor(stateValue.busy?0xff024B40:0xffEF4444);}
+            if(error!=null) {error.setText(stateValue.busy?"Procesando…":stateValue.error);error.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),stateValue.busy?R.color.vl_text_deep:R.color.vl_negative));}
             if(!stateValue.success) return;
             switch(stateValue.kind) {
                 case "password-request": passwordStep="code"; deadline=SystemClock.elapsedRealtime()+stateValue.seconds*1000L; render(); break;
@@ -89,7 +89,7 @@ public final class ProfileModalFragment extends BrandedModalFragment {
         AuthSession session=((VilcasApplication)requireActivity().getApplication()).sessions.get();
         UserProfile profile=model.profile.getValue();
         ((TextView)menu.findViewById(R.id.profileName)).setText(profile==null?(session==null?"":session.name):profile.name);
-        ((TextView)menu.findViewById(R.id.profileRole)).setText(profile==null?getString(session!=null&&session.owner?R.string.owner_role:R.string.seller_role):android.text.TextUtils.join(" · ",profile.roles));
+        ((TextView)menu.findViewById(R.id.profileRole)).setText(profile==null?getString(session!=null&&session.owner?R.string.owner_role:session!=null&&session.inventory&&!session.seller?R.string.inventory_role:R.string.seller_role):android.text.TextUtils.join(" · ",profile.roles));
         TextView initials=menu.findViewById(R.id.profileInitials); initials.setText(session==null?"?":session.initials());
         initials.setOnClickListener(v->photo.launch("image/*"));
         menu.findViewById(R.id.profilePhotoButton).setOnClickListener(v->photo.launch("image/*"));
@@ -160,7 +160,7 @@ public final class ProfileModalFragment extends BrandedModalFragment {
         LinearLayout header=new LinearLayout(requireContext());header.setGravity(android.view.Gravity.CENTER_VERTICAL);
         header.setPadding(0,ProfileUi.dp(host,18),0,ProfileUi.dp(host,14));host.addView(header);
         androidx.appcompat.widget.AppCompatButton back=new androidx.appcompat.widget.AppCompatButton(requireContext());
-        back.setText("←");back.setTextSize(18);back.setTextColor(0xff024B40);back.setPadding(0,0,0,0);back.setMinWidth(0);back.setMinHeight(0);
+        back.setText("←");back.setTextSize(18);back.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_deep));back.setPadding(0,0,0,0);back.setMinWidth(0);back.setMinHeight(0);
         back.setBackgroundResource(R.drawable.profile_account_avatar);back.setContentDescription("Volver");back.setId(R.id.accountBack);
         header.addView(back,new LinearLayout.LayoutParams(ProfileUi.dp(host,32),ProfileUi.dp(host,32)));back.setOnClickListener(v->navigate("menu"));
         TextView title=ProfileUi.text(header,"Cambiar de cuenta",true);title.setTextSize(15);

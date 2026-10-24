@@ -72,7 +72,7 @@ public final class InventoryProductModal extends InventoryModalFragment {
         if(!variantsLoaded) { if(p!=null) variants.addAll(p.variants); variantsLoaded=true; }
         if(!photoLoaded) { photo=p==null?"":p.photo; photoLoaded=true; }
         ((TextView)content.findViewById(R.id.inventoryModalTitle)).setText(p==null?"Nuevo producto":"Editar producto");
-        ((TextView)content.findViewById(R.id.inventoryModalTitle)).setTextColor(android.graphics.Color.rgb(5,131,59));
+        ((TextView)content.findViewById(R.id.inventoryModalTitle)).setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_green));
         ((TextView)content.findViewById(R.id.inventoryModalTitle)).setTextSize(16);
         InventoryForm form=new InventoryForm(content);
         View photoComponent=form.inflate(R.layout.inventory_component_photo);
@@ -107,7 +107,7 @@ public final class InventoryProductModal extends InventoryModalFragment {
         cost=form.text(labels[5],p==null?"0":BigDecimal.valueOf(p.cost,2).toPlainString(),moneyType);
         price=form.text(labels[6],p==null?"0":BigDecimal.valueOf(p.price,2).toPlainString(),moneyType);
         TextView margin=(TextView)getLayoutInflater().inflate(R.layout.inventory_form_label,null,false);
-        margin.setTextColor(android.graphics.Color.rgb(5,131,59)); form.add(margin);
+        margin.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_green)); form.add(margin);
         Runnable refreshMargin=()-> {
             try { margin.setText("Margen de ganancia: "+InventoryForm.money(InventoryForm.cents(price)-InventoryForm.cents(cost))+"  ⓘ"); }
             catch(IllegalArgumentException error) { margin.setText("Margen de ganancia: —  ⓘ"); }
@@ -145,10 +145,11 @@ public final class InventoryProductModal extends InventoryModalFragment {
         TextView cameraButton=photoControls.findViewById(R.id.inventoryPhotoCamera),galleryButton=photoControls.findViewById(R.id.inventoryPhotoGallery);
         cameraButton.setText(empty?"Tomar foto":"Cámara"); galleryButton.setText(empty?"Subir archivo":"Galería");
         cameraButton.setBackgroundResource(empty?R.drawable.inventory_bg_primary:R.drawable.inventory_bg_cancel);
-        cameraButton.setTextColor(empty?0xffFFFFFF:0xff4B5A63);
+        int cameraColor=empty?0xffFFFFFF:androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_slate);
+        cameraButton.setTextColor(cameraColor);
         cameraButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.inventory_ic_camera,0,0,0);
         galleryButton.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.inventory_ic_gallery,0,0,0);
-        cameraButton.setCompoundDrawableTintList(android.content.res.ColorStateList.valueOf(empty?0xffFFFFFF:0xff4B5A63));
+        cameraButton.setCompoundDrawableTintList(android.content.res.ColorStateList.valueOf(cameraColor));
         int spacing=Math.round(6*getResources().getDisplayMetrics().density);
         cameraButton.setCompoundDrawablePadding(spacing); galleryButton.setCompoundDrawablePadding(spacing);
         cameraButton.setTextSize(empty?11.5f:10.5f); galleryButton.setTextSize(empty?11.5f:10.5f);

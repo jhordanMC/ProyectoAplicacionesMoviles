@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="22dp">
-<TextView style="@style/Inventory.Text" android:text="@string/inventory_detail" android:textSize="16sp" android:textStyle="bold" android:textColor="#05833B" android:gravity="center" android:layout_marginBottom="18dp"/>
+<TextView style="@style/Inventory.Text" android:text="@string/inventory_detail" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/vl_text_green" android:gravity="center" android:layout_marginBottom="18dp"/>
 <ImageView android:id="@+id/inventoryDetailPhoto" android:layout_width="match_parent" android:layout_height="180dp" android:scaleType="fitCenter" android:contentDescription="@string/inventory_photo"/>
-<TextView android:id="@+id/inventoryDetailName" style="@style/Inventory.Text" android:textColor="#05833B" android:textStyle="bold" android:textSize="16sp" android:layout_marginTop="12dp"/>
-<TextView android:id="@+id/inventoryDetailInfo" style="@style/Inventory.Text" android:textColor="#103D33" android:lineSpacingExtra="8dp" android:layout_marginTop="12dp"/>
+<TextView android:id="@+id/inventoryDetailName" style="@style/Inventory.Text" android:textColor="@color/vl_text_green" android:textStyle="bold" android:textSize="16sp" android:layout_marginTop="12dp"/>
+<TextView android:id="@+id/inventoryDetailInfo" style="@style/Inventory.Text" android:textColor="@color/vl_text_ink2" android:lineSpacingExtra="8dp" android:layout_marginTop="12dp"/>
 <LinearLayout android:id="@+id/inventoryDetailRows" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginTop="16dp"/>
 <androidx.appcompat.widget.AppCompatButton android:id="@+id/inventoryDetailClose" style="@style/Inventory.Action" android:text="@string/modal_close" android:layout_marginTop="16dp"/>
 </LinearLayout>

@@ -5,8 +5,8 @@
 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/company_bg_icon" android:padding="6dp" android:id="@+id/dashboardProfitBadge" android:text="@string/dashboard_profitable" android:textColor="#12AC51" android:textSize="12sp" android:textStyle="bold"/></LinearLayout>
 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/dashboard_real_profit" style="@style/Company.Body"/>
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="20dp" android:orientation="horizontal" android:gravity="center_vertical">
-<TextView android:id="@+id/dashboardProfit" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="—" android:maxLines="1" app:autoSizeTextType="uniform" app:autoSizeMinTextSize="18sp" app:autoSizeMaxTextSize="34sp" app:autoSizeStepGranularity="1sp" android:textSize="34sp" android:textStyle="bold" android:textColor="#008B43"/>
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/dashboardGrowth" android:text="" android:textColor="#008B43" android:textSize="12sp" android:gravity="center"/>
+<TextView android:id="@+id/dashboardProfit" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="—" android:maxLines="1" app:autoSizeTextType="uniform" app:autoSizeMinTextSize="18sp" app:autoSizeMaxTextSize="34sp" app:autoSizeStepGranularity="1sp" android:textSize="34sp" android:textStyle="bold" android:textColor="@color/vl_text_green_deep"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/dashboardGrowth" android:text="" android:textColor="@color/vl_text_green_deep" android:textSize="12sp" android:gravity="center"/>
 </LinearLayout>
 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/Company.SectionTitle" android:layout_marginTop="16dp" android:text="@string/dashboard_evolution_title"/>
 <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:fillViewport="true" android:scrollbars="horizontal">
@@ -15,7 +15,7 @@
 <LinearLayout android:id="@+id/dashboardChartLabels" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp"/>
 </LinearLayout></HorizontalScrollView>
 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="12dp">
-<TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/inter" android:textSize="11sp" android:textColor="#159557" android:text="@string/dashboard_evolution_sales"/>
+<TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/inter" android:textSize="11sp" android:textColor="@color/vl_text_green_mid" android:text="@string/dashboard_evolution_sales"/>
 <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/inter" android:textSize="11sp" android:textColor="#B58B00" android:text="@string/dashboard_evolution_profit"/>
 </LinearLayout>
 <include android:id="@+id/dashboardTrendStatus" layout="@layout/dashboard_component_status"/>

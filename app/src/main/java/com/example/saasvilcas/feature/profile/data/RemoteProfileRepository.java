@@ -64,7 +64,7 @@ public final class RemoteProfileRepository implements ProfileRepository {
         JSONObject tokens=json("POST","/iam/auth/refresh",null,body("refresh_token",session.refreshToken));
         try { String access=tokens.getString("access_token"),refresh=tokens.getString("refresh_token");
             tokensRotated.accept(new AuthSession(access,refresh,session.userId,session.companyId,session.name,session.email,session.companyName,
-                    Collections.singletonList(session.owner?"Dueño de empresa":"Vendedor")));
+                    session.roles));
             return profile(access).session(access,refresh); }
         catch(JSONException|IllegalArgumentException e) { throw new ApiException("No se pudo activar la cuenta. Vuelve a iniciar sesión."); }
     }
