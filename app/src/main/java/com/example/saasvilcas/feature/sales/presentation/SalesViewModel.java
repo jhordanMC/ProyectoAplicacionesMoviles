@@ -146,7 +146,8 @@ public final class SalesViewModel extends ViewModel {
                 main.post(()->{
                     if(cleared) return;
                     cart.clear();
-                    submission.setValue(new Submission(Submission.Stage.SUCCEEDED,sale,"Venta registrada correctamente."));
+                    submission.setValue(new Submission(Submission.Stage.SUCCEEDED,sale,sale.pending
+                            ?"Venta guardada sin conexión. Se enviará al recuperar internet.":"Venta registrada correctamente."));
                     publish(false,"",false); reload();
                 });
             } catch(SalesException error) {

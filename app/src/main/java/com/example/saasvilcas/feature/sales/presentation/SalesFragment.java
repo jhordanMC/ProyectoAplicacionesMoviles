@@ -94,7 +94,70 @@ public final class SalesFragment extends Fragment {
             renderProducts(view); renderCart(view);
         });
         model.submission().observe(getViewLifecycleOwner(),status->renderCart(view));
+        bindOfflineQueue(view);
         renderProducts(view); renderCart(view); setCartExpanded(view,cartExpanded,false); model.reload();
+    }
+    // --- HU-18: venta sin conexión ------------------------------------------------------------------------
+    private Boolean lastOnline;
+    private int lastPending=-1;
+    private void bindOfflineQueue(View view) {
+        com.example.saasvilcas.VilcasApplication app=(com.example.saasvilcas.VilcasApplication)requireActivity().getApplication();
+        lastOnline=null; lastPending=-1;
+        app.connectivity.online().observe(getViewLifecycleOwner(),online->renderNetwork(view,Boolean.TRUE.equals(online)));
+        app.salesQueue.observe(getViewLifecycleOwner(),queue->renderQueue(view,queue));
+        view.findViewById(R.id.salesQueueStatus).setOnClickListener(v->showAttention(app));
+        app.syncSales();
+    }
+    private void renderNetwork(View view,boolean online) {
+        TextView banner=view.findViewById(R.id.salesNetworkBanner);
+        boolean recovered=online && Boolean.FALSE.equals(lastOnline);
+        lastOnline=online;
+        banner.removeCallbacks(hideBanner);
+        if(!online) {
+            banner.setText(R.string.sales_offline);
+            banner.setBackgroundColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_danger_bg));
+            banner.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_negative));
+            banner.setVisibility(View.VISIBLE);
+        } else if(recovered) {
+            banner.setText(R.string.sales_back_online);
+            banner.setBackgroundColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.company_mint));
+            banner.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_green));
+            banner.setVisibility(View.VISIBLE);
+            banner.postDelayed(hideBanner,3000);
+            model.reload();
+        } else banner.setVisibility(View.GONE);
+    }
+    private final Runnable hideBanner=()->{ View view=getView(); if(view!=null) view.findViewById(R.id.salesNetworkBanner).setVisibility(View.GONE); };
+    private void renderQueue(View view,com.example.saasvilcas.feature.sales.data.OfflineSalesRepository.Status queue) {
+        TextView status=view.findViewById(R.id.salesQueueStatus);
+        boolean attention=!queue.attention.isEmpty();
+        if(attention) status.setText(getResources().getQuantityString(R.plurals.sales_attention,queue.attention.size(),queue.attention.size()));
+        else if(queue.pending>0) status.setText(getResources().getQuantityString(R.plurals.sales_pending,queue.pending,queue.pending));
+        status.setVisibility(attention || queue.pending>0?View.VISIBLE:View.GONE);
+        status.setClickable(attention);
+        // Synced sales are now part of the server stock; refresh so the catalog stops reserving them.
+        if(lastPending>queue.pending) model.reload();
+        lastPending=queue.pending;
+    }
+    private void showAttention(com.example.saasvilcas.VilcasApplication app) {
+        List<com.example.saasvilcas.feature.sales.domain.PendingSale> sales=app.salesQueue.getValue().attention;
+        if(sales.isEmpty()) return;
+        String[] labels=new String[sales.size()];
+        for(int i=0;i<sales.size();i++) labels[i]=money(sales.get(i).totalCents)+" · "+sales.get(i).summary;
+        new androidx.appcompat.app.AlertDialog.Builder(requireContext()).setTitle(R.string.sales_attention_title)
+                .setItems(labels,(dialog,which)->showPendingSale(app,sales.get(which)))
+                .setNegativeButton(R.string.sales_attention_close,null).show();
+    }
+    private void showPendingSale(com.example.saasvilcas.VilcasApplication app,com.example.saasvilcas.feature.sales.domain.PendingSale sale) {
+        String when=java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.SHORT,java.text.DateFormat.SHORT).format(new java.util.Date(sale.createdAt));
+        new androidx.appcompat.app.AlertDialog.Builder(requireContext()).setTitle(money(sale.totalCents)+" · "+when)
+                .setMessage(sale.summary+"\n\n"+sale.message)
+                .setPositiveButton(R.string.sales_attention_retry,(dialog,which)->app.retryPendingSale(sale.id))
+                .setNeutralButton(R.string.sales_attention_discard,(dialog,which)->new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.sales_attention_discard).setMessage(R.string.sales_discard_confirm)
+                        .setPositiveButton(R.string.sales_attention_discard,(d,w)->app.discardPendingSale(sale.id))
+                        .setNegativeButton(R.string.sales_attention_close,null).show())
+                .setNegativeButton(R.string.sales_attention_close,null).show();
     }
     private void sizeCartBody(View view) {
         View body=view.findViewById(R.id.salesCartBody);

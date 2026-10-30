@@ -95,7 +95,12 @@ public final class CheckoutConfirmationModal extends SalesModalFragment {
         requireView().findViewById(R.id.modalCloseIcon).setEnabled(true);
         android.view.ViewGroup body=(android.view.ViewGroup)content.getParent(); body.removeView(content);
         content=getLayoutInflater().inflate(R.layout.checkout_modal_success,body,false); body.addView(content);
-        ((TextView)content.findViewById(R.id.successMessage)).setText(android.text.Html.fromHtml("Venta por <b>"+CheckoutModalFragment.money(sale.totalCents)+"</b> registrada correctamente.",android.text.Html.FROM_HTML_MODE_LEGACY));
+        String amount=CheckoutModalFragment.money(sale.totalCents);
+        if(sale.pending) {
+            ((TextView)content.findViewById(R.id.successTitle)).setText(R.string.sales_saved_offline);
+            ((TextView)content.findViewById(R.id.successMessage)).setText(android.text.Html.fromHtml("Venta por <b>"+amount
+                    +"</b> guardada en el celular. Se enviará automáticamente al recuperar internet.",android.text.Html.FROM_HTML_MODE_LEGACY));
+        } else ((TextView)content.findViewById(R.id.successMessage)).setText(android.text.Html.fromHtml("Venta por <b>"+amount+"</b> registrada correctamente.",android.text.Html.FROM_HTML_MODE_LEGACY));
         ((TextView)content.findViewById(R.id.successId)).setText("ID: "+sale.id);
         content.findViewById(R.id.successClose).setOnClickListener(v->onCloseRequested());
         content.findViewById(R.id.successTicket).setOnClickListener(v->printSale(sale,true));
@@ -105,7 +110,7 @@ public final class CheckoutConfirmationModal extends SalesModalFragment {
     }
     private void printSale(SaleResult sale,boolean ticket) {
         android.webkit.WebView page=new android.webkit.WebView(requireContext());
-        String html="<html><head><meta charset='UTF-8'><style>body{font-family:sans-serif;color:#0b2e27;padding:12px}h2{text-align:center;color:#05833b}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:8px 2px;border-bottom:1px solid #ddd}p{overflow-wrap:anywhere}</style></head><body><h2>VILCAS</h2><h3>Venta registrada</h3><p>ID: "+android.text.TextUtils.htmlEncode(sale.id)+"</p><table><tr><th>Producto</th><th>Cant.</th><th>Subtotal</th></tr>"+receiptRows+"</table><h3>Total: "+CheckoutModalFragment.money(sale.totalCents)+"</h3></body></html>";
+        String html="<html><head><meta charset='UTF-8'><style>body{font-family:sans-serif;color:#0b2e27;padding:12px}h2{text-align:center;color:#05833b}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:8px 2px;border-bottom:1px solid #ddd}p{overflow-wrap:anywhere}</style></head><body><h2>VILCAS</h2><h3>"+(sale.pending?"Venta pendiente de sincronizar":"Venta registrada")+"</h3><p>ID: "+android.text.TextUtils.htmlEncode(sale.id)+"</p><table><tr><th>Producto</th><th>Cant.</th><th>Subtotal</th></tr>"+receiptRows+"</table><h3>Total: "+CheckoutModalFragment.money(sale.totalCents)+"</h3></body></html>";
         page.setWebViewClient(new android.webkit.WebViewClient() {
             boolean opened;
             @Override public void onPageFinished(android.webkit.WebView view,String url) {

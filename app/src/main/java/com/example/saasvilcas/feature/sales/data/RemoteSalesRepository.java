@@ -23,33 +23,45 @@ public final class RemoteSalesRepository implements SalesRepository {
         if(value==null || value.isEmpty()) throw new SalesException("Tu sesión expiró. Vuelve a iniciar sesión.",401,false);
         return value;
     }
-    @Override public List<SalesSite> loadSites() throws SalesException {
+    @Override public List<SalesSite> loadSites() throws SalesException { return sites(sitesJson()); }
+    /** Raw site list, kept so the catalog can be used without connection. */
+    public String sitesJson() throws SalesException {
+        try { return api.request("GET","/ventas/pos/mis-sedes",null,null,bearer()); }
+        catch(ApiException error) { throw mapped(error,false); }
+    }
+    public static List<SalesSite> sites(String json) throws SalesException {
         try {
-            JSONArray items=new JSONArray(api.request("GET","/ventas/pos/mis-sedes",null,null,bearer()));
+            JSONArray items=new JSONArray(json);
             ArrayList<SalesSite> sites=new ArrayList<>();
             for(int i=0;i<items.length();i++) {
                 JSONObject site=items.getJSONObject(i);
                 sites.add(new SalesSite(site.getString("id_sede"),site.getString("nombre"),site.getString("tipo")));
             }
             return sites;
-        } catch(ApiException error) { throw mapped(error,false); }
-        catch(JSONException error) { throw invalid(false); }
+        } catch(JSONException error) { throw invalid(false); }
     }
     @Override public SalesPage loadProducts(SalesFilter filter,int offset) throws SalesException {
+        return page(productsJson(filter,offset),offset);
+    }
+    public JSONObject productsJson(SalesFilter filter,int offset) throws SalesException {
         try {
             String path="/ventas/pos/productos?limit=30&offset="+offset;
             path+=param("busqueda",filter.search)+param("talla","Sin talla".equals(filter.size)?"":filter.size)
                     +param("id_ubicacion_filtro",filter.siteId)+param("sexo",gender(filter.gender));
-            JSONObject page=new JSONObject(api.request("GET",path,null,null,bearer()));
+            return new JSONObject(api.request("GET",path,null,null,bearer()));
+        } catch(ApiException error) { throw mapped(error,false); }
+        catch(Exception error) { if(error instanceof SalesException) throw (SalesException)error; throw invalid(false); }
+    }
+    public static SalesPage page(JSONObject page,int offset) throws SalesException {
+        try {
             JSONArray items=page.getJSONArray("items"); ArrayList<SalesProduct> products=new ArrayList<>();
             for(int i=0;i<items.length();i++) products.add(product(items.getJSONObject(i)));
             int next=page.getInt("siguiente_offset"); boolean more=page.getBoolean("hay_mas");
             if(more && (items.length()==0 || next<=offset)) throw new JSONException("Invalid pagination");
             return new SalesPage(products,more,next);
-        } catch(ApiException error) { throw mapped(error,false); }
-        catch(Exception error) { if(error instanceof SalesException) throw (SalesException)error; throw invalid(false); }
+        } catch(Exception error) { throw invalid(false); }
     }
-    private SalesProduct product(JSONObject item) throws JSONException {
+    public static SalesProduct product(JSONObject item) throws JSONException {
         ArrayList<SalesVariant> variants=new ArrayList<>(); JSONArray values=item.getJSONArray("variantes");
         for(int i=0;i<values.length();i++) {
             JSONObject variant=values.getJSONObject(i);
@@ -73,18 +85,29 @@ public final class RemoteSalesRepository implements SalesRepository {
                     url=uploaded.get(payment.receipt);
                     if(url==null) {
                         ensureSession(owner);
-                        String response=api.upload("/ventas/pos/upload-comprobante","comprobante.jpg","image/jpeg",receipts.jpeg(payment.receipt),owner);
-                        url=new JSONObject(response).getString("url");
-                        if(!url.startsWith("/")) throw new JSONException("Invalid receipt URL");
+                        url=uploadReceipt(receipts.jpeg(payment.receipt),owner);
                         uploaded.put(payment.receipt,url);
                     }
                 }
                 urls.add(url);
             }
             body=payload(draft,urls);
+        } catch(JSONException error) { throw invalid(false); }
+        ensureSession(owner);
+        return confirm(body,owner);
+    }
+    /** Uploads one receipt JPEG and returns the server-relative URL to send in the payment. */
+    public String uploadReceipt(byte[] jpeg,String owner) throws SalesException {
+        try {
+            String url=new JSONObject(api.upload("/ventas/pos/upload-comprobante","comprobante.jpg","image/jpeg",jpeg,owner)).getString("url");
+            if(!url.startsWith("/")) throw new JSONException("Invalid receipt URL");
+            return url;
         } catch(ApiException error) { throw mapped(error,false); }
         catch(JSONException error) { throw invalid(false); }
-        ensureSession(owner);
+    }
+    public String uploadReceipt(byte[] jpeg) throws SalesException { return uploadReceipt(jpeg,bearer()); }
+    public SaleResult confirm(JSONObject body) throws SalesException { return confirm(body,bearer()); }
+    private SaleResult confirm(JSONObject body,String owner) throws SalesException {
         try {
             JSONObject response=new JSONObject(api.request("POST","/ventas/pos/confirmar","application/json",body.toString(),owner));
             String id=response.getString("id_venta"); UUID.fromString(id);
@@ -109,7 +132,8 @@ public final class RemoteSalesRepository implements SalesRepository {
             else payment.put("url_comprobante",urls.get(i));
             payments.put(payment);
         }
-        return new JSONObject().put("id_local",draft.registerId).put("detalles",details).put("pagos",payments);
+        return new JSONObject().put("clave_idempotencia",draft.id).put("id_local",draft.registerId)
+                .put("detalles",details).put("pagos",payments);
     }
     private void ensureSession(String expected) throws SalesException {
         if(!expected.equals(bearer())) throw new SalesException("La sesión cambió. Vuelve a abrir ventas.",401,false);

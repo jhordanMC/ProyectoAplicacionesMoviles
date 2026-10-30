@@ -25,5 +25,15 @@
 <string name="sales_registered">Venta registrada</string>
 <string name="sales_registered_message">Venta por %1$s registrada correctamente. Código: %2$s</string>
 <string name="sales_sending">Registrando venta…</string>
+<string name="sales_offline">Sin conexión: las ventas se guardan en el celular y se enviarán al recuperar internet.</string>
+<string name="sales_back_online">Has recuperado la conexión</string>
+<plurals name="sales_pending"><item quantity="one">%1$d venta pendiente de sincronizar</item><item quantity="other">%1$d ventas pendientes de sincronizar</item></plurals>
+<plurals name="sales_attention"><item quantity="one">%1$d venta no se pudo sincronizar · Revisar</item><item quantity="other">%1$d ventas no se pudieron sincronizar · Revisar</item></plurals>
+<string name="sales_attention_title">Ventas por revisar</string>
+<string name="sales_attention_retry">Reintentar</string>
+<string name="sales_attention_discard">Descartar</string>
+<string name="sales_attention_close">Cerrar</string>
+<string name="sales_discard_confirm">La venta se borrará del celular y no se enviará. Úsalo solo si no se concretó o si la registrarás de nuevo.</string>
+<string name="sales_saved_offline">Venta guardada sin conexión</string>
 </resources>
 

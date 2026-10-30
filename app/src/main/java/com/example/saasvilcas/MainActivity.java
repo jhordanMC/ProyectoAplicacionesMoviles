@@ -99,10 +99,16 @@ public class MainActivity extends AppCompatActivity implements FrontendNavigator
             } else if(result==com.example.saasvilcas.feature.auth.presentation.StartupSessionViewModel.Result.EXPIRED) {
                 app.restoreRequired=false; showLogin();
             } else if(result==com.example.saasvilcas.feature.auth.presentation.StartupSessionViewModel.Result.RETRY && restoreError==null) {
-                restoreError=new androidx.appcompat.app.AlertDialog.Builder(this).setTitle("No se pudo conectar")
+                androidx.appcompat.app.AlertDialog.Builder builder=new androidx.appcompat.app.AlertDialog.Builder(this).setTitle("No se pudo conectar")
                         .setMessage("Tu cuenta sigue guardada. Revisa tu conexión y vuelve a intentar.")
                         .setCancelable(false).setPositiveButton("Reintentar",(dialog,which)->{restoreError=null;model.start();})
-                        .setNegativeButton("Cerrar",(dialog,which)->finish()).show();
+                        .setNegativeButton("Cerrar",(dialog,which)->finish());
+                com.example.saasvilcas.feature.auth.domain.AuthSession saved=app.sessions.get();
+                // HU-18: with the saved session the seller can keep selling; the queue is sent when the signal returns.
+                if(saved!=null && saved.canSeeSales()) builder.setNeutralButton("Vender sin conexión",(dialog,which)->{
+                    restoreError=null; app.restoreRequired=false; showCompany(saved.owner);
+                });
+                restoreError=builder.show();
             }
         });
         if(model.result.getValue()==null) model.start();
