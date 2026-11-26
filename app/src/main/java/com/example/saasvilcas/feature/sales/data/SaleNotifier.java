@@ -53,7 +53,7 @@ public final class SaleNotifier {
                 design.setViewVisibility(R.id.saleNotificationPhoto,photo==null?android.view.View.GONE:android.view.View.VISIBLE);
                 if(photo!=null) design.setImageViewBitmap(R.id.saleNotificationPhoto,photo);
                 manager.notify(notice.id.hashCode(),base(context.getString(R.string.sales_notice_title),place.isEmpty()?amount:amount+" • "+place,notice.id)
-                        .setLargeIcon(photo).setStyle(new NotificationCompat.DecoratedCustomViewStyle()).setCustomBigContentView(design).build());
+                        .setStyle(new NotificationCompat.DecoratedCustomViewStyle()).setCustomBigContentView(design).build());
             }
         } catch(SecurityException ignored) { }
     }
