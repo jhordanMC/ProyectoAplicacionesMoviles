@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SaaSVilcas</string>
+    <string name="app_name">VILCAS</string>
     <string name="brand_name">VILCAS</string>
     <string name="identity_heading">Verifica tu identidad</string>
     <string name="identity_instructions">Ingresa el código para completar tu inicio de sesión</string>

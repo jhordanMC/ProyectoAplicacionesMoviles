@@ -36,6 +36,34 @@ public class OfflineDatabaseInstrumentedTest {
         store.delete("a");
         assertNull(store.find("a")); assertEquals(1,store.list("company","user").size());
     }
+    @Test public void noticesAreOrderedTrimmedAndMarkedRead() {
+        for(int i=1;i<=3;i++) store.saveNotice(new com.example.saasvilcas.feature.sales.domain.SaleNotice("n"+i,"company","user","Tienda","Ana","","",100,i,false));
+        store.trimNotices("company","user",2);
+        List<com.example.saasvilcas.feature.sales.domain.SaleNotice> notices=store.notices("company","user");
+        assertEquals(2,notices.size()); assertEquals("n3",notices.get(0).id);
+        store.markAllRead("company","user");
+        assertTrue(store.findNotice("n2","user").read);
+        store.clearNotices("company","user");
+        assertTrue(store.notices("company","user").isEmpty());
+    }
+    @Test public void migrationKeepsTheSalesQueueOfVersionOne() {
+        android.content.Context context=InstrumentationRegistry.getInstrumentation().getTargetContext();
+        String name="migracion_prueba.db"; context.deleteDatabase(name);
+        android.database.sqlite.SQLiteDatabase old=context.openOrCreateDatabase(name,0,null);
+        old.execSQL("CREATE TABLE `ventas_pendientes` (`id` TEXT NOT NULL, `companyId` TEXT NOT NULL, `userId` TEXT NOT NULL, `registerId` TEXT NOT NULL, `payload` TEXT NOT NULL, `summary` TEXT NOT NULL, `status` TEXT NOT NULL, `message` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `totalCents` INTEGER NOT NULL, `attempts` INTEGER NOT NULL, PRIMARY KEY(`id`))");
+        old.execSQL("CREATE INDEX `index_ventas_pendientes_companyId_userId_createdAt` ON `ventas_pendientes` (`companyId`, `userId`, `createdAt`)");
+        old.execSQL("CREATE TABLE `sedes_guardadas` (`companyId` TEXT NOT NULL, `json` TEXT NOT NULL, PRIMARY KEY(`companyId`))");
+        old.execSQL("CREATE TABLE `productos_guardados` (`companyId` TEXT NOT NULL, `productId` TEXT NOT NULL, `json` TEXT NOT NULL, `position` INTEGER NOT NULL, PRIMARY KEY(`companyId`, `productId`))");
+        old.execSQL("INSERT INTO ventas_pendientes VALUES ('s1','company','user','store','{}','1 × Motor','PENDING','',1,100,0)");
+        old.setVersion(1); old.close();
+        OfflineDatabase migrated=Room.databaseBuilder(context,OfflineDatabase.class,name).addMigrations(OfflineDatabase.MIGRATION_1_2).build();
+        try {
+            OfflineDatabase.Store current=new OfflineDatabase.Store(migrated);
+            assertNotNull(current.find("s1"));
+            current.saveNotice(new com.example.saasvilcas.feature.sales.domain.SaleNotice("n","company","user","","","","",100,1,false));
+            assertNotNull(current.findNotice("n","user"));
+        } finally { migrated.close(); context.deleteDatabase(name); }
+    }
     @Test public void filteredSearchesKeepTheCatalogOrder() {
         store.saveProducts("company",Arrays.asList("p1","p2"),Arrays.asList("{\"n\":1}","{\"n\":2}"),0);
         store.saveProducts("company",Collections.singletonList("p1"),Collections.singletonList("{\"n\":11}"),-1);

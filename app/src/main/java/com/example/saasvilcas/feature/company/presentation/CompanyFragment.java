@@ -40,6 +40,50 @@ public class CompanyFragment extends Fragment {
         // Resolved against the session's roles once the view exists.
         selectedSection = state == null ? -1 : state.getInt("section");
     }
+    // --- HU-19: notificaciones de venta ---------------------------------------------------------------------
+    private int unseenAnnouncements,unreadSales;
+    private final android.os.Handler noticeTimer=new android.os.Handler(android.os.Looper.getMainLooper());
+    private static final long NOTICE_INTERVAL=60_000;
+    private final androidx.activity.result.ActivityResultLauncher<String> notificationPermission=
+            registerForActivityResult(new androidx.activity.result.contract.ActivityResultContracts.RequestPermission(),granted->{ });
+    private void renderBadge(View view) {
+        int total=unseenAnnouncements+unreadSales;
+        TextView badge=view.findViewById(R.id.companyNotificationBadge);
+        badge.setText(total>99?"99+":String.valueOf(total));
+        badge.setVisibility(total>0?View.VISIBLE:View.GONE);
+        view.findViewById(R.id.companyNotifications).setContentDescription(total>0?getString(R.string.company_notifications)+": "+total:getString(R.string.company_notifications));
+    }
+    private void showAnnouncements() {
+        if(getChildFragmentManager().findFragmentByTag("announcements")==null && !getChildFragmentManager().isStateSaved())
+            new com.example.saasvilcas.feature.profile.presentation.AnnouncementsModalFragment().showNow(getChildFragmentManager(),"announcements");
+    }
+    private void bindSaleNotices(com.example.saasvilcas.VilcasApplication app,com.example.saasvilcas.feature.auth.domain.AuthSession session) {
+        if(!session.owner) { app.refreshSaleNotices(); return; }
+        com.example.saasvilcas.feature.sales.data.SaleNoticeWorker.schedule(app);
+        android.content.SharedPreferences preferences=requireContext().getSharedPreferences("sale_notices",0);
+        if(android.os.Build.VERSION.SDK_INT>=33 && !preferences.getBoolean("permission_asked",false)
+                && androidx.core.content.ContextCompat.checkSelfPermission(requireContext(),android.Manifest.permission.POST_NOTIFICATIONS)!=android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            preferences.edit().putBoolean("permission_asked",true).apply();
+            notificationPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS);
+        }
+        // With the app open the owner hears sooner than the 15 minutes of the background work.
+        Runnable check=new Runnable() {
+            @Override public void run() { app.checkSaleNoticesAsync(); noticeTimer.postDelayed(this,NOTICE_INTERVAL); }
+        };
+        getViewLifecycleOwner().getLifecycle().addObserver((androidx.lifecycle.LifecycleEventObserver)(owner,event)->{
+            if(event==androidx.lifecycle.Lifecycle.Event.ON_START) noticeTimer.post(check);
+            else if(event==androidx.lifecycle.Lifecycle.Event.ON_STOP) noticeTimer.removeCallbacks(check);
+        });
+    }
+    /** Opens the sale when the app was started from its system notification. */
+    public void openPendingSaleNotice() {
+        android.content.Intent intent=requireActivity().getIntent();
+        String id=intent==null?null:intent.getStringExtra(com.example.saasvilcas.feature.sales.data.SaleNotifier.EXTRA_NOTICE);
+        if(id==null || getChildFragmentManager().isStateSaved()) return;
+        intent.removeExtra(com.example.saasvilcas.feature.sales.data.SaleNotifier.EXTRA_NOTICE);
+        if(getChildFragmentManager().findFragmentByTag("sale-notice")==null)
+            com.example.saasvilcas.feature.sales.presentation.SaleNoticeDetailModal.create(id).show(getChildFragmentManager(),"sale-notice");
+    }
     private int homeSection() {
         for(int section:new int[]{DASHBOARD,INVENTORY,SALES}) if(allowed[section]) return section;
         return INVENTORY;
@@ -114,10 +158,14 @@ public class CompanyFragment extends Fragment {
             if(!value.avatar.isEmpty()) com.example.saasvilcas.shared.ui.ProductImageLoader.load(avatar,value.avatar);
         });
         profile.announcements.observe(getViewLifecycleOwner(),values->{
-            boolean unseen=false; for(com.example.saasvilcas.feature.profile.domain.Announcement value:values) unseen|=!value.seen;
-            view.findViewById(R.id.companyNotificationBadge).setVisibility(unseen?View.VISIBLE:View.GONE);
-            view.findViewById(R.id.companyNotifications).setContentDescription(unseen?"Anuncios nuevos":getString(R.string.company_notifications));
+            unseenAnnouncements=0; for(com.example.saasvilcas.feature.profile.domain.Announcement value:values) if(!value.seen) unseenAnnouncements++;
+            renderBadge(view);
         });
+        app.saleNotices.observe(getViewLifecycleOwner(),notices->{
+            unreadSales=0; for(com.example.saasvilcas.feature.sales.domain.SaleNotice notice:notices) if(!notice.read) unreadSales++;
+            renderBadge(view);
+        });
+        bindSaleNotices(app,session);
         profile.expired.observe(getViewLifecycleOwner(),expired->{if(expired) ((FrontendNavigator)requireActivity()).showLogin();});
         profile.operation.observe(getViewLifecycleOwner(),operation->{
             if(operation.kind.equals("activate") && operation.success) {
@@ -127,9 +175,15 @@ public class CompanyFragment extends Fragment {
         });
         profile.start();
         view.findViewById(R.id.companyNotifications).setOnClickListener(v->{
-            if(getChildFragmentManager().findFragmentByTag("announcements")==null)
-                new com.example.saasvilcas.feature.profile.presentation.AnnouncementsModalFragment().showNow(getChildFragmentManager(),"announcements");
+            com.example.saasvilcas.feature.auth.domain.AuthSession current=app.sessions.get();
+            if(current!=null && current.owner) {
+                if(getChildFragmentManager().findFragmentByTag("sale-notices")==null)
+                    new com.example.saasvilcas.feature.sales.presentation.SaleNoticesModal().showNow(getChildFragmentManager(),"sale-notices");
+            } else showAnnouncements();
         });
+        getChildFragmentManager().setFragmentResultListener(com.example.saasvilcas.feature.sales.presentation.SaleNoticesModal.OPEN_ANNOUNCEMENTS,
+                getViewLifecycleOwner(),(key,result)->showAnnouncements());
+        openPendingSaleNotice();
         view.findViewById(R.id.companyTheme).setOnClickListener(v->{
             int mode=dark?AppCompatDelegate.MODE_NIGHT_NO:AppCompatDelegate.MODE_NIGHT_YES;
             requireContext().getSharedPreferences("appearance",0).edit().putInt("night_mode",mode).apply();

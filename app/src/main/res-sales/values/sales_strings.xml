@@ -25,15 +25,42 @@
 <string name="sales_registered">Venta registrada</string>
 <string name="sales_registered_message">Venta por %1$s registrada correctamente. Código: %2$s</string>
 <string name="sales_sending">Registrando venta…</string>
-<string name="sales_offline">Sin conexión: las ventas se guardan en el celular y se enviarán al recuperar internet.</string>
+<string name="sales_offline_title">Sin conexión</string>
+<string name="sales_offline_message">Las ventas se guardan en el celular y se enviarán al recuperar internet.</string>
 <string name="sales_back_online">Has recuperado la conexión</string>
+<string name="sales_back_online_message">Enviando tus ventas pendientes.</string>
 <plurals name="sales_pending"><item quantity="one">%1$d venta pendiente de sincronizar</item><item quantity="other">%1$d ventas pendientes de sincronizar</item></plurals>
-<plurals name="sales_attention"><item quantity="one">%1$d venta no se pudo sincronizar · Revisar</item><item quantity="other">%1$d ventas no se pudieron sincronizar · Revisar</item></plurals>
+<string name="sales_pending_message">Se enviarán solas cuando haya internet.</string>
+<plurals name="sales_attention"><item quantity="one">%1$d venta no se pudo sincronizar</item><item quantity="other">%1$d ventas no se pudieron sincronizar</item></plurals>
+<string name="sales_attention_message">Toca para revisarlas.</string>
 <string name="sales_attention_title">Ventas por revisar</string>
-<string name="sales_attention_retry">Reintentar</string>
+<string name="sales_attention_caption">El servidor no pudo registrarlas. Reintenta cuando el motivo esté resuelto, o descarta la venta si no se concretó.</string>
 <string name="sales_attention_discard">Descartar</string>
 <string name="sales_attention_close">Cerrar</string>
-<string name="sales_discard_confirm">La venta se borrará del celular y no se enviará. Úsalo solo si no se concretó o si la registrarás de nuevo.</string>
+<string name="sales_discard_heading">¿Descartar esta venta?</string>
+<string name="sales_discard_confirm">Se borrará del celular y no se enviará. Úsalo solo si no se concretó o si la registrarás de nuevo.</string>
+<string name="sales_start_heading">No se pudo conectar</string>
+<string name="sales_start_message">Tu cuenta sigue guardada. Revisa tu conexión y vuelve a intentar.</string>
+<string name="sales_start_message_sell">Tu cuenta sigue guardada. Puedes vender sin conexión: las ventas se enviarán al recuperar internet.</string>
+<string name="sales_start_offline">Vender sin conexión</string>
 <string name="sales_saved_offline">Venta guardada sin conexión</string>
+<string name="sales_notice_channel">Ventas</string>
+<string name="sales_notice_channel_description">Avisa al dueño cada vez que se registra una venta.</string>
+<string name="sales_notice_title">¡Nueva venta registrada!</string>
+<string name="sales_notice_seller_line">Vendedor: %1$s</string>
+<plurals name="sales_notice_many"><item quantity="one">%1$d venta nueva</item><item quantity="other">%1$d ventas nuevas</item></plurals>
+<string name="sales_notice_many_message">Toca para ver el detalle.</string>
+<string name="sales_notice_heading">Notificaciones</string>
+<string name="sales_notice_caption">Las ventas registradas en tu empresa. Toca una para ver el detalle.</string>
+<string name="sales_notice_empty">Aún no hay ventas para mostrar.</string>
+<string name="sales_notice_mark_all">Marcar todas como leídas</string>
+<string name="sales_notice_announcements">Ver anuncios de ALBA</string>
+<string name="sales_notice_detail">Detalle de la venta</string>
+<string name="sales_notice_date">Fecha</string>
+<string name="sales_notice_site">Local</string>
+<string name="sales_notice_seller">Vendedor</string>
+<string name="sales_notice_products">Productos</string>
+<string name="sales_notice_payments">Pagos</string>
+<string name="sales_notice_id">ID de la venta</string>
 </resources>
 

@@ -12,7 +12,9 @@ public final class SalesSyncWorker extends Worker {
     public SalesSyncWorker(@NonNull Context context,@NonNull WorkerParameters parameters) { super(context,parameters); }
     @NonNull @Override public Result doWork() {
         VilcasApplication app=(VilcasApplication)getApplicationContext();
-        return app.offlineSales.sync()?Result.retry():Result.success();
+        boolean again=app.offlineSales.sync();
+        app.notifyNewSales();
+        return again?Result.retry():Result.success();
     }
     public static void schedule(Context context) {
         OneTimeWorkRequest request=new OneTimeWorkRequest.Builder(SalesSyncWorker.class)

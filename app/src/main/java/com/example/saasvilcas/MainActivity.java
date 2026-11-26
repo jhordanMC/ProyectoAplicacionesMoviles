@@ -82,38 +82,46 @@ public class MainActivity extends AppCompatActivity implements FrontendNavigator
         }, true);
         // Screens apply safe insets to their controls; the host always covers the full window.
         if(app.restoreRequired) restoreSession(app);
+        else if(savedInstanceState==null && app.sessions.get()!=null) showCompany(app.sessions.get().owner);
         else if (savedInstanceState == null ||
                 (getSupportFragmentManager().findFragmentById(R.id.screenHost) instanceof CompanyFragment
                 && ((VilcasApplication)getApplication()).sessions.get()==null)) showLogin();
     }
 
-    private androidx.appcompat.app.AlertDialog restoreError;
     private void restoreSession(VilcasApplication app) {
         com.example.saasvilcas.feature.auth.presentation.StartupSessionViewModel model=new androidx.lifecycle.ViewModelProvider(this,
                 com.example.saasvilcas.feature.auth.presentation.StartupSessionViewModel.factory(app.sessions,app.newProfileRepository()))
                 .get(com.example.saasvilcas.feature.auth.presentation.StartupSessionViewModel.class);
         setAuthLoading(true,"Restaurando tu sesión…");
+        getSupportFragmentManager().setFragmentResultListener(com.example.saasvilcas.feature.sales.presentation.OfflineStartModal.RESULT,this,(key,result)->{
+            String action=result.getString(com.example.saasvilcas.feature.sales.presentation.OfflineStartModal.ACTION);
+            com.example.saasvilcas.feature.auth.domain.AuthSession saved=app.sessions.get();
+            if(com.example.saasvilcas.feature.sales.presentation.OfflineStartModal.RETRY.equals(action)) model.start();
+            else if(com.example.saasvilcas.feature.sales.presentation.OfflineStartModal.CLOSE.equals(action) || saved==null) finish();
+            else { app.restoreRequired=false; showCompany(saved.owner); }
+        });
         model.result.observe(this,result->{
             if(result==com.example.saasvilcas.feature.auth.presentation.StartupSessionViewModel.Result.READY) {
                 app.restoreRequired=false; showCompany(app.sessions.get().owner);
             } else if(result==com.example.saasvilcas.feature.auth.presentation.StartupSessionViewModel.Result.EXPIRED) {
                 app.restoreRequired=false; showLogin();
-            } else if(result==com.example.saasvilcas.feature.auth.presentation.StartupSessionViewModel.Result.RETRY && restoreError==null) {
-                androidx.appcompat.app.AlertDialog.Builder builder=new androidx.appcompat.app.AlertDialog.Builder(this).setTitle("No se pudo conectar")
-                        .setMessage("Tu cuenta sigue guardada. Revisa tu conexión y vuelve a intentar.")
-                        .setCancelable(false).setPositiveButton("Reintentar",(dialog,which)->{restoreError=null;model.start();})
-                        .setNegativeButton("Cerrar",(dialog,which)->finish());
+            } else if(result==com.example.saasvilcas.feature.auth.presentation.StartupSessionViewModel.Result.RETRY
+                    && getSupportFragmentManager().findFragmentByTag("offline-start")==null) {
                 com.example.saasvilcas.feature.auth.domain.AuthSession saved=app.sessions.get();
                 // HU-18: with the saved session the seller can keep selling; the queue is sent when the signal returns.
-                if(saved!=null && saved.canSeeSales()) builder.setNeutralButton("Vender sin conexión",(dialog,which)->{
-                    restoreError=null; app.restoreRequired=false; showCompany(saved.owner);
-                });
-                restoreError=builder.show();
+                com.example.saasvilcas.feature.sales.presentation.OfflineStartModal.create(saved!=null && saved.canSeeSales())
+                        .show(getSupportFragmentManager(),"offline-start");
             }
         });
         if(model.result.getValue()==null) model.start();
     }
 
+    @Override protected void onNewIntent(@androidx.annotation.NonNull android.content.Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        if(getSupportFragmentManager().findFragmentById(R.id.screenHost) instanceof CompanyFragment)
+            ((CompanyFragment)getSupportFragmentManager().findFragmentById(R.id.screenHost)).openPendingSaleNotice();
+    }
     @Override public void showLogin() {
         VilcasApplication app=(VilcasApplication)getApplication();
         app.clearSession();
@@ -156,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements FrontendNavigator
         }
     }
     @Override protected void onDestroy() {
-        if(restoreError!=null) {restoreError.dismiss();restoreError=null;}
         if(logoRotation!=null) { logoRotation.cancel(); logoRotation=null; }
         super.onDestroy();
     }

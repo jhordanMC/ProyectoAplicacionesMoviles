@@ -105,59 +105,57 @@ public final class SalesFragment extends Fragment {
         lastOnline=null; lastPending=-1;
         app.connectivity.online().observe(getViewLifecycleOwner(),online->renderNetwork(view,Boolean.TRUE.equals(online)));
         app.salesQueue.observe(getViewLifecycleOwner(),queue->renderQueue(view,queue));
-        view.findViewById(R.id.salesQueueStatus).setOnClickListener(v->showAttention(app));
+        view.findViewById(R.id.salesQueueStatus).setOnClickListener(v->showAttention());
         app.syncSales();
     }
     private void renderNetwork(View view,boolean online) {
-        TextView banner=view.findViewById(R.id.salesNetworkBanner);
+        View banner=view.findViewById(R.id.salesNetworkBanner);
         boolean recovered=online && Boolean.FALSE.equals(lastOnline);
         lastOnline=online;
         banner.removeCallbacks(hideBanner);
         if(!online) {
-            banner.setText(R.string.sales_offline);
-            banner.setBackgroundColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_danger_bg));
-            banner.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_negative));
-            banner.setVisibility(View.VISIBLE);
+            status(banner,R.id.salesNetworkIcon,R.drawable.sales_ic_offline,R.id.salesNetworkTitle,getString(R.string.sales_offline_title),
+                    R.id.salesNetworkMessage,getString(R.string.sales_offline_message),R.color.vl_danger_bg,R.color.vl_negative);
         } else if(recovered) {
-            banner.setText(R.string.sales_back_online);
-            banner.setBackgroundColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.company_mint));
-            banner.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),R.color.vl_text_green));
-            banner.setVisibility(View.VISIBLE);
+            com.example.saasvilcas.VilcasApplication app=(com.example.saasvilcas.VilcasApplication)requireActivity().getApplication();
+            status(banner,R.id.salesNetworkIcon,R.drawable.sales_ic_online,R.id.salesNetworkTitle,getString(R.string.sales_back_online),
+                    R.id.salesNetworkMessage,app.salesQueue.getValue().pending>0?getString(R.string.sales_back_online_message):"",R.color.company_mint,R.color.vl_text_green);
             banner.postDelayed(hideBanner,3000);
             model.reload();
         } else banner.setVisibility(View.GONE);
     }
     private final Runnable hideBanner=()->{ View view=getView(); if(view!=null) view.findViewById(R.id.salesNetworkBanner).setVisibility(View.GONE); };
     private void renderQueue(View view,com.example.saasvilcas.feature.sales.data.OfflineSalesRepository.Status queue) {
-        TextView status=view.findViewById(R.id.salesQueueStatus);
+        View card=view.findViewById(R.id.salesQueueStatus);
         boolean attention=!queue.attention.isEmpty();
-        if(attention) status.setText(getResources().getQuantityString(R.plurals.sales_attention,queue.attention.size(),queue.attention.size()));
-        else if(queue.pending>0) status.setText(getResources().getQuantityString(R.plurals.sales_pending,queue.pending,queue.pending));
-        status.setVisibility(attention || queue.pending>0?View.VISIBLE:View.GONE);
-        status.setClickable(attention);
+        if(attention) status(card,R.id.salesQueueIcon,R.drawable.sales_ic_sync,R.id.salesQueueTitle,getResources().getQuantityString(R.plurals.sales_attention,queue.attention.size(),queue.attention.size()),
+                R.id.salesQueueMessage,getString(R.string.sales_attention_message),R.color.vl_danger_bg,R.color.vl_negative);
+        else if(queue.pending>0) status(card,R.id.salesQueueIcon,R.drawable.sales_ic_sync,R.id.salesQueueTitle,getResources().getQuantityString(R.plurals.sales_pending,queue.pending,queue.pending),
+                R.id.salesQueueMessage,getString(R.string.sales_pending_message),R.color.vl_alert_stock_bg,R.color.vl_alert_stock);
+        else card.setVisibility(View.GONE);
+        card.setClickable(attention);
+        android.widget.ImageView chevron=view.findViewById(R.id.salesQueueChevron);
+        chevron.setVisibility(attention?View.VISIBLE:View.GONE);
+        chevron.setImageTintList(androidx.core.content.ContextCompat.getColorStateList(requireContext(),R.color.vl_negative));
         // Synced sales are now part of the server stock; refresh so the catalog stops reserving them.
         if(lastPending>queue.pending) model.reload();
         lastPending=queue.pending;
     }
-    private void showAttention(com.example.saasvilcas.VilcasApplication app) {
-        List<com.example.saasvilcas.feature.sales.domain.PendingSale> sales=app.salesQueue.getValue().attention;
-        if(sales.isEmpty()) return;
-        String[] labels=new String[sales.size()];
-        for(int i=0;i<sales.size();i++) labels[i]=money(sales.get(i).totalCents)+" · "+sales.get(i).summary;
-        new androidx.appcompat.app.AlertDialog.Builder(requireContext()).setTitle(R.string.sales_attention_title)
-                .setItems(labels,(dialog,which)->showPendingSale(app,sales.get(which)))
-                .setNegativeButton(R.string.sales_attention_close,null).show();
+    /** Status card in the same soft colors as the dashboard alerts. */
+    private void status(View card,int iconId,int icon,int titleId,String title,int messageId,String message,int background,int accent) {
+        card.setBackgroundTintList(androidx.core.content.ContextCompat.getColorStateList(requireContext(),background));
+        android.widget.ImageView image=card.findViewById(iconId);
+        image.setImageResource(icon);
+        image.setImageTintList(androidx.core.content.ContextCompat.getColorStateList(requireContext(),accent));
+        TextView heading=card.findViewById(titleId);
+        heading.setText(title); heading.setTextColor(androidx.core.content.ContextCompat.getColor(requireContext(),accent));
+        TextView body=card.findViewById(messageId);
+        body.setText(message); body.setVisibility(message.isEmpty()?View.GONE:View.VISIBLE);
+        card.setVisibility(View.VISIBLE);
     }
-    private void showPendingSale(com.example.saasvilcas.VilcasApplication app,com.example.saasvilcas.feature.sales.domain.PendingSale sale) {
-        String when=java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.SHORT,java.text.DateFormat.SHORT).format(new java.util.Date(sale.createdAt));
-        new androidx.appcompat.app.AlertDialog.Builder(requireContext()).setTitle(money(sale.totalCents)+" · "+when)
-                .setMessage(sale.summary+"\n\n"+sale.message)
-                .setPositiveButton(R.string.sales_attention_retry,(dialog,which)->app.retryPendingSale(sale.id))
-                .setNeutralButton(R.string.sales_attention_discard,(dialog,which)->new androidx.appcompat.app.AlertDialog.Builder(requireContext())
-                        .setTitle(R.string.sales_attention_discard).setMessage(R.string.sales_discard_confirm)
-                        .setPositiveButton(R.string.sales_attention_discard,(d,w)->app.discardPendingSale(sale.id))
-                        .setNegativeButton(R.string.sales_attention_close,null).show())
-                .setNegativeButton(R.string.sales_attention_close,null).show();
+    private void showAttention() {
+        if(getChildFragmentManager().findFragmentByTag("sales-pending")==null && !getChildFragmentManager().isStateSaved())
+            new PendingSalesModal().show(getChildFragmentManager(),"sales-pending");
     }
     private void sizeCartBody(View view) {
         View body=view.findViewById(R.id.salesCartBody);

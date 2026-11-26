@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="@dimen/page_gutter" android:paddingEnd="@dimen/page_gutter" android:animateLayoutChanges="true">
+    <LinearLayout android:id="@+id/salesNetworkBanner" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:layout_marginBottom="6dp" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="14dp" android:paddingEnd="14dp" android:paddingTop="10dp" android:paddingBottom="10dp" android:background="@drawable/sales_bg_status" android:accessibilityLiveRegion="polite" android:visibility="gone">
+        <ImageView android:id="@+id/salesNetworkIcon" android:layout_width="22dp" android:layout_height="22dp" android:importantForAccessibility="no"/>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+            <TextView android:id="@+id/salesNetworkTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="13sp" android:textStyle="bold"/>
+            <TextView android:id="@+id/salesNetworkMessage" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textSize="12sp" android:textColor="@color/company_muted"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/salesQueueStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginBottom="6dp" android:minHeight="48dp" android:orientation="horizontal" android:gravity="center_vertical" android:paddingStart="14dp" android:paddingEnd="10dp" android:paddingTop="8dp" android:paddingBottom="8dp" android:background="@drawable/sales_bg_status" android:accessibilityLiveRegion="polite" android:visibility="gone">
+        <ImageView android:id="@+id/salesQueueIcon" android:layout_width="22dp" android:layout_height="22dp" android:src="@drawable/sales_ic_sync" android:importantForAccessibility="no"/>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+            <TextView android:id="@+id/salesQueueTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="13sp" android:textStyle="bold"/>
+            <TextView android:id="@+id/salesQueueMessage" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:textSize="12sp" android:textColor="@color/company_muted"/>
+        </LinearLayout>
+        <ImageView android:id="@+id/salesQueueChevron" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/sales_ic_chevron_right" android:importantForAccessibility="no" android:visibility="gone"/>
+    </LinearLayout>
+</LinearLayout>

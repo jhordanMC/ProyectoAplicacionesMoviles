@@ -1,0 +1,9 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_horizontal" android:padding="28dp">
+    <ImageView android:layout_width="56dp" android:layout_height="56dp" android:padding="16dp" android:src="@drawable/inventory_ic_delete" android:background="@drawable/modal_bg_danger_circle" android:importantForAccessibility="no"/>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:gravity="center" android:text="@string/sales_discard_heading" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/company_ink"/>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:gravity="center" android:text="@string/sales_discard_confirm" android:textSize="14sp" android:textColor="@color/company_muted"/>
+    <androidx.appcompat.widget.AppCompatButton android:id="@+id/salesDiscardConfirm" style="@style/VilcasModal.Button" android:layout_marginTop="20dp" android:background="@drawable/modal_bg_danger" android:text="@string/sales_attention_discard" android:textColor="#FF4545"/>
+    <androidx.appcompat.widget.AppCompatButton android:id="@+id/salesDiscardCancel" style="@style/VilcasModal.Button" android:layout_marginTop="8dp" android:text="@string/sales_attention_close"/>
+    <View android:layout_width="130dp" android:layout_height="1dp" android:layout_marginTop="16dp" android:background="@color/company_line"/>
+    <include layout="@layout/modal_component_brand"/>
+</LinearLayout>

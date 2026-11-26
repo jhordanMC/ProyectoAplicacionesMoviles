@@ -1,0 +1,12 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="vertical" android:padding="14dp" android:background="@drawable/sales_bg_status" android:backgroundTint="@color/vl_sunken">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+        <TextView android:id="@+id/salesPendingAmount" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textSize="15sp" android:textStyle="bold" android:textColor="@color/company_ink"/>
+        <TextView android:id="@+id/salesPendingDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="12sp" android:textColor="@color/company_muted"/>
+    </LinearLayout>
+    <TextView android:id="@+id/salesPendingSummary" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:textSize="13sp" android:textColor="@color/company_ink"/>
+    <TextView android:id="@+id/salesPendingReason" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:textSize="12sp" android:textColor="@color/vl_negative"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatButton android:id="@+id/salesPendingDiscard" style="@style/VilcasModal.Button" android:layout_width="0dp" android:layout_height="44dp" android:layout_weight="1" android:background="@drawable/modal_bg_danger" android:text="@string/sales_attention_discard" android:textColor="#FF4545"/>
+        <androidx.appcompat.widget.AppCompatButton android:id="@+id/salesPendingRetry" style="@style/VilcasModal.Button" android:layout_width="0dp" android:layout_height="44dp" android:layout_weight="1" android:layout_marginStart="8dp" android:background="@drawable/modal_bg_primary" android:text="@string/sales_retry" android:textColor="@android:color/white"/>
+    </LinearLayout>
+</LinearLayout>

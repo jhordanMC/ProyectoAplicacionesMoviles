@@ -75,7 +75,7 @@ public class ProfileInstrumentedTest {
             await(scenario,a->findCode(profile(a))!=null);assertEquals(1,repo.passwordRequests);
             scenario.onActivity(a->{((EditText)findCode(profile(a)).getChildAt(0)).setText("001234");});
             await(scenario,a->text(profile(a),"Tu contraseña se actualizó correctamente.")!=null);assertEquals(1,repo.passwordConfirmations);
-            scenario.onActivity(a->{((DialogFragment)company(a).getChildFragmentManager().findFragmentByTag("profile")).dismissNow();a.findViewById(R.id.companyNotifications).performClick();company(a).getChildFragmentManager().executePendingTransactions();});
+            scenario.onActivity(a->{((DialogFragment)company(a).getChildFragmentManager().findFragmentByTag("profile")).dismissNow();a.findViewById(R.id.companyNotifications).performClick();company(a).getChildFragmentManager().executePendingTransactions();company(a).getChildFragmentManager().findFragmentByTag("sale-notices").requireView().findViewById(R.id.salesNoticeAnnouncements).performClick();company(a).getChildFragmentManager().executePendingTransactions();});
             await(scenario,a->repo.seen>0&&a.findViewById(R.id.companyNotificationBadge).getVisibility()==View.GONE);
             scenario.onActivity(a->{click(announcements(a),"Encuesta de prueba");click(announcements(a),"Sí");click(announcements(a),"Confirmar voto");});
             await(scenario,a->text(announcements(a),"¡Gracias por responder la encuesta!")!=null);assertEquals(1,repo.votes);

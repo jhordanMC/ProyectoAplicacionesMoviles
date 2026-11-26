@@ -19,8 +19,13 @@ public final class VilcasApplication extends Application {
         restoreRequired=sessions.get()!=null;
         androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(getSharedPreferences("appearance",0).getInt("night_mode",androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM));
         com.example.saasvilcas.shared.ui.UiSounds.init(this);
+        com.example.saasvilcas.shared.ui.ProductImageLoader.init(this);
         connectivity=new ConnectivityMonitor(this);
-        offlineSales=new OfflineSalesRepository(remoteSales,new OfflineDatabase.Store(OfflineDatabase.open(this)),
+        OfflineDatabase.Store store=new OfflineDatabase.Store(OfflineDatabase.open(this));
+        saleNotifier=new SaleNotifier(this);
+        saleNoticeRepository=new SaleNoticeRepository(new HttpsApiClient(BuildConfig.API_BASE_URL),store,new NoticeSession());
+        saleNoticeRepository.setListener(saleNotices::postValue);
+        offlineSales=new OfflineSalesRepository(remoteSales,store,
                 new AndroidReceiptFiles(this),uri->new AndroidReceiptSource(this).jpeg(uri),new SalesSession(),
                 connectivity::isOnline,System::currentTimeMillis);
         offlineSales.setListener(salesQueue::postValue);
@@ -39,6 +44,16 @@ public final class VilcasApplication extends Application {
     public OfflineSalesRepository offlineSales;
     public com.example.saasvilcas.feature.sales.domain.SalesRepository sales;
     public final MutableLiveData<OfflineSalesRepository.Status> salesQueue=new MutableLiveData<>(OfflineSalesRepository.Status.EMPTY);
+    /** HU-19: the owner's sale notifications, newest first. */
+    public final MutableLiveData<java.util.List<com.example.saasvilcas.feature.sales.domain.SaleNotice>> saleNotices=new MutableLiveData<>(java.util.Collections.emptyList());
+    private SaleNoticeRepository saleNoticeRepository;
+    private SaleNotifier saleNotifier;
+    /** Checks for new sales and posts their system notifications; runs on the caller's thread. */
+    public void notifyNewSales() { saleNotifier.post(saleNoticeRepository.check()); }
+    public void checkSaleNoticesAsync() { queueWorker.execute(this::notifyNewSales); }
+    public void refreshSaleNotices() { queueWorker.execute(saleNoticeRepository::publish); }
+    public void openSaleNotice(String id) { queueWorker.execute(()->saleNoticeRepository.open(id)); }
+    public void markSaleNoticesRead() { queueWorker.execute(saleNoticeRepository::markAllRead); }
     private final ExecutorService logoutWorker=Executors.newSingleThreadExecutor();
     private final ExecutorService queueWorker=Executors.newSingleThreadExecutor();
     /** Sends pending sales now if there is network, otherwise as soon as it returns. */
@@ -65,8 +80,25 @@ public final class VilcasApplication extends Application {
         AuthSession old=sessions.clear();
         if(old!=null) logoutWorker.execute(()-> { try { auth.logout(old.refreshToken); } catch(AuthException ignored) { } });
         salesQueue.postValue(OfflineSalesRepository.Status.EMPTY);
+        if(old!=null) {
+            SaleNoticeWorker.cancel(this);
+            saleNotifier.cancelAll();
+            getSharedPreferences("sale_notices",0).edit().remove("baseline_"+old.companyId+"_"+old.userId).apply();
+            queueWorker.execute(()->saleNoticeRepository.forget(old.companyId,old.userId));
+        }
     }
 
+    private final class NoticeSession implements SaleNoticeRepository.Session {
+        private final SalesSession tokens=new SalesSession();
+        @Override public String companyId() { return tokens.companyId(); }
+        @Override public String userId() { return tokens.userId(); }
+        @Override public String token() { AuthSession session=sessions.get(); return session==null?null:session.accessToken; }
+        @Override public boolean owner() { AuthSession session=sessions.get(); return session!=null && session.owner; }
+        @Override public boolean refresh() { return tokens.refresh(); }
+        private String key() { return "baseline_"+companyId()+"_"+userId(); }
+        @Override public boolean baselineDone() { return getSharedPreferences("sale_notices",0).getBoolean(key(),false); }
+        @Override public void markBaseline() { getSharedPreferences("sale_notices",0).edit().putBoolean(key(),true).apply(); }
+    }
     /** The queue belongs to the signed-in user; tokens are renewed the same way as on startup. */
     private final class SalesSession implements OfflineSalesRepository.Session {
         @Override public String companyId() { AuthSession session=sessions.get(); return session==null?null:session.companyId; }
