@@ -60,13 +60,14 @@ public class CompanyFragment extends Fragment {
     private void bindSaleNotices(com.example.saasvilcas.VilcasApplication app,com.example.saasvilcas.feature.auth.domain.AuthSession session) {
         if(!session.owner) { app.refreshSaleNotices(); return; }
         com.example.saasvilcas.feature.sales.data.SaleNoticeWorker.schedule(app);
+        app.registerSalePush();
         android.content.SharedPreferences preferences=requireContext().getSharedPreferences("sale_notices",0);
         if(android.os.Build.VERSION.SDK_INT>=33 && !preferences.getBoolean("permission_asked",false)
                 && androidx.core.content.ContextCompat.checkSelfPermission(requireContext(),android.Manifest.permission.POST_NOTIFICATIONS)!=android.content.pm.PackageManager.PERMISSION_GRANTED) {
             preferences.edit().putBoolean("permission_asked",true).apply();
             notificationPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS);
         }
-        // With the app open the owner hears sooner than the 15 minutes of the background work.
+        // Pushes arrive at once; with the app open this timer also covers a push that never came.
         Runnable check=new Runnable() {
             @Override public void run() { app.checkSaleNoticesAsync(); noticeTimer.postDelayed(this,NOTICE_INTERVAL); }
         };

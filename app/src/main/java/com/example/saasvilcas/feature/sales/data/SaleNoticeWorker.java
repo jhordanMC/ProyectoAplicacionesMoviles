@@ -6,7 +6,10 @@ import androidx.work.*;
 import com.example.saasvilcas.VilcasApplication;
 import java.util.concurrent.TimeUnit;
 
-/** Checks for new sales with the app closed. Android does not run periodic work more often than every 15 minutes. */
+/**
+ * Safety net for HU-19: sale notifications arrive by Firebase push (SalePushService), and this check every 15 minutes,
+ * the minimum Android allows for periodic work, catches any push that was lost.
+ */
 public final class SaleNoticeWorker extends Worker {
     private static final String NAME="vilcas-avisos-venta";
     public SaleNoticeWorker(@NonNull Context context,@NonNull WorkerParameters parameters) { super(context,parameters); }

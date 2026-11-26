@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "390393460719",
+    "project_id": "vilcas-18e96",
+    "storage_bucket": "vilcas-18e96.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390393460719:android:d26d4eb570a32069e1e81a",
+        "android_client_info": {
+          "package_name": "com.example.saasvilcas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN2zkUC1Z1CN4shqhizjU6oTgjZJX1I74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

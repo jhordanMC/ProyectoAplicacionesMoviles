@@ -10,7 +10,7 @@ public class SaleNoticeRepositoryTest {
     private static String item(String id,String date) {
         return "{\"id_venta\":\""+id+"\",\"total\":190.0,\"estado\":\"pagada\",\"nombre_vendedor\":\"Ana Ruiz\",\"cantidad_items\":1,\"creado_en\":\""+date+"\"}";
     }
-    private static final String DETAIL="{\"detalles\":[{\"cantidad\":2,\"nombre_producto\":\"Motor\",\"talla\":\"40\",\"nombre_local\":\"Tienda\",\"nombre_almacen\":null}],\"pagos\":[{\"metodo\":\"yape\",\"monto\":190.0}]}";
+    private static final String DETAIL="{\"detalles\":[{\"cantidad\":2,\"nombre_producto\":\"Motor\",\"talla\":\"40\",\"nombre_local\":\"Tienda\",\"nombre_almacen\":null,\"imagen_url\":\"/media/productos/motor.jpg\"}],\"pagos\":[{\"metodo\":\"yape\",\"monto\":190.0}]}";
     private final FakeApi api=new FakeApi();
     private final MemoryStore store=new MemoryStore();
     private final FakeSession session=new FakeSession();
@@ -28,7 +28,7 @@ public class SaleNoticeRepositoryTest {
         assertEquals(1,fresh.size());
         SaleNotice notice=fresh.get(0);
         assertEquals(19000,notice.totalCents); assertEquals("Tienda",notice.site); assertEquals("Ana Ruiz",notice.seller);
-        assertEquals("2 × Motor (40)",notice.summary); assertEquals("Yape S/ 190.00",notice.payments); assertFalse(notice.read);
+        assertEquals("2 × Motor (40)",notice.summary); assertEquals("/media/productos/motor.jpg",notice.photo); assertEquals("Yape S/ 190.00",notice.payments); assertFalse(notice.read);
         assertEquals(1793336400000L,notice.createdAt);
         assertTrue(repository.check().isEmpty());
     }
@@ -51,7 +51,7 @@ public class SaleNoticeRepositoryTest {
     @Test public void failedDetailStillNotifiesTheSale() {
         session.baseline=true; api.list=list(item("a","2026-10-30T05:00:00Z")); api.detailFailure=new ApiException("Caída",500);
         SaleNotice notice=repository.check().get(0);
-        assertEquals("Ana Ruiz",notice.seller); assertFalse(notice.hasDetail());
+        assertEquals("Ana Ruiz",notice.seller); assertFalse(notice.hasDetail()); assertEquals("",notice.photo);
     }
     @Test public void expiredTokenIsRenewedOnce() {
         session.baseline=true; api.list=list(item("a","2026-10-30T05:00:00Z")); api.rejectToken="access";

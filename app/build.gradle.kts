@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -46,6 +47,8 @@ dependencies {
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
     implementation(libs.work.runtime)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     testImplementation("org.json:json:20240303")
     androidTestImplementation(libs.espresso.core)

@@ -25,6 +25,10 @@ public final class VilcasApplication extends Application {
         saleNotifier=new SaleNotifier(this);
         saleNoticeRepository=new SaleNoticeRepository(new HttpsApiClient(BuildConfig.API_BASE_URL),store,new NoticeSession());
         saleNoticeRepository.setListener(saleNotices::postValue);
+        salePush=new SalePushRegistration(new HttpsApiClient(BuildConfig.API_BASE_URL),new SalePushRegistration.Session() {
+            @Override public String token() { AuthSession session=sessions.get(); return session==null?null:session.accessToken; }
+            @Override public boolean refresh() { return new SalesSession().refresh(); }
+        });
         offlineSales=new OfflineSalesRepository(remoteSales,store,
                 new AndroidReceiptFiles(this),uri->new AndroidReceiptSource(this).jpeg(uri),new SalesSession(),
                 connectivity::isOnline,System::currentTimeMillis);
@@ -48,6 +52,19 @@ public final class VilcasApplication extends Application {
     public final MutableLiveData<java.util.List<com.example.saasvilcas.feature.sales.domain.SaleNotice>> saleNotices=new MutableLiveData<>(java.util.Collections.emptyList());
     private SaleNoticeRepository saleNoticeRepository;
     private SaleNotifier saleNotifier;
+    private SalePushRegistration salePush;
+    /** Registers this phone for the owner's sale pushes; without Google Play services the periodic check still works. */
+    public void registerSalePush() {
+        try { com.google.firebase.messaging.FirebaseMessaging.getInstance().getToken().addOnSuccessListener(this::registerSalePush); }
+        catch(IllegalStateException firebaseUnavailable) { }
+    }
+    public void registerSalePush(String token) {
+        queueWorker.execute(()->{
+            AuthSession session=sessions.get();
+            if(session!=null && session.owner && salePush.register(token))
+                getSharedPreferences("sale_notices",0).edit().putString("push_token",token).apply();
+        });
+    }
     /** Checks for new sales and posts their system notifications; runs on the caller's thread. */
     public void notifyNewSales() { saleNotifier.post(saleNoticeRepository.check()); }
     public void checkSaleNoticesAsync() { queueWorker.execute(this::notifyNewSales); }
@@ -78,7 +95,10 @@ public final class VilcasApplication extends Application {
     }
     public void clearSession() {
         AuthSession old=sessions.clear();
-        if(old!=null) logoutWorker.execute(()-> { try { auth.logout(old.refreshToken); } catch(AuthException ignored) { } });
+        String pushToken=getSharedPreferences("sale_notices",0).getString("push_token",null);
+        if(old!=null) getSharedPreferences("sale_notices",0).edit().remove("push_token").apply();
+        // The push registration is removed first, while the closing session is still valid.
+        if(old!=null) logoutWorker.execute(()-> { salePush.remove(pushToken,old.accessToken); try { auth.logout(old.refreshToken); } catch(AuthException ignored) { } });
         salesQueue.postValue(OfflineSalesRepository.Status.EMPTY);
         if(old!=null) {
             SaleNoticeWorker.cancel(this);

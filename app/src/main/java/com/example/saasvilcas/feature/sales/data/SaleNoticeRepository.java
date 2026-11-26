@@ -83,10 +83,11 @@ public final class SaleNoticeRepository {
         try {
             JSONObject sale=new JSONObject(get("/ventas/"+notice.id));
             JSONArray details=sale.getJSONArray("detalles"),pays=sale.getJSONArray("pagos");
-            String site=""; StringBuilder summary=new StringBuilder(),payments=new StringBuilder();
+            String site="",photo=""; StringBuilder summary=new StringBuilder(),payments=new StringBuilder();
             for(int i=0;i<details.length();i++) {
                 JSONObject item=details.getJSONObject(i);
                 if(site.isEmpty()) site=item.isNull("nombre_local")?(item.isNull("nombre_almacen")?"":item.getString("nombre_almacen")):item.getString("nombre_local");
+                if(photo.isEmpty() && !item.isNull("imagen_url")) photo=item.getString("imagen_url");
                 if(summary.length()>0) summary.append(", ");
                 summary.append(item.getInt("cantidad")).append(" × ").append(item.isNull("nombre_producto")?"Producto":item.getString("nombre_producto"));
                 if(!item.isNull("talla")) summary.append(" (").append(item.getString("talla")).append(')');
@@ -97,7 +98,7 @@ public final class SaleNoticeRepository {
                 payments.append(method.substring(0,1).toUpperCase(Locale.ROOT)).append(method.substring(1))
                         .append(" S/ ").append(BigDecimal.valueOf(cents(pay.get("monto")),2).toPlainString());
             }
-            return notice.withDetail(site,summary.toString(),payments.toString());
+            return notice.withDetail(site,summary.toString(),payments.toString(),photo);
         } catch(ApiException|JSONException|RuntimeException error) { return notice; }
     }
     private String get(String path) throws ApiException {

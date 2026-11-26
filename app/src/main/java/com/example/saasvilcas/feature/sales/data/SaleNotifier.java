@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 
-/** Posts the system notification with the team's design: logo, place and seller, and the amount in green. */
+/** Posts the system notification with the team's design: photo of the product sold, place and seller, and the amount in green. */
 public final class SaleNotifier {
     public static final String EXTRA_NOTICE="sale_notice_id";
     private static final String CHANNEL="ventas";
@@ -48,8 +48,12 @@ public final class SaleNotifier {
                 android.widget.RemoteViews design=new android.widget.RemoteViews(context.getPackageName(),R.layout.sales_notification_sale);
                 design.setTextViewText(R.id.saleNotificationPlace,place);
                 design.setTextViewText(R.id.saleNotificationAmount,amount);
+                // The app logo already heads the notification, so the image beside the text is the product sold.
+                android.graphics.Bitmap photo=photo(notice.photo);
+                design.setViewVisibility(R.id.saleNotificationPhoto,photo==null?android.view.View.GONE:android.view.View.VISIBLE);
+                if(photo!=null) design.setImageViewBitmap(R.id.saleNotificationPhoto,photo);
                 manager.notify(notice.id.hashCode(),base(context.getString(R.string.sales_notice_title),place.isEmpty()?amount:amount+" • "+place,notice.id)
-                        .setStyle(new NotificationCompat.DecoratedCustomViewStyle()).setCustomBigContentView(design).build());
+                        .setLargeIcon(photo).setStyle(new NotificationCompat.DecoratedCustomViewStyle()).setCustomBigContentView(design).build());
             }
         } catch(SecurityException ignored) { }
     }
@@ -65,6 +69,20 @@ public final class SaleNotifier {
         return new NotificationCompat.Builder(context,CHANNEL).setSmallIcon(R.drawable.sales_ic_notification)
                 .setColor(ContextCompat.getColor(context,R.color.vl_text_green)).setContentTitle(title).setContentText(text)
                 .setContentIntent(pending).setAutoCancel(true).setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+    }
+    /** Square, rounded and small: notifications reject large bitmaps. Runs on the worker thread that posts. */
+    private static android.graphics.Bitmap photo(String url) {
+        android.graphics.Bitmap source=com.example.saasvilcas.shared.ui.ProductImageLoader.fetch(url,512);
+        if(source==null) return null;
+        int side=Math.min(source.getWidth(),source.getHeight()),size=192;
+        android.graphics.Bitmap result=android.graphics.Bitmap.createBitmap(size,size,android.graphics.Bitmap.Config.ARGB_8888);
+        android.graphics.Canvas canvas=new android.graphics.Canvas(result);
+        android.graphics.Paint paint=new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG|android.graphics.Paint.FILTER_BITMAP_FLAG);
+        canvas.drawRoundRect(0,0,size,size,28,28,paint);
+        paint.setXfermode(new android.graphics.PorterDuffXfermode(android.graphics.PorterDuff.Mode.SRC_IN));
+        int left=(source.getWidth()-side)/2,top=(source.getHeight()-side)/2;
+        canvas.drawBitmap(source,new android.graphics.Rect(left,top,left+side,top+side),new android.graphics.Rect(0,0,size,size),paint);
+        return result;
     }
     public static String money(long cents) { return String.format(Locale.US,"S/ %.2f",BigDecimal.valueOf(cents,2)); }
 }

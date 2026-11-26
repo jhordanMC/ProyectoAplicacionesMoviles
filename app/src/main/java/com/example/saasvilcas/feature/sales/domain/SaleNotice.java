@@ -1,19 +1,26 @@
 package com.example.saasvilcas.feature.sales.domain;
 
-/** HU-19: a sale registered in the company, as the owner sees it in the bell and in the system notification. */
+/**
+ * HU-19: a sale registered in the company, as the owner sees it in the bell and in the system notification.
+ * The product photo is only needed for the system notification, so the store does not keep it.
+ */
 public final class SaleNotice {
-    public final String id,companyId,userId,site,seller,summary,payments;
+    public final String id,companyId,userId,site,seller,summary,payments,photo;
     public final long totalCents,createdAt;
     public final boolean read;
     public SaleNotice(String id,String companyId,String userId,String site,String seller,String summary,String payments,
             long totalCents,long createdAt,boolean read) {
+        this(id,companyId,userId,site,seller,summary,payments,"",totalCents,createdAt,read);
+    }
+    private SaleNotice(String id,String companyId,String userId,String site,String seller,String summary,String payments,String photo,
+            long totalCents,long createdAt,boolean read) {
         this.id=id; this.companyId=companyId; this.userId=userId; this.site=site==null?"":site; this.seller=seller==null?"":seller;
-        this.summary=summary==null?"":summary; this.payments=payments==null?"":payments;
+        this.summary=summary==null?"":summary; this.payments=payments==null?"":payments; this.photo=photo==null?"":photo;
         this.totalCents=totalCents; this.createdAt=createdAt; this.read=read;
     }
-    public SaleNotice withDetail(String site,String summary,String payments) {
-        return new SaleNotice(id,companyId,userId,site,seller,summary,payments,totalCents,createdAt,read);
+    public SaleNotice withDetail(String site,String summary,String payments,String photo) {
+        return new SaleNotice(id,companyId,userId,site,seller,summary,payments,photo,totalCents,createdAt,read);
     }
-    public SaleNotice asRead() { return new SaleNotice(id,companyId,userId,site,seller,summary,payments,totalCents,createdAt,true); }
+    public SaleNotice asRead() { return new SaleNotice(id,companyId,userId,site,seller,summary,payments,photo,totalCents,createdAt,true); }
     public boolean hasDetail() { return !summary.isEmpty(); }
 }
